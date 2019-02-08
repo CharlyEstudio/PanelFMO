@@ -1,0 +1,72 @@
+<div class="card bg-inverse">
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-lg-6 col-md-12">
+
+        <p class="text-white">Por Surtir</p>
+  
+        <h3 class="text-white font-light">
+    
+          <div *ngIf="correcto">
+    
+            <span class="display-4 font-bold">{{ porSurtir }}</span>
+    
+          </div>
+    
+          <div class="animated pulse2" *ngIf="critico">
+    
+            <span class="display-4 text-danger font-bold">{{ porSurtir }}</span>
+    
+          </div>
+    
+          <div class="animated pulse2" *ngIf="inestable">
+    
+            <span class="display-4 text-warning font-bold">{{ porSurtir }}</span>
+    
+          </div>
+          <div class="animated pulse2" *ngIf="estable">
+    
+            <span class="display-4 text-success font-bold">{{ porSurtir }}</span>
+    
+          </div>
+    
+        </h3>
+
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+
+        <div class="row">
+
+          <div class="col-lg-12 col-md-12 text-left">
+
+            <i class="mdi mdi-basket-fill text-white"></i>
+
+            <span class="text-white">QRO: </span>
+
+            <span class="text-white">{{ qroSur }}</span>
+
+          </div>
+
+          <div class="col-lg-12 col-md-12 text-left">
+
+            <i class="mdi mdi-basket-fill text-white"></i>
+
+            <span class="text-white">TX: </span>
+
+            <span class="text-white">{{ txSur }}</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      
+    </div>
+
+  </div>
+
+</div>

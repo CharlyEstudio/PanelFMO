@@ -1,0 +1,91 @@
+<div class="row" *ngIf="mostrar">
+
+    <div class="col-lg-12 col-md-12">
+
+        <div class="card totales alert alert-dark" role="alert">
+
+            <div class="card-body">
+
+                <h4 class="card-title text-center">PEDIDOS FUERA DE TIEMPO</h4>
+
+                <div class="p-b-10 text-center">
+                    
+                    <button type="button" class="btn-success" (click)="enviarReporte()">Enviar Reporte</button>
+
+                </div>
+
+                <div class="alert alert-success m-t-10" role="alert" *ngIf="alertaGeneral">
+
+                    El email se envío correctamente.
+
+                </div>
+
+                <div class="alert alert-danger  m-t-10" role="alert" *ngIf="errorGeneral">
+
+                    Error al enviar el email.
+
+                </div>
+
+                <div class="table-responsive" id="capture">
+
+                    <table class="display nowrap table table-hover table-sm table-striped table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;">
+                        
+                        <thead>
+            
+                        <tr role="row">
+            
+                            <th class="text-center">Hora</th>
+                            
+                            <th class="text-center">Asesor</th>
+            
+                            <th class="text-center">Documento</th>
+
+                            <th class="text-center">Cliente</th>
+
+                            <th class="text-center">Nombre</th>
+
+                            <th class="text-center">Dia de Visita</th>
+
+                            <th class="text-center">Ciudad</th>
+            
+                            <th class="text-center">Importe</th>
+            
+                        </tr>
+            
+                        </thead>
+            
+                        <tbody>
+            
+                        <tr role="row" class="odd" *ngFor="let dato of datos">
+            
+                            <td class="text-center">{{ dato.HORA }}</td>
+
+                            <td>{{ dato.ASESOR }}</td>
+            
+                            <td class="text-center">{{ dato.DOCUMENTO }}</td>
+
+                            <td class="text-center">{{ dato.CLIENTE }}</td>
+
+                            <td>{{ dato.NOMBRE }}</td>
+
+                            <td class="text-center">{{ dato.DIA_VISITA }}</td>
+
+                            <td class="text-center">{{ dato.CIUDAD }}</td>
+            
+                            <td class="text-right">{{ dato.IMPORTE | currency }}</td>
+            
+                        </tr>
+            
+                        </tbody>
+            
+                    </table>
+            
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

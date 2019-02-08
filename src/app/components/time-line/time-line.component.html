@@ -1,0 +1,160 @@
+<div class="card">
+
+    <div class="card-body">
+
+        <h4 class="card-title">Línea de Tiempo</h4>
+
+        <h6 class="card-subtitle">Reporte por hora</h6>
+
+        <div class="bootstrap-table">
+
+            <div class="fixed-table-toolbar"></div>
+
+            <div class="fixed-table-container">
+
+                <div class="fixed-table-header" style="margin-right: 0px;">
+
+                    <div class="table-responsive">
+
+                        <table class="table full-color-table full-purple-table hover-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th></th>
+
+                                    <th class="text-center">8-9</th>
+
+                                    <th class="text-center">9-10</th>
+
+                                    <th class="text-center">10-11</th>
+
+                                    <th class="text-center">11-12</th>
+
+                                    <th class="text-center">12-13</th>
+
+                                    <th class="text-center">13-14</th>
+
+                                    <th class="text-center">14-15</th>
+
+                                    <th class="text-center">15-16</th>
+
+                                    <th class="text-center">16-17</th>
+
+                                    <th class="text-center">17-18</th>
+
+                                    <th class="text-center">18-19</th>
+
+                                    <th class="text-center">19-20</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <th>COT QRO</th>
+
+                                    <td class="text-center">{{ qh89 }}</td>
+
+                                    <td class="text-center">{{ qh910 }}</td>
+
+                                    <td class="text-center">{{ qh1011 }}</td>
+
+                                    <td class="text-center">{{ qh1112 }}</td>
+
+                                    <td class="text-center">{{ qh1213 }}</td>
+
+                                    <td class="text-center">{{ qh1314 }}</td>
+
+                                    <td class="text-center">{{ qh1415 }}</td>
+
+                                    <td class="text-center">{{ qh1516 }}</td>
+
+                                    <td class="text-center">{{ qh1617 }}</td>
+
+                                    <td class="text-center">{{ qh1718 }}</td>
+
+                                    <td class="text-center">{{ qh1819 }}</td>
+
+                                    <td class="text-center">{{ qh1920 }}</td>
+
+                                </tr>
+
+                                <tr>
+                                    <th>COT TX</th>
+                                    <td class="text-center">{{ th89 }}</td>
+
+                                    <td class="text-center">{{ th910 }}</td>
+
+                                    <td class="text-center">{{ th1011 }}</td>
+
+                                    <td class="text-center">{{ th1112 }}</td>
+
+                                    <td class="text-center">{{ th1213 }}</td>
+
+                                    <td class="text-center">{{ th1314 }}</td>
+
+                                    <td class="text-center">{{ th1415 }}</td>
+
+                                    <td class="text-center">{{ th1516 }}</td>
+
+                                    <td class="text-center">{{ th1617 }}</td>
+
+                                    <td class="text-center">{{ th1718 }}</td>
+
+                                    <td class="text-center">{{ th1819 }}</td>
+
+                                    <td class="text-center">{{ th1920 }}</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>FACTURADOS</th>
+
+                                    <td class="text-center">{{ fh89 }}</td>
+
+                                    <td class="text-center">{{ fh910 }}</td>
+
+                                    <td class="text-center">{{ fh1011 }}</td>
+
+                                    <td class="text-center">{{ fh1112 }}</td>
+
+                                    <td class="text-center">{{ fh1213 }}</td>
+
+                                    <td class="text-center">{{ fh1314 }}</td>
+
+                                    <td class="text-center">{{ fh1415 }}</td>
+
+                                    <td class="text-center">{{ fh1516 }}</td>
+
+                                    <td class="text-center">{{ fh1617 }}</td>
+
+                                    <td class="text-center">{{ fh1718 }}</td>
+
+                                    <td class="text-center">{{ fh1819 }}</td>
+
+                                    <td class="text-center">{{ fh1920 }}</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <app-grafica [lineChartColors]="lineChartColors" [lineChartLabels]="lineChartLabels" [lineChartOptions]="lineChartOptions" [lineChartData]="lineChartData"></app-grafica>
+
+    </div>
+
+</div>

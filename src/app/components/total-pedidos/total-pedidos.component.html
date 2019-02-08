@@ -1,0 +1,325 @@
+<div class="row">
+
+    <div class="col-12 text-center">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <button type="button" class="btn-success" (click)="enviarReporte()">Enviar Reporte</button>
+
+                <div class="alert alert-success m-t-10" role="alert" *ngIf="alertaGeneral">
+
+                    El email se envío correctamente.
+
+                </div>
+
+                <div class="alert alert-danger  m-t-10" role="alert" *ngIf="errorGeneral">
+
+                    Error al enviar el email.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card totales">
+
+            <div class="card-body">
+
+                <h4 class="card-title text-center">Zona 1: {{ canZ1 }} pedidos</h4>
+
+                <!-- Column -->
+                <div class="col-12 total-pedidos" style="padding-bottom: 15px;">
+
+                    <div class="row" *ngFor="let z1 of zona1">
+
+                        <div class="col-10">
+
+                            <a href="#modalInfo" data-dismiss="modal" data-toggle="modal" (click)="abrirModal(z1, 'zona')">
+                                
+                                <p class="font-ligth asesores-pedidos text-truncate">{{ z1.nombre }} -------------------------------------------------------------------------------------------------</p>
+
+                            </a>
+
+                        </div>
+
+                        <div class="col-2">
+
+                            <p class="font-ligth asesores-pedidos">{{ z1.cantidad }}</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card totales">
+
+            <div class="card-body">
+
+                <h4 class="card-title text-center">Zona 2: {{ canZ2 }} pedidos</h4>
+
+                <!-- Column -->
+                <div class="col-12 total-pedidos" style="padding-bottom: 15px;">
+
+                    <div class="row" *ngFor="let z2 of zona2">
+
+                        <div class="col-10">
+
+                            <a href="#modalInfo" data-dismiss="modal" data-toggle="modal" (click)="abrirModal(z2, 'zona')">
+                                
+                                <p class="font-ligth asesores-pedidos text-truncate">{{ z2.nombre }} -------------------------------------------------------------------------------------------------</p>
+
+                            </a>
+
+                        </div>
+
+                        <div class="col-2">
+
+                            <p class="font-ligth asesores-pedidos">{{ z2.cantidad }}</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card totales">
+
+            <div class="card-body">
+
+                <h4 class="card-title text-center">Esp: {{ canEsp }} pedidos</h4>
+
+                <!-- Column -->
+                <div class="col-12 total-pedidos" style="padding-bottom: 15px;">
+
+                    <div class="row" *ngFor="let esp of especiales">
+
+                        <div class="col-10">
+
+                            <a href="#modalInfo" data-dismiss="modal" data-toggle="modal" (click)="abrirModal(esp, 'esp')">
+                                
+                                <p class="font-ligth asesores-pedidos text-truncate">{{ esp.nombre }} -------------------------------------------------------------------------------------------------</p>
+
+                            </a>
+
+                        </div>
+
+                        <div class="col-2">
+
+                            <p class="font-ligth asesores-pedidos">{{ esp.cantidad }}</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card totales">
+
+            <div class="card-body">
+
+                <h4 class="card-title text-center">Pedidos del Día</h4>
+
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 text-center">
+
+                        <div class="row">
+
+                            <!-- Column -->
+                            <div class="col-12" style="padding-bottom: 15px;">
+
+                                <h1 class="display-1 font-bold">
+
+                                    <div *ngIf="correcto">
+
+                                        <span class="display-1 font-bold">{{ tot }}</span>
+                                
+                                    </div>
+                            
+                                    <div class="animated pulse2" *ngIf="critico">
+                            
+                                        <span class="display-1 text-danger font-bold">{{ tot }}</span>
+                            
+                                    </div>
+                            
+                                    <div class="animated pulse2" *ngIf="inestable">
+                            
+                                        <span class="display-1 text-warning font-bold">{{ tot }}</span>
+                            
+                                    </div>
+
+                                    <div class="animated pulse2" *ngIf="estable">
+                            
+                                        <span class="display-1 text-success font-bold">{{ tot }}</span>
+                            
+                                    </div>
+
+                                </h1>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfo" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" style="max-width: 90%;" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                
+                <h5 class="modal-title" id="exampleModalCenterTitle">Información de <b>{{ nomAsesor }}</b></h5>
+
+                <button type="button" *ngIf="boton" class="btn btn-success" style="border-radius: 100%!important; padding: 5px 7px 5px 7px!important;" (click)="enviarEmail(info, idFerrum, nomAsesor)"><i style="font-size: 20px!important" class="mdi mdi-email-outline"></i></button>
+
+                <div class="alert alert-success" role="alert" *ngIf="alerta">
+
+                    El email se envío correctamente.
+
+                </div>
+
+                <div class="alert alert-danger" role="alert" *ngIf="error">
+
+                    Error al enviar el email.
+
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+            </div>
+
+            <div class="modal-body" id="cuerpo_modal">
+
+            <div class="table-responsive" id="capture">
+
+                    <table class="display nowrap table table-hover table-sm table-striped table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;">
+                        
+                        <thead>
+            
+                        <tr role="row">
+            
+                            <th class="text-center">Hora</th>
+            
+                            <th class="text-center">Documento</th>
+
+                            <th class="text-center">Partidas</th>
+
+                            <th class="text-center">Cliente</th>
+
+                            <th class="text-center">Nombre</th>
+
+                            <th class="text-center">Dia de Visita</th>
+
+                            <th class="text-center">Ciudad</th>
+            
+                            <th class="text-center">Importe</th>
+            
+                        </tr>
+            
+                        </thead>
+            
+                        <tbody>
+            
+                        <tr role="row" class="odd" *ngFor="let in of info">
+            
+                            <td class="text-center">{{ in.HORA }}</td>
+            
+                            <td class="text-center">{{ in.DOCUMENTO }}</td>
+
+                            <td class="text-center">{{ in.PARTIDAS }}</td>
+
+                            <td class="text-center">{{ in.CLIENTE }}</td>
+
+                            <td>{{ in.NOMBRE }}</td>
+
+                            <td class="text-center">{{ in.DIA_VISITA }}</td>
+
+                            <td class="text-center">{{ in.CIUDAD }}</td>
+            
+                            <td class="text-right">{{ in.IMPORTE | currency }}</td>
+            
+                        </tr>
+
+                        <tr>
+
+                            <th>Total de Pedidos</th>
+
+                            <th colspan="2" class="text-left">{{ totalPICantidad | number }}</th>
+
+                            <th>Total de Clientes</th>
+
+                            <th class="text-left">{{ totalClientes | number }}</th>
+
+                            <th>Total Cotizado</th>
+
+                            <th colspan="2" class="text-left">{{ totalPIImporte | currency }}</th>
+
+                        </tr>
+            
+                        </tbody>
+            
+                    </table>
+            
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

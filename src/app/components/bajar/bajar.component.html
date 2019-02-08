@@ -1,0 +1,55 @@
+<div class="card bg-theme-dark">
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-lg-6 col-md-12">
+
+        <p class="text-black">Por Bajar</p>
+  
+        <h3 class="text-black font-light">
+    
+          <div *ngIf="correcto">
+    
+            <span class="display-4 font-bold">{{ porBajar }}</span>
+    
+          </div>
+    
+        </h3>
+
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+
+        <div class="row">
+
+          <div class="col-lg-12 col-md-12 text-left">
+
+            <i class="mdi mdi-arrow-down-bold text-black"></i>
+
+            <span class="text-black">QRO: </span>
+
+            <span class="text-black">{{ qroBaj }}</span>
+
+          </div>
+
+          <div class="col-lg-12 col-md-12 text-left">
+
+            <i class="mdi mdi-arrow-down-bold text-black"></i>
+
+            <span class="text-black">TX: </span>
+
+            <span class="text-black">{{ txBaj }}</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      
+    </div>
+      
+  </div>
+
+</div>
