@@ -22,6 +22,7 @@ export class SurtirComponent implements OnInit, OnDestroy {
   // Total por Zona
   qroSur: number = 0;
   txSur: number = 0;
+  webSur: number = 0;
 
   // Tiempo
   intTiempo: any;
@@ -58,7 +59,7 @@ export class SurtirComponent implements OnInit, OnDestroy {
     // Pedidos por Bajar
     this._panelService.porSurtir()
       .subscribe((data) => {
-        if ( data[0].cantidad != 0 ) {
+        if ( data[0].cantidad !== 0 ) {
           this.porSurtir = data[0].cantidad;
         } else {
           this.porSurtir = 0;
@@ -77,6 +78,12 @@ export class SurtirComponent implements OnInit, OnDestroy {
         this.txSur = data[0].cantidad;
       });
 
+    // Pedidos Totales Web
+    this._panelService.webSurtir()
+      .subscribe( ( data ) => {
+        this.webSur = data[0].cantidad;
+      });
+
   }
 
   ngOnDestroy() {
@@ -87,28 +94,28 @@ export class SurtirComponent implements OnInit, OnDestroy {
 
     // Destrucción de Intervalo de Tiempo
     clearInterval(this.intTiempo);
-    
+
   }
 
   verTiempo() {
-    this.intTiempo = setInterval(() =>{
+    this.intTiempo = setInterval(() => {
       // Hora
-      if ( this.hora != new Date().getHours() ) {
+      if ( this.hora !== new Date().getHours() ) {
         this.hora = new Date().getHours();
       }
 
       // Minutos
-      if ( this.minutos != new Date().getMinutes() ) {
+      if ( this.minutos !== new Date().getMinutes() ) {
         this.minutos = new Date().getMinutes();
       }
 
       // Tiempo
-      let porcent = ( this.porSurtir * 100 ) / 350;
+      const porcent = ( this.porSurtir * 100 ) / 350;
       // console.log(this.hora + ':' + this.minutos);
       // console.log(this.fecha);
 
       if ( this.hora >= 17 && this.minutos >= 30 ) {
-        
+
         if ( porcent < 24 ) {
 
           this.estable = true;
@@ -135,7 +142,7 @@ export class SurtirComponent implements OnInit, OnDestroy {
       }
 
       if ( this.hora >= 18 && this.minutos >= 30 ) {
-        
+
         if ( porcent < 16 ) {
 
           this.estable = true;
@@ -172,7 +179,7 @@ export class SurtirComponent implements OnInit, OnDestroy {
         this._panelService.porSurtir()
           .subscribe( ( data ) => {
 
-            if(data[0].importe != 0) {
+            if (data[0].importe !== 0) {
               const surtir = {
                 cantidad: data[0].cantidad
               };
@@ -198,6 +205,12 @@ export class SurtirComponent implements OnInit, OnDestroy {
         this._panelService.zonaSurtir('01')
           .subscribe( ( data ) => {
             this.txSur = data[0].cantidad;
+          });
+
+        // Pedidos Totales Web
+        this._panelService.webSurtir()
+          .subscribe( ( data ) => {
+            this.webSur = data[0].cantidad;
           });
 
       }, 3000);

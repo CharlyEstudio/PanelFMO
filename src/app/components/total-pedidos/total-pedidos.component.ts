@@ -283,23 +283,27 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
     if (area === 'esp') {
       this.boton = false;
-      enviar = data.sercot;
+      if (data.serie === 'A') {
+        enviar = data.perid;
+      } else {
+        enviar = data.serie;
+      }
     } else {
       enviar = data.perid;
     }
 
-    this._panelService.informacionGeneral( enviar, area )
+    this._panelService.informacionGeneral( data.perid, area, data.serie )
       .subscribe( ( resp: any ) => {
         this.info = resp;
       });
 
-    this._panelService.totalPedidosImporte(enviar, area)
+    this._panelService.totalPedidosImporte(data.perid, area, data.serie)
       .subscribe( ( resp: any ) => {
         this.totalPICantidad = resp[0].PEDIDOS;
         this.totalPIImporte = resp[0].IMPORTE;
       });
 
-    this._panelService.totalClientesPedidos(enviar, area)
+    this._panelService.totalClientesPedidos(data.perid, area, data.serie)
       .subscribe( ( resp: any ) => {
         this.totalClientes = resp.length;
       });
@@ -307,7 +311,6 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
   }
 
   enviarEmail( info: any, idFerrum: any, asesor: any ) {
-
     // html2canvas(document.querySelector('#capture')).then( (canvas: any) => {
 
     //   let link = document.createElement('a');
@@ -323,18 +326,16 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
     this._panelService.usuarioEspe( idFerrum )
       .subscribe( ( resp: any ) => {
 
-        console.log(resp);
-
-        // this._panelService.enviarEmail(resp.usuarios[0].email, idFerrum, info, asesor)
-        //   .subscribe( ( envio: any ) => {
-        //     if(envio[0].status === 'ok') {
-        //       this.alerta = true;
-        //       setTimeout(() => {this.alerta = false;}, 2000);
-        //     } else {
-        //       this.error = true;
-        //       setTimeout(() => {this.error = false;}, 2000);
-        //     }
-        //   });
+        this._panelService.enviarEmail(resp.usuarios[0].email, idFerrum, info, asesor)
+          .subscribe( ( envio: any ) => {
+            if (envio[0].status === 'ok') {
+              this.alerta = true;
+              setTimeout(() => {this.alerta = false; }, 2000);
+            } else {
+              this.error = true;
+              setTimeout(() => {this.error = false; }, 2000);
+            }
+          });
 
       });
   }

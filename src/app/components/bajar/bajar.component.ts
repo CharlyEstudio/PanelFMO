@@ -25,6 +25,7 @@ export class BajarComponent implements OnInit, OnDestroy {
   // Total por Zona
   qroBaj: number = 0;
   txBaj: number = 0;
+  webBaj: number = 0;
 
   // Alertas
   correcto: boolean = true;
@@ -49,7 +50,7 @@ export class BajarComponent implements OnInit, OnDestroy {
     // Pedidos por Bajar
     this._panelService.porBajar()
       .subscribe((data) => {
-        if ( data[0].importe != 0 ) {
+        if ( data[0].importe !== 0 ) {
           this.porBajar = data[0].cantidad;
         } else {
           this.porBajar = 0;
@@ -68,6 +69,12 @@ export class BajarComponent implements OnInit, OnDestroy {
         this.txBaj = data[0].cantidad;
       });
 
+    // Pedidos Totales por Bajar WEB
+    this._panelService.webBajar()
+      .subscribe( ( data ) => {
+        this.webBaj = data[0].cantidad;
+      });
+
   }
 
   ngOnDestroy() {
@@ -84,7 +91,7 @@ export class BajarComponent implements OnInit, OnDestroy {
         this._panelService.porBajar()
           .subscribe( ( data ) => {
 
-            if(data[0].cantidad != 0) {
+            if (data[0].cantidad !== 0) {
               const bajar = {
                 cantidad: data[0].cantidad
               };
@@ -110,6 +117,12 @@ export class BajarComponent implements OnInit, OnDestroy {
         this._panelService.zonaBajar('01')
           .subscribe( ( data ) => {
             this.txBaj = data[0].cantidad;
+          });
+
+        // Pedidos Totales por Bajar WEB
+        this._panelService.webBajar()
+          .subscribe( ( data ) => {
+            this.webBaj = data[0].cantidad;
           });
 
       }, 3000);

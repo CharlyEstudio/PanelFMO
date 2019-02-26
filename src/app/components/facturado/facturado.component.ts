@@ -22,6 +22,7 @@ export class FacturadoComponent implements OnInit, OnDestroy {
   // Zonas
   qroFac: number = 0;
   txFac: number = 0;
+  webFac: number = 0;
 
   // Alertas
   correcto: boolean = true;
@@ -46,7 +47,7 @@ export class FacturadoComponent implements OnInit, OnDestroy {
     // Pedidos por Bajar
     this._panelService.facturado()
       .subscribe((data) => {
-        if ( data[0].importe != 0 ) {
+        if ( data[0].importe !== 0 ) {
           this.facturado = data[0].cantidad;
         } else {
           this.facturado = 0;
@@ -62,6 +63,11 @@ export class FacturadoComponent implements OnInit, OnDestroy {
     this._panelService.zonaFacturado('01')
       .subscribe( ( data: any ) => {
         this.txFac = data[0].cantidad;
+      });
+
+    this._panelService.webFacturado()
+      .subscribe( ( data: any ) => {
+        this.webFac = data[0].cantidad;
       });
 
   }
@@ -82,7 +88,7 @@ export class FacturadoComponent implements OnInit, OnDestroy {
         this._panelService.facturado()
           .subscribe( ( data ) => {
 
-            if(data[0].cantidad != 0) {
+            if (data[0].cantidad !== 0) {
               const factura = {
                 cantidad: data[0].cantidad
               };
@@ -106,6 +112,11 @@ export class FacturadoComponent implements OnInit, OnDestroy {
         this._panelService.zonaFacturado('01')
           .subscribe( ( data: any ) => {
             this.txFac = data[0].cantidad;
+          });
+
+        this._panelService.webFacturado()
+          .subscribe( ( data: any ) => {
+            this.webFac = data[0].cantidad;
           });
 
       }, 3000);

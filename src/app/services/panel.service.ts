@@ -95,6 +95,16 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
+  webSurtir() {
+    if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
+      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=34';
+    } else {
+      this.url = this.path + '/api/pedidos.php?opcion=34';
+    }
+
+    return this.http.get( this.url );
+  }
+
   zonaBajar(zona: any) {
     if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
       this.url = 'http://192.168.1.250/api/pedidos.php?opcion=10&zona=' + zona;
@@ -105,11 +115,31 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
+  webBajar() {
+    if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
+      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=33';
+    } else {
+      this.url = this.path + '/api/pedidos.php?opcion=33';
+    }
+
+    return this.http.get( this.url );
+  }
+
   zonaFacturado(zona: any) {
     if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
       this.url = 'http://192.168.1.250/api/pedidos.php?opcion=11&zona=' + zona;
     } else {
       this.url = this.path + '/api/pedidos.php?opcion=11&zona=' + zona;
+    }
+
+    return this.http.get( this.url );
+  }
+
+  webFacturado() {
+    if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
+      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=35';
+    } else {
+      this.url = this.path + '/api/pedidos.php?opcion=35';
     }
 
     return this.http.get( this.url );
@@ -143,7 +173,7 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
-  informacionGeneral( id: any = '', area: any = '' ) {
+  informacionGeneral( id: any = '', area: any = '', serie: any = '' ) {
     let opcion;
     if (area === 'zona') {
       opcion = 22;
@@ -154,9 +184,9 @@ export class PanelService {
     }
 
     if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
-      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + id;
+      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + id + '&serie=' + serie;
     } else {
-      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + id;
+      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + id + '&serie=' + serie;
     }
 
     return this.http.get( this.url );
@@ -232,7 +262,7 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
-  totalPedidosImporte( idFerrum: any, area: any ) {
+  totalPedidosImporte( idFerrum: any, area: any, serie: any = '' ) {
     let opcion;
     if (area === 'zona') {
       opcion = 26;
@@ -241,15 +271,15 @@ export class PanelService {
     }
 
     if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
-      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum;
+      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
     } else {
-      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum;
+      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
     }
 
     return this.http.get( this.url );
   }
 
-  totalClientesPedidos( idFerrum: any, area: any ) {
+  totalClientesPedidos( idFerrum: any, area: any, serie: any = '' ) {
     let opcion;
     if (area === 'zona') {
       opcion = 28;
@@ -258,9 +288,9 @@ export class PanelService {
     }
 
     if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
-      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum;
+      this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
     } else {
-      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum;
+      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
     }
 
     return this.http.get( this.url );
