@@ -1,0 +1,161 @@
+<div class="card">
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    
+          <div class="card bg-white">
+    
+              <div class="card-body">
+          
+                  <div class="row">
+          
+                      <div class="col-lg-8 col-md-8">
+    
+                          <p class="text-dark">Sin Impresión</p>
+    
+                          <h3 class="text-dark font-light tipo-cursor">
+          
+                              <!-- <div class="animated pulse2"> -->
+          
+                                  <span data-toggle="modal" data-target="#modalTable" class="display-4 font-bold" [ngClass]="{'text-success': sinImpresion <= 10, 'text-warning': sinImpresion > 10 && sinImpresion <= 25, 'text-danger': sinImpresion > 25}">{{sinImpresion | number}}</span>
+          
+                              <!-- </div> -->
+          
+                          </h3>
+    
+                      </div>
+    
+                      <div class="col-lg-4 col-md-4 text-center" style="font-size: 5em;">
+    
+                        <i class="mdi mdi-tag-remove text-danger"></i>
+    
+                      </div>
+    
+                  </div>
+          
+              </div>
+          
+          </div>
+    
+      </div>
+    
+      <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    
+          <div class="card bg-inverse">
+    
+              <div class="card-body">
+          
+                  <div class="row">
+          
+                      <div class="col-lg-8 col-md-8">
+          
+                          <p class="text-white">Sin Enviar</p>
+          
+                          <h3 class="text-white font-light tipo-cursor">
+          
+                              <!-- <div class="animated pulse2"> -->
+          
+                                  <span data-toggle="modal" data-target="#modalTable" class="display-4 font-bold" [ngClass]="{'text-success': sinEnviar === 0, 'text-warning': sinEnviar > 0 && sinEnviar <= 5, 'text-white': sinEnviar > 5}">{{sinEnviar | number}}</span>
+          
+                              <!-- </div> -->
+          
+                          </h3>
+          
+                      </div>
+    
+                      <div class="col-lg-4 col-md-4 text-white text-center" style="font-size: 5em;">
+    
+                        <i class="mdi mdi-email-alert text-danger"></i>
+    
+                      </div>
+          
+                  </div>
+          
+              </div>
+          
+          </div>
+    
+      </div>
+    
+      <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    
+          <div class="card bg-inverse">
+    
+              <div class="card-body">
+          
+                  <div class="row">
+          
+                      <div class="col-lg-8 col-md-8">
+          
+                          <p class="text-white">Error Facturar</p>
+          
+                          <h3 class="font-light tipo-cursor" [ngClass]="{'text-white': failFacturar === 0, 'text-danger': failFacturar > 0}">
+          
+                              <!-- <div class="animated pulse2"> -->
+          
+                                  <span data-toggle="modal" data-target="#modalTable" class="display-4 font-bold">{{failFacturar | number}}</span>
+          
+                              <!-- </div> -->
+          
+                          </h3>
+          
+                      </div>
+    
+                      <div class="col-lg-4 col-md-4 text-white text-center" style="font-size: 5em;">
+    
+                        <i class="mdi mdi-tag-outline text-danger"></i>
+    
+                      </div>
+          
+                  </div>
+          
+              </div>
+          
+          </div>
+    
+      </div>
+    
+      <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+    
+          <div class="card bg-white">
+    
+              <div class="card-body">
+          
+                  <div class="row">
+          
+                      <div class="col-lg-8 col-md-8">
+          
+                          <p class="text-dark">Error Timbrar</p>
+          
+                          <h3 class="font-light tipo-cursor" [ngClass]="{'text-dark': failTimbrar === 0, 'text-danger': failTimbrar > 0}">
+          
+                              <!-- <div class="animated pulse2"> -->
+          
+                                  <span data-toggle="modal" data-target="#modalTable" class="display-4 font-bold">{{failTimbrar | number}}</span>
+          
+                              <!-- </div> -->
+          
+                          </h3>
+          
+                      </div>
+    
+                      <div class="col-lg-4 col-md-4 text-white text-center" style="font-size: 5em;">
+    
+                        <i class="mdi mdi-tag-text-outline text-danger"></i>
+    
+                      </div>
+          
+                  </div>
+          
+              </div>
+          
+          </div>
+    
+      </div>
+
+  </div>
+
+</div>

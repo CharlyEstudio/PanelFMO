@@ -210,6 +210,7 @@ export class SurtirComponent implements OnInit, OnDestroy {
         // Pedidos Totales Web
         this._panelService.webSurtir()
           .subscribe( ( data ) => {
+            // console.log(data);
             this.webSur = data[0].cantidad;
           });
 

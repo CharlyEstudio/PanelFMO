@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 // Servicios
-import { PanelService } from './panel.service';
-import { TimeLineService } from './time-line.service';
-
+import { PanelService, TimeLineService, OficinaService, HerramientasService } from './services.index';
 
 
 @NgModule({
@@ -15,7 +13,9 @@ import { TimeLineService } from './time-line.service';
   ],
   providers: [
     PanelService,
-    TimeLineService
+    TimeLineService,
+    OficinaService,
+    HerramientasService
   ],
   declarations: []
 })

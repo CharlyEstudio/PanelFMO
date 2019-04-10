@@ -17,6 +17,7 @@ import { TimeLineComponent } from './components/time-line/time-line.component';
 import { TotalPedidosComponent } from './components/total-pedidos/total-pedidos.component';
 import { OutTimeComponent } from './components/out-time/out-time.component';
 import { GraficaComponent } from './components/grafica/grafica.component';
+import { FacturasComponent } from './components/facturas/facturas.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { GraficaComponent } from './components/grafica/grafica.component';
     TimeLineComponent,
     TotalPedidosComponent,
     OutTimeComponent,
-    GraficaComponent
+    GraficaComponent,
+    FacturasComponent
   ],
   imports: [
     BrowserModule,
