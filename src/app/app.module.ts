@@ -18,6 +18,7 @@ import { TotalPedidosComponent } from './components/total-pedidos/total-pedidos.
 import { OutTimeComponent } from './components/out-time/out-time.component';
 import { GraficaComponent } from './components/grafica/grafica.component';
 import { FacturasComponent } from './components/facturas/facturas.component';
+import { TotalClientesComponent } from './components/total-clientes/total-clientes.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FacturasComponent } from './components/facturas/facturas.component';
     TotalPedidosComponent,
     OutTimeComponent,
     GraficaComponent,
-    FacturasComponent
+    FacturasComponent,
+    TotalClientesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,40 +1,13 @@
-<div class="row">
+<!-- <div class="row">
 
-    <div class="col-12 text-center">
-
-        <div class="card">
-
-            <div class="card-body">
-
-                <button type="button" class="btn-success" (click)="enviarReporte()">Enviar Reporte Pedidos</button>
-
-                <div class="alert alert-success m-t-10" role="alert" *ngIf="alertaGeneral">
-
-                    El email se envío correctamente.
-
-                </div>
-
-                <div class="alert alert-danger  m-t-10" role="alert" *ngIf="errorGeneral">
-
-                    Error al enviar el email.
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
 
         <div class="card bg-inverse totales">
 
             <div class="card-body">
 
-                <h4 class="card-title text-center font-weight-bold text-success">Zona 1: {{ canZ1 }} pedidos</h4>
+                <h4 class="card-title text-center font-weight-bold text-success">Zona 1: {{ canZ1 }} Clientes</h4>
 
-                <!-- Column -->
                 <div class="col-12 total-pedidos" style="padding-bottom: 15px;">
 
                     <div class="row" *ngFor="let z1 of zona1">
@@ -51,7 +24,7 @@
 
                         <div class="col-3">
 
-                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z1.cantidad }}</p>
+                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z1.clientesVta }} ({{z1.clientesDia}})</p>
 
                         </div>
 
@@ -65,15 +38,14 @@
 
     </div>
 
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
 
         <div class="card bg-inverse totales">
 
             <div class="card-body">
 
-                <h4 class="card-title text-center font-weight-bold text-success">Zona 2: {{ canZ2 }} pedidos</h4>
+                <h4 class="card-title text-center font-weight-bold text-success">Zona 2: {{ canZ2 }} Clientes</h4>
 
-                <!-- Column -->
                 <div class="col-12 total-pedidos" style="padding-bottom: 15px;">
 
                     <div class="row" *ngFor="let z2 of zona2">
@@ -90,7 +62,7 @@
 
                         <div class="col-3">
 
-                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z2.cantidad }}</p>
+                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z2.clientesVta }} ({{z2.clientesDia}})</p>
 
                         </div>
 
@@ -104,15 +76,14 @@
 
     </div>
 
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
 
         <div class="card bg-inverse totales">
 
             <div class="card-body">
 
-                <h4 class="card-title text-center font-weight-bold text-success">Esp: {{ canEsp }} pedidos</h4>
+                <h4 class="card-title text-center font-weight-bold text-success">Esp: {{ canEsp }} Clientes</h4>
 
-                <!-- Column -->
                 <div class="col-12 total-pedidos" style="padding-bottom: 15px;">
 
                     <div class="row" *ngFor="let esp of especiales">
@@ -130,65 +101,6 @@
                         <div class="col-3">
 
                             <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ esp.cantidad }}</p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-    
-    <div class="col-lg-3 col-md-6">
-
-        <div class="card totales">
-
-            <div class="card-body">
-
-                <h4 class="card-title text-center">Pedidos del Día</h4>
-
-                <div class="row">
-
-                    <div class="col-lg-12 col-md-12 text-center">
-
-                        <div class="row">
-
-                            <!-- Column -->
-                            <div class="col-12" style="padding-bottom: 15px;">
-
-                                <h1 class="display-1 font-bold">
-
-                                    <div *ngIf="correcto">
-
-                                        <span class="display-1 font-bold">{{ tot }}</span>
-                                
-                                    </div>
-                            
-                                    <div class="animated pulse2" *ngIf="critico">
-                            
-                                        <span class="display-1 text-danger font-bold">{{ tot }}</span>
-                            
-                                    </div>
-                            
-                                    <div class="animated pulse2" *ngIf="inestable">
-                            
-                                        <span class="display-1 text-warning font-bold">{{ tot }}</span>
-                            
-                                    </div>
-
-                                    <div class="animated pulse2" *ngIf="estable">
-                            
-                                        <span class="display-1 text-success font-bold">{{ tot }}</span>
-                            
-                                    </div>
-
-                                </h1>
-
-                            </div>
 
                         </div>
 
@@ -322,4 +234,4 @@
 
     </div>
 
-</div>
+</div> -->

@@ -68,7 +68,17 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
     // Subscrión a Pedidos por Bajar
     this.total =  this.regresar().subscribe(
       numero => {
-        this.tot = numero.cantidad;
+        switch (numero.length) {
+          case 1:
+            this.tot = numero[0].cantidad;
+            break;
+          case 2:
+            this.tot = numero[0].cantidad + numero[1].cantidad;
+            break;
+          case 3:
+            this.tot = numero[0].cantidad + numero[1].cantidad + numero[2].cantidad;
+            break;
+        }
       },
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
@@ -83,10 +93,20 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
     // Pedidos Total
     this._panelService.total()
-      .subscribe((data) => {
-        if ( data[0].importe !== 0 ) {
-          this.tot = data[0].cantidad;
-        } else {
+      .subscribe((data: any) => {
+        if (data.length > 0) {
+          switch (data.length) {
+            case 1:
+              this.tot = data[0].cantidad;
+              break;
+            case 2:
+              this.tot = data[0].cantidad + data[1].cantidad;
+              break;
+            case 3:
+              this.tot = data[0].cantidad + data[1].cantidad + data[2].cantidad;
+              break;
+          }
+        } else  {
           this.tot = 0;
         }
       });
@@ -213,21 +233,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
         this._panelService.total()
           .subscribe( ( data ) => {
-
-            if (data[0].cantidad !== 0) {
-              const total = {
-                cantidad: data[0].cantidad,
-              };
-
-              observer.next(total);
-            } else {
-              const total = {
-                cantidad: 0,
-              };
-
-              observer.next(total);
-            }
-
+            observer.next(data);
           });
 
         // Asesores zona 1
