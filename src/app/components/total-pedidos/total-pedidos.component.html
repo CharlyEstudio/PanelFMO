@@ -6,17 +6,31 @@
 
             <div class="card-body">
 
-                <button type="button" class="btn-success" (click)="enviarReporte()">Enviar Reporte Pedidos</button>
+                <div class="row">
 
-                <div class="alert alert-success m-t-10" role="alert" *ngIf="alertaGeneral">
+                    <div class="col-md-8 col-sm-12 centrar py-1">
+                        
+                        <button type="button" class="btn-success" (click)="enviarReporte()">Enviar Reporte Pedidos</button>
+        
+                        <div class="alert alert-success m-t-10" role="alert" *ngIf="alertaGeneral">
+        
+                            El email se envío correctamente.
+        
+                        </div>
+        
+                        <div class="alert alert-danger m-t-10" role="alert" *ngIf="errorGeneral">
+        
+                            Error al enviar el email.
+        
+                        </div>
 
-                    El email se envío correctamente.
+                    </div>
 
-                </div>
+                    <div class="col-md-4 col-sm-12 py-1">
 
-                <div class="alert alert-danger  m-t-10" role="alert" *ngIf="errorGeneral">
+                        <app-select-fecha></app-select-fecha>
 
-                    Error al enviar el email.
+                    </div>
 
                 </div>
 

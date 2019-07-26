@@ -19,6 +19,7 @@ import { OutTimeComponent } from './components/out-time/out-time.component';
 import { GraficaComponent } from './components/grafica/grafica.component';
 import { FacturasComponent } from './components/facturas/facturas.component';
 import { TotalClientesComponent } from './components/total-clientes/total-clientes.component';
+import { SelectFechaComponent } from './components/select-fecha/select-fecha.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TotalClientesComponent } from './components/total-clientes/total-client
     OutTimeComponent,
     GraficaComponent,
     FacturasComponent,
-    TotalClientesComponent
+    TotalClientesComponent,
+    SelectFechaComponent
   ],
   imports: [
     BrowserModule,
