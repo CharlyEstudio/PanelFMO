@@ -12,3 +12,10 @@
 .total-pedidos .linea {
     border-bottom: 1px solid black;
 }
+
+.centrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

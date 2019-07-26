@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
 
-import { PanelService } from '../../services/services.index';
+import { PanelService, SlectFechaService } from '../../services/services.index';
 
-import * as html2canvas from 'html2canvas';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+// import * as html2canvas from 'html2canvas';
+// import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-total-pedidos',
@@ -62,7 +62,8 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
   correcto = true;
 
   constructor(
-    private _panelService: PanelService
+    private _panelService: PanelService,
+    private _selectFechaService: SlectFechaService
   ) {
 
     // Subscrión a Pedidos por Bajar
@@ -87,6 +88,11 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        console.log(fechaEmiter);
+      });
 
     // Obtener la hora
     this.verTiempo();
