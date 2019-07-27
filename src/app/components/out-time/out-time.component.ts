@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
 
-import { PanelService } from '../../services/services.index';
+import { PanelService, SlectFechaService } from '../../services/services.index';
 
 @Component({
   selector: 'app-out-time',
@@ -14,6 +14,9 @@ import { PanelService } from '../../services/services.index';
   styles: []
 })
 export class OutTimeComponent implements OnInit, OnDestroy {
+
+  // Fecha Emit
+  fechaEmit: string;
 
   // Time
   time: any;
@@ -33,19 +36,9 @@ export class OutTimeComponent implements OnInit, OnDestroy {
   datos: any[] = [];
 
   constructor(
-    private _panelService: PanelService
-  ) {
-
-    // Subscrión a Pedidos despues del tiempo
-    this.observar =  this.regresa().subscribe(
-      numero =>{
-        this.datos = numero;
-      },
-      error => console.error('Error en el obs', error),
-      () => console.log('El observador termino!')
-    );
-
-  }
+    private _panelService: PanelService,
+    private _selectFechaService: SlectFechaService
+  ) {}
 
   // Observable de Pedidos por Bajar
   regresa(): Observable<any> {
@@ -58,7 +51,7 @@ export class OutTimeComponent implements OnInit, OnDestroy {
         // Obtener pedidos despues de las 6:15pm
         if(this.hora >= 18 && this.min >= 15) {
           this.mostrar = true;
-          this._panelService.outTime()
+          this._panelService.outTime(this.fechaEmit)
             .subscribe( ( resp: any ) => {
               observer.next(resp);
             });
@@ -71,6 +64,43 @@ export class OutTimeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerOutTime(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.observar.unsubscribe();
+          clearInterval(this.intervalo);
+          this.mostrar = true;
+        } else {
+          this.mostrar = false;
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observarOutTime();
+        }
+      });
+  }
+
+  observarOutTime() {
+    // Subscrión a Pedidos despues del tiempo
+    this.observar =  this.regresa().subscribe(
+      numero =>{
+        this.datos = numero;
+      },
+      error => console.error('Error en el obs', error),
+      () => console.log('El observador termino!')
+    );
+  }
+
+  obtenerOutTime(fecha: string) {
+    this._panelService.outTime(fecha)
+      .subscribe( ( resp: any ) => {
+        this.datos = resp;
+      });
   }
 
   ngOnDestroy() {
@@ -81,7 +111,7 @@ export class OutTimeComponent implements OnInit, OnDestroy {
   enviarReporte() {
     console.log('Enviando...');
 
-    this._panelService.asesoresZona( 1, 'out' )
+    this._panelService.asesoresZona( this.fechaEmit, 1, 'out' )
       .subscribe( ( asesores: any ) => {
 
         for(let i = 0; i < asesores.length; i++) {
@@ -111,7 +141,7 @@ export class OutTimeComponent implements OnInit, OnDestroy {
 
       });
 
-    this._panelService.asesoresZona( 2, 'out' )
+    this._panelService.asesoresZona( this.fechaEmit, 2, 'out' )
       .subscribe( ( asesores: any ) => {
 
         for(let i = 0; i < asesores.length; i++) {

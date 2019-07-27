@@ -8,9 +8,6 @@ import 'rxjs/add/operator/filter';
 
 import { PanelService, SlectFechaService } from '../../services/services.index';
 
-// import * as html2canvas from 'html2canvas';
-// import { analyzeAndValidateNgModules } from '@angular/compiler';
-
 @Component({
   selector: 'app-total-pedidos',
   templateUrl: './total-pedidos.component.html',
@@ -18,7 +15,8 @@ import { PanelService, SlectFechaService } from '../../services/services.index';
 })
 export class TotalPedidosComponent implements OnInit, OnDestroy {
 
-  public context: CanvasRenderingContext2D;
+  // Esta fecha será modificado cuando se emita un cambio o si es actual
+  fechaEmit: string;
 
   // Menores de 15 pedidos en rojo ---- OJO
 
@@ -64,8 +62,36 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
   constructor(
     private _panelService: PanelService,
     private _selectFechaService: SlectFechaService
-  ) {
+  ) {}
 
+  ngOnInit() {
+
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerTotales(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.total.unsubscribe();
+          clearInterval(this.intTot);
+
+          // Destrucción de Intervalo de Tiempo
+          clearInterval(this.intTiempo);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observarTotal();
+          // Obtener la hora
+          this.verTiempo();
+        }
+      });
+
+  }
+
+  observarTotal() {
     // Subscrión a Pedidos por Bajar
     this.total =  this.regresar().subscribe(
       numero => {
@@ -84,21 +110,11 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
     );
-
   }
 
-  ngOnInit() {
-
-    this._selectFechaService.fecha
-      .subscribe((fechaEmiter: any) => {
-        console.log(fechaEmiter);
-      });
-
-    // Obtener la hora
-    this.verTiempo();
-
+  obtenerTotales(fecha: string) {
     // Pedidos Total
-    this._panelService.total()
+    this._panelService.total(fecha)
       .subscribe((data: any) => {
         if (data.length > 0) {
           switch (data.length) {
@@ -118,7 +134,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       });
 
     // Asesores zona 1
-    this._panelService.asesoresZona( 1 )
+    this._panelService.asesoresZona( fecha, 1 )
       .subscribe( ( resp: any ) => {
         this.zona1 = resp;
 
@@ -128,7 +144,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       });
 
     // Asesores zona 2
-    this._panelService.asesoresZona( 2 )
+    this._panelService.asesoresZona( fecha, 2 )
       .subscribe( ( resp: any ) => {
         this.zona2 = resp;
 
@@ -138,14 +154,13 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       });
 
     // Asesores Especiales
-    this._panelService.asesoresEsp()
+    this._panelService.asesoresEsp(fecha)
       .subscribe( ( resp: any ) => {
         this.especiales = resp;
         for (let i = 0; i < resp.length; i++) {
           this.canEsp += resp[i].cantidad;
         }
       });
-
   }
 
   ngOnDestroy() {
@@ -237,13 +252,13 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
     return new Observable((observer: Subscriber<any>) => {
       this.intTot = setInterval( () => {
 
-        this._panelService.total()
+        this._panelService.total(this.fechaEmit)
           .subscribe( ( data ) => {
             observer.next(data);
           });
 
         // Asesores zona 1
-        this._panelService.asesoresZona( 1 )
+        this._panelService.asesoresZona( this.fechaEmit, 1 )
           .subscribe( ( resp: any ) => {
             this.canZ1 = 0;
             this.zona1 = resp;
@@ -255,7 +270,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
           });
 
         // Asesores zona 2
-        this._panelService.asesoresZona( 2 )
+        this._panelService.asesoresZona( this.fechaEmit, 2 )
           .subscribe( ( resp: any ) => {
             this.canZ2 = 0;
             this.zona2 = resp;
@@ -266,7 +281,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
           });
 
         // Asesores Especiales
-        this._panelService.asesoresEsp()
+        this._panelService.asesoresEsp(this.fechaEmit)
           .subscribe( ( resp: any ) => {
             this.canEsp = 0;
             this.especiales = resp;
@@ -354,7 +369,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
   enviarReporte() {
     // Asesores zona 1
-    this._panelService.asesoresZona( 1 )
+    this._panelService.asesoresZona( this.fechaEmit, 1 )
       .subscribe( ( reporte: any ) => {
 
         for (let i = 0; i < reporte.length; i++) {
@@ -387,7 +402,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       });
 
     // Asesores zona 2
-    this._panelService.asesoresZona( 2 )
+    this._panelService.asesoresZona( this.fechaEmit, 2 )
       .subscribe( ( reporte: any ) => {
 
         for (let i = 0; i < reporte.length; i++) {

@@ -22,13 +22,13 @@ export class TimeLineService {
     }
   }
 
-  linea() {
+  linea(fecha: string) {
     // if (this.path === 'http://192.168.1.250' || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/linea-tiempo.php?opcion=3';
     // } else {
     //   this.url = this.path + '/api/linea-tiempo.php?opcion=3';
     // }
-    this.url = this.path + '/api/linea-tiempo.php?opcion=3';
+    this.url = this.path + '/api/linea-tiempo.php?opcion=3&fecha=' + fecha;
 
     return this.http.get( this.url );
   }

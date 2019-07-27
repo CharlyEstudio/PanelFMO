@@ -5,7 +5,7 @@ import { Subscriber } from 'rxjs/Subscriber';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
-import { PanelService } from '../../services/services.index';
+import { PanelService, SlectFechaService } from '../../services/services.index';
 
 @Component({
   selector: 'app-cancelado',
@@ -13,6 +13,9 @@ import { PanelService } from '../../services/services.index';
   styles: []
 })
 export class CanceladoComponent implements OnInit, OnDestroy {
+
+  // Fecha Emit
+  fechaEmit: string;
 
   // Cancelado
   cancelado: number = 0;
@@ -23,10 +26,34 @@ export class CanceladoComponent implements OnInit, OnDestroy {
   correcto: boolean = true;
 
   constructor(
-    private _panelService: PanelService
-  ) {
+    private _panelService: PanelService,
+    private _selectFechaService: SlectFechaService
+  ) {}
 
-    // Subscrión a Pedidos por Bajar
+  ngOnInit() {
+
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerCancelados(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.cancelar.unsubscribe();
+          clearInterval(this.intCancelar);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observarCancelados();
+        }
+      });
+
+  }
+
+  observarCancelados() {
+    // Subscrión a Pedidos Cancelados
     this.cancelar =  this.regresaCancelar().subscribe(
       numero => {
         this.cancelado = numero.cantidad;
@@ -34,13 +61,11 @@ export class CanceladoComponent implements OnInit, OnDestroy {
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
     );
-
   }
 
-  ngOnInit() {
-
-    // Pedidos por Bajar
-    this._panelService.cancelado()
+  obtenerCancelados(fecha: string) {
+    // Pedidos Cancelados
+    this._panelService.cancelado(fecha)
       .subscribe((data) => {
         if ( data[0].importe != 0 ) {
           this.cancelado = data[0].cantidad;
@@ -48,23 +73,22 @@ export class CanceladoComponent implements OnInit, OnDestroy {
           this.cancelado = 0;
         }
       });
-
   }
 
   ngOnDestroy() {
 
-    // Intervalo por Bajar
+    // Intervalo Cancelados
     this.cancelar.unsubscribe();
     clearInterval(this.intCancelar);
 
   }
 
-  // Observable de Pedidos por Bajar
+  // Observable de Pedidos Cancelados
   regresaCancelar(): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
       this.intCancelar = setInterval( () => {
 
-        this._panelService.cancelado()
+        this._panelService.cancelado(this.fechaEmit)
           .subscribe( ( data ) => {
 
             if(data[0].cantidad != 0) {

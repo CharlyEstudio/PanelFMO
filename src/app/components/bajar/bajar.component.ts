@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
 
-import { PanelService } from '../../services/services.index';
+import { PanelService, SlectFechaService } from '../../services/services.index';
 
 import { SweetAlert } from 'sweetalert/typings/core';
 
@@ -16,6 +16,9 @@ import { SweetAlert } from 'sweetalert/typings/core';
   styles: []
 })
 export class BajarComponent implements OnInit, OnDestroy {
+
+  // Fecha Emit
+  fechaEmit: string;
 
   // Por Bajar
   porBajar: number = 0;
@@ -31,9 +34,31 @@ export class BajarComponent implements OnInit, OnDestroy {
   correcto: boolean = true;
 
   constructor(
-    private _panelService: PanelService
-  ) {
+    private _panelService: PanelService,
+    private _selectFechaService: SlectFechaService
+  ) {}
 
+  ngOnInit() {
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerBajar(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.bajar.unsubscribe();
+          clearInterval(this.intBajar);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observarBajar();
+        }
+      });
+  }
+
+  observarBajar() {
     // Subscrión a Pedidos por Bajar
     this.bajar =  this.regresaBajar().subscribe(
       numero => {
@@ -42,13 +67,11 @@ export class BajarComponent implements OnInit, OnDestroy {
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
     );
-
   }
 
-  ngOnInit() {
-
+  obtenerBajar(fecha: string) {
     // Pedidos por Bajar
-    this._panelService.porBajar()
+    this._panelService.porBajar(fecha)
       .subscribe((data) => {
         if ( data[0].importe !== 0 ) {
           this.porBajar = data[0].cantidad;
@@ -58,23 +81,22 @@ export class BajarComponent implements OnInit, OnDestroy {
       });
 
     // Pedidos Totales por Bajar Querétaro
-    this._panelService.zonaBajar('02')
+    this._panelService.zonaBajar(fecha, '02')
       .subscribe( ( data ) => {
         this.qroBaj = data[0].cantidad;
       });
 
     // Pedidos Totales por Bajar Tequisquiapan
-    this._panelService.zonaBajar('01')
+    this._panelService.zonaBajar(fecha, '01')
       .subscribe( ( data ) => {
         this.txBaj = data[0].cantidad;
       });
 
     // Pedidos Totales por Bajar WEB
-    this._panelService.webBajar()
+    this._panelService.webBajar(fecha)
       .subscribe( ( data ) => {
         this.webBaj = data[0].cantidad;
       });
-
   }
 
   ngOnDestroy() {
@@ -88,7 +110,7 @@ export class BajarComponent implements OnInit, OnDestroy {
     return new Observable((observer: Subscriber<any>) => {
       this.intBajar = setInterval( () => {
 
-        this._panelService.porBajar()
+        this._panelService.porBajar(this.fechaEmit)
           .subscribe( ( data ) => {
 
             if (data[0].cantidad !== 0) {
@@ -108,19 +130,19 @@ export class BajarComponent implements OnInit, OnDestroy {
           });
 
           // Querétaro
-        this._panelService.zonaBajar('02')
+        this._panelService.zonaBajar(this.fechaEmit, '02')
           .subscribe( ( data ) => {
             this.qroBaj = data[0].cantidad;
           });
 
         // Tequisquiapan
-        this._panelService.zonaBajar('01')
+        this._panelService.zonaBajar(this.fechaEmit, '01')
           .subscribe( ( data ) => {
             this.txBaj = data[0].cantidad;
           });
 
         // Pedidos Totales por Bajar WEB
-        this._panelService.webBajar()
+        this._panelService.webBajar(this.fechaEmit)
           .subscribe( ( data ) => {
             this.webBaj = data[0].cantidad;
           });

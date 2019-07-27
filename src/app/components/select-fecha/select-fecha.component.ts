@@ -18,15 +18,25 @@ export class SelectFechaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.fecha.nativeElement.value === '') {
-      this.selectFechaService.fecha.emit(this.herramientas.fechaActual());
-    } else {
-      this.selectFechaService.fecha.emit(this.fecha.nativeElement.value);
-    }
+    const enviar = {
+      fecha: this.herramientas.fechaActual(),
+      emitido: false
+    };
+    this.selectFechaService.fecha.emit(enviar);
   }
 
   cambiarFecha() {
-    this.selectFechaService.fecha.emit(this.fecha.nativeElement.value);
+    let em;
+    if (this.fecha.nativeElement.value === this.herramientas.fechaActual()) {
+      em = false;
+    } else {
+      em = true;
+    }
+    const enviar = {
+      fecha: this.fecha.nativeElement.value,
+      emitido: em
+    };
+    this.selectFechaService.fecha.emit(enviar);
   }
 
 }

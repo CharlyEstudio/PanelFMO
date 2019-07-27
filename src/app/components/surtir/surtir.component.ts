@@ -5,7 +5,7 @@ import { Subscriber } from 'rxjs/Subscriber';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
-import { PanelService } from '../../services/services.index';
+import { PanelService, SlectFechaService } from '../../services/services.index';
 
 @Component({
   selector: 'app-surtir',
@@ -13,6 +13,9 @@ import { PanelService } from '../../services/services.index';
   styles: []
 })
 export class SurtirComponent implements OnInit, OnDestroy {
+
+  // Fecha Emitida
+  fechaEmit: string;
 
   // Por Surtir
   porSurtir: number = 0;
@@ -37,9 +40,38 @@ export class SurtirComponent implements OnInit, OnDestroy {
   correcto: boolean = true;
 
   constructor(
-    private _panelService: PanelService
-  ) {
+    private _panelService: PanelService,
+    private _selectFechaService: SlectFechaService
+  ) {}
 
+  ngOnInit() {
+
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerPorSutir(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.surtir.unsubscribe();
+          clearInterval(this.intSurtir);
+
+          // Destrucción de Intervalo de Tiempo
+          clearInterval(this.intTiempo);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observarSurtir();
+          // Obtener la hora
+          this.verTiempo();
+        }
+      });
+
+  }
+
+  observarSurtir() {
     // Subscrión a Pedidos por Bajar
     this.surtir =  this.regresaSurtir().subscribe(
       numero => {
@@ -48,16 +80,11 @@ export class SurtirComponent implements OnInit, OnDestroy {
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
     );
-
   }
 
-  ngOnInit() {
-
-    // Obtener la hora
-    this.verTiempo();
-
-    // Pedidos por Bajar
-    this._panelService.porSurtir()
+  obtenerPorSutir(fecha: string) {
+    // Pedidos por Surtir
+    this._panelService.porSurtir(fecha)
       .subscribe((data) => {
         if ( data[0].cantidad !== 0 ) {
           this.porSurtir = data[0].cantidad;
@@ -66,29 +93,28 @@ export class SurtirComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Pedidos Totales por Bajar Querétaro
-    this._panelService.zonaSurtir('02')
+    // Pedidos Totales por Surtir Querétaro
+    this._panelService.zonaSurtir(fecha, '02')
       .subscribe( ( data ) => {
         this.qroSur = data[0].cantidad;
       });
 
-    // Pedidos Totales por Bajar Tequisquiapan
-    this._panelService.zonaSurtir('01')
+    // Pedidos Totales por Surtir Tequisquiapan
+    this._panelService.zonaSurtir(fecha, '01')
       .subscribe( ( data ) => {
         this.txSur = data[0].cantidad;
       });
 
     // Pedidos Totales Web
-    this._panelService.webSurtir()
+    this._panelService.webSurtir(fecha)
       .subscribe( ( data ) => {
         this.webSur = data[0].cantidad;
       });
-
   }
 
   ngOnDestroy() {
 
-    // Intervalo por Bajar
+    // Intervalo por Surtir
     this.surtir.unsubscribe();
     clearInterval(this.intSurtir);
 
@@ -176,7 +202,7 @@ export class SurtirComponent implements OnInit, OnDestroy {
     return new Observable((observer: Subscriber<any>) => {
       this.intSurtir = setInterval( () => {
 
-        this._panelService.porSurtir()
+        this._panelService.porSurtir(this.fechaEmit)
           .subscribe( ( data ) => {
 
             if (data[0].importe !== 0) {
@@ -196,19 +222,19 @@ export class SurtirComponent implements OnInit, OnDestroy {
           });
 
         // Querétaro
-        this._panelService.zonaSurtir('02')
+        this._panelService.zonaSurtir(this.fechaEmit, '02')
           .subscribe( ( data ) => {
             this.qroSur = data[0].cantidad;
           });
 
         // Tequisquiapan
-        this._panelService.zonaSurtir('01')
+        this._panelService.zonaSurtir(this.fechaEmit, '01')
           .subscribe( ( data ) => {
             this.txSur = data[0].cantidad;
           });
 
         // Pedidos Totales Web
-        this._panelService.webSurtir()
+        this._panelService.webSurtir(this.fechaEmit)
           .subscribe( ( data ) => {
             // console.log(data);
             this.webSur = data[0].cantidad;

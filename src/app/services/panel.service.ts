@@ -15,57 +15,57 @@ export class PanelService {
     private http: HttpClient
   ) { }
 
-  total() {
+  total(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=5';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=5';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=5';
+    this.url = this.path + '/api/pedidos.php?opcion=5&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  porBajar() {
+  porBajar(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=1';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=1';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=1';
+    this.url = this.path + '/api/pedidos.php?opcion=1&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  porSurtir() {
+  porSurtir(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=2';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=2';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=2';
+    this.url = this.path + '/api/pedidos.php?opcion=2&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  facturado() {
+  facturado(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=3';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=3';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=3';
+    this.url = this.path + '/api/pedidos.php?opcion=3&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  cancelado() {
+  cancelado(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=4';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=4';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=4';
+    this.url = this.path + '/api/pedidos.php?opcion=4&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
@@ -92,73 +92,73 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
-  zonaSurtir(zona: any) {
+  zonaSurtir(fecha: string, zona: any) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=9&zona=' + zona;
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=9&zona=' + zona;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=9&zona=' + zona;
+    this.url = this.path + '/api/pedidos.php?opcion=9&fecha=' + fecha + '&zona=' + zona;
 
     return this.http.get( this.url );
   }
 
-  webSurtir() {
+  webSurtir(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=34';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=34';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=34';
+    this.url = this.path + '/api/pedidos.php?opcion=34&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  zonaBajar(zona: any) {
+  zonaBajar(fecha: string, zona: any) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=10&zona=' + zona;
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=10&zona=' + zona;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=10&zona=' + zona;
+    this.url = this.path + '/api/pedidos.php?opcion=10&fecha' + fecha + '&zona=' + zona;
 
     return this.http.get( this.url );
   }
 
-  webBajar() {
+  webBajar(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=33';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=33';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=33';
+    this.url = this.path + '/api/pedidos.php?opcion=33&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  zonaFacturado(zona: any) {
+  zonaFacturado(fecha: string, zona: any) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=11&zona=' + zona;
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=11&zona=' + zona;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=11&zona=' + zona;
+    this.url = this.path + '/api/pedidos.php?opcion=11&fecha=' + fecha + '&zona=' + zona;
 
     return this.http.get( this.url );
   }
 
-  webFacturado() {
+  webFacturado(fecha: string) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=35';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=35';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=35';
+    this.url = this.path + '/api/pedidos.php?opcion=35&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  asesoresZona( zona: any, tipo: any = 'normal' ) {
+  asesoresZona( fecha: string, zona: any, tipo: any = 'normal' ) {
     let opcion;
 
     if (tipo === 'normal') {
@@ -172,18 +172,18 @@ export class PanelService {
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&zona=' + zona;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&zona=' + zona;
+    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&fecha=' + fecha + '&zona=' + zona;
 
     return this.http.get( this.url );
   }
 
-  asesoresEsp( ) {
+  asesoresEsp( fecha: string ) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=21';
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=21';
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=21';
+    this.url = this.path + '/api/pedidos.php?opcion=21&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
@@ -255,7 +255,7 @@ export class PanelService {
     //
   }
 
-  outTime( tipo: any = 'normal', perid: any = '' ) {
+  outTime( fecha: string, tipo: any = 'normal', perid: any = '' ) {
 
     let opcion;
 
@@ -267,7 +267,7 @@ export class PanelService {
       // } else {
       //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion;
       // }
-      this.url = this.path + '/api/pedidos.php?opcion=' + opcion;
+      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&fecha=' + fecha;
     } else if (tipo === 'out') {
       opcion = 31;
 
@@ -276,7 +276,7 @@ export class PanelService {
       // } else {
       //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + perid;
       // }
-      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + perid;
+      this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&fecha=' + fecha + '&perid=' + perid;
     }
 
     return this.http.get( this.url );
