@@ -138,6 +138,7 @@ export class BajarComponent implements OnInit, OnDestroy {
         // Tequisquiapan
         this._panelService.zonaBajar(this.fechaEmit, '01')
           .subscribe( ( data ) => {
+            // console.log(data);
             this.txBaj = data[0].cantidad;
           });
 

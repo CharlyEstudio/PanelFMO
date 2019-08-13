@@ -67,7 +67,7 @@ export class CanceladoComponent implements OnInit, OnDestroy {
     // Pedidos Cancelados
     this._panelService.cancelado(fecha)
       .subscribe((data) => {
-        if ( data[0].importe != 0 ) {
+        if ( data[0].importe !== 0 ) {
           this.cancelado = data[0].cantidad;
         } else {
           this.cancelado = 0;
@@ -91,7 +91,7 @@ export class CanceladoComponent implements OnInit, OnDestroy {
         this._panelService.cancelado(this.fechaEmit)
           .subscribe( ( data ) => {
 
-            if(data[0].cantidad != 0) {
+            if (data[0].cantidad !== 0) {
               const factura = {
                 cantidad: data[0].cantidad
               };

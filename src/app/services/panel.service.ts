@@ -120,7 +120,7 @@ export class PanelService {
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=10&zona=' + zona;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=10&fecha' + fecha + '&zona=' + zona;
+    this.url = this.path + '/api/pedidos.php?opcion=10&fecha=' + fecha + '&zona=' + zona;
 
     return this.http.get( this.url );
   }
@@ -348,6 +348,18 @@ export class PanelService {
     //   this.url = this.path + ':3001/guias/buscar/chofer/porentregado/${id}/${fecha}';
     // }
     this.url = this.path + ':3001/guias/buscar/chofer/porentregado/${id}/${fecha}';
+
+    return this.http.get(this.url);
+  }
+
+  pedidosporAsesor() {
+    this.url = this.path + '/api/pedidos.php?opcion=42';
+
+    return this.http.get(this.url);
+  }
+
+  resumenPedidosAsesor() {
+    this.url = this.path + '/api/pedidos.php?opcion=43';
 
     return this.http.get(this.url);
   }
