@@ -190,99 +190,123 @@
 
           <div class="col-md-12 col-lg-4 col-sm-12 centrar text-center">
 
+            <!-- <div class="border rounded p-10 mb-3">
+
+              <h6>CLIENTES DEL DÍA</h6>
+              
+              <h1>{{clientesTotales}}</h1>
+  
+            </div>
+
+            <div class="border rounded p-10 mb-3">
+
+              <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
+
+              <h1>{{clientesPedidosTotales}}</h1>
+
+            </div>
+
+            <div class="border rounded p-10 mb-3">
+
+              <h6>CLIENTES FALTANTES</h6>
+
+              <h1>{{(clientesTotales - clientesPedidosTotales)}}</h1>
+
+            </div>
+
+            <div class="border rounded p-10 mb-3">
+
+              <h6>TRABAJADO</h6>
+
+              <h1>{{trabajado | percent: '0.3'}}</h1>
+
+            </div> -->
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
             <h6>CLIENTES DEL DÍA</h6>
             
             <h1>{{clientesTotales}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
 
             <h1>{{clientesPedidosTotales}}</h1>
 
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
             <h6>CLIENTES FALTANTES</h6>
 
-            <h1>{{(clientesTotales - clientesPedidosTotales)}}</h1>
+            <h1 class="text-danger font-weight-bold">{{(clientesTotales - clientesPedidosTotales)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>TRABAJADO</h6>
 
             <h1>{{trabajado | percent: '0.3'}}</h1>
 
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+          </div>
+
+          <div class="col-md-12 col-lg-4 col-sm-12 centrar">
+
+              <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>MÍNIMO CLIENTES DÍA</h6>
+
+            <h1>{{minimo}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
+
+            <h1>{{clientesPedidosTotales}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES FALTANTES</h6>
+
+            <h1 class="text-danger font-weight-bold">{{(minimo - clientesPedidosTotales)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>TRABAJADO</h6>
+
+            <h1>{{(clientesPedidosTotales / minimo) | percent: '0.3'}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
           </div>
 
           <div class="col-md-12 col-lg-4 col-sm-12 my-5 centrar">
 
-            <!-- <app-dona [ChartType]="graficos.general.type" [leyenda]="graficos.general.leyenda" [ChartData]="graficos.general.data" [ChartLabels]="graficos.general.labels"></app-dona> -->
-
-            <!-- <br> -->
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>META</h6>
 
             <h1>{{'600000' | currency}}</h1>
 
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
             <h6>LOGRADO</h6>
 
             <h1>{{totalVta | currency}}</h1>
 
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
             <h6>POR HACER</h6>
 
-            <h1>{{(600000 - totalVta) | currency}}</h1>
+            <h1 class="text-danger font-weight-bold">{{(600000 - totalVta) | currency}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>TRABAJADO</h6>
 
             <h1>{{(totalVta / 600000) | percent: '0.2'}}</h1>
 
-          </div>
-
-          <div class="col-md-12 col-lg-4 col-sm-12">
-
-            <div class="card">
-
-              <div class="card-body">
-
-                <h3 class="card-title">Asesores Cumpliendo Meta $ 27,000.00</h3>
-
-                <h4 *ngIf="asesoresBest.length === 0">Ningún Asesor ah llegado a la meta.</h4>
-
-                <div class="table-responsive m-t-40" *ngIf="asesoresBest.length > 0">
-
-                  <table class="table stylish-table">
-
-                    <thead>
-
-                      <tr>
-
-                        <th>Asesor</th>
-
-                        <th>Pedidos</th>
-
-                        <th>Importe</th>
-
-                      </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                      <tr *ngFor="let mejor of asesoresBest, let i = index" [ngClass]="{'active': i === 0}">
-
-                        <td>
-                          <h6>{{mejor.NOMBRE}}</h6><small class="text-muted">Ruta {{mejor.RUTA}}</small>
-                        </td>
-
-                        <td>{{mejor.PEDIDOS}}</td>
-                        
-                        <td><h3><span class="label label-light-success">{{mejor.IMPORTE | currency}}</span></h3></td>
-
-                      </tr>
-
-                    </tbody>
-
-                  </table>
-
-                </div>
-
-              </div>
-
-            </div>
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
           </div>
 
@@ -300,7 +324,7 @@
 
       <div class="card-body">
 
-        <h1 class="card-title">Resumen</h1>
+        <h1 class="card-title">Resumen Ventas</h1>
 
         <div class="row">
 
@@ -344,7 +368,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Pedidos</th>
+                        <th class="text-center">Ped</th>
 
                         <th>Importe</th>
 
@@ -404,13 +428,13 @@
 
                         <th>{{totalPendiente15 | currency}}</th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalCliVta15 / totalCli15) | percent}}
-                        </td>
+                        </th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalImporte15 / 135000) | percent}}
-                        </td>
+                        </th>
 
                       </tr>
 
@@ -452,7 +476,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Pedidos</th>
+                        <th class="text-center">Ped</th>
 
                         <th>Importe</th>
 
@@ -512,13 +536,13 @@
                         
                         <th>{{totalPendiente610 | currency}}</th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalCliVta610 / totalCli610) | percent}}
-                        </td>
+                        </th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalImporte610 / 135000) | percent}}
-                        </td>
+                        </th>
 
                       </tr>
 
@@ -538,13 +562,13 @@
                           
                           <th>{{(totalPendiente610 + totalPendiente15) | currency}}</th>
 
-                          <td class="text-center border border-0">
+                          <th class="text-center border border-0">
                             {{((totalCliVta610 + totalCliVta15) / (totalCli15 + totalCli610)) | percent}}
-                          </td>
+                          </th>
 
-                          <td class="text-center border border-0">
+                          <th class="text-center border border-0">
                             {{((totalImporte610 + totalImporte15) / 270000) | percent}}
-                          </td>
+                          </th>
 
                       </tr>
 
@@ -600,7 +624,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Pedidos</th>
+                        <th class="text-center">Ped</th>
 
                         <th>Importe</th>
 
@@ -660,13 +684,13 @@
                         
                         <th>{{totalPendiente1115 | currency}}</th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalCliVta1115 / totalCli1115) | percent}}
-                        </td>
+                        </th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalImporte1115 / 135000) | percent}}
-                        </td>
+                        </th>
 
                       </tr>
 
@@ -708,7 +732,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Pedidos</th>
+                        <th class="text-center">Ped</th>
 
                         <th>Importe</th>
 
@@ -768,13 +792,13 @@
                         
                         <th>{{totalPendiente1620 | currency}}</th>
                         
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalCliVta1620 / totalCli1620) | percent}}
-                        </td>
+                        </th>
 
-                        <td class="text-center border border-0">
+                        <th class="text-center border border-0">
                           {{(totalImporte1620 / 135000) | percent}}
-                        </td>
+                        </th>
 
                       </tr>
 
@@ -794,13 +818,359 @@
                           
                           <th>{{(totalPendiente1115 + totalPendiente1620) | currency}}</th>
 
-                          <td class="text-center border border-0">
+                          <th class="text-center border border-0">
                             {{((totalCliVta1115 + totalCliVta1620) / (totalCli1115 + totalCli1620)) | percent}}
-                          </td>
+                          </th>
 
-                          <td class="text-center border border-0">
+                          <th class="text-center border border-0">
                             {{((totalImporte1620 + totalImporte1115) / 270000) | percent}}
-                          </td>
+                          </th>
+
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-12 col-lg-12 col-sm-12">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <h1 class="card-title">Resumen Cobranza</h1>
+
+        <h3>Cartera del día <span class="font-weight-bold">{{totalCobranzaCartera | currency}}</span></h3>
+
+        <h3>Total Cobrado <span class="font-weight-bold">{{totalColectado | currency}}</span></h3>
+
+        <div class="row">
+
+          <div class="col-md-12 col-lg-6 col-sm-12">
+
+            <div class="row">
+
+              <div class="col-md-12 col-lg-12 col-sm-12">
+
+                <h3 class="card-title">Zona 1</h3>
+    
+              </div>
+              
+              <div class="col-md-12 col-lg-12 col-sm-12" style="padding-left: 5px!important; padding-right: 10px!important;">
+
+                <div class="table-responsive">
+
+                  <table class="table table-sm stylish-table">
+
+                    <thead>
+
+                      <tr>
+
+                        <th></th>
+
+                        <th class="text-center border border-bottom-0">Clientes</th>
+
+                        <th colspan="2" class="text-center border border-bottom-0">Cartera</th>
+
+                      </tr>
+
+                      <tr>
+
+                        <th>Asesor</th>
+
+                        <th class="text-center border border-bottom-0 border-top-0">Con<br>Saldo</th>
+
+                        <th class="text-center">Saldo</th>
+
+                        <th class="text-center border border-left-0 border-top-0">Cobrado</th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr *ngFor="let seccion of asesores15Cob, let i = index" [ngClass]="{'active': i === 0}">
+
+                        <td>
+                          <h6>{{seccion.NOMBRE}}</h6>
+                        </td>
+
+                        <td class="text-center border border-bottom-0">{{seccion.CLI_C_COBRO}}</td>
+
+                        <td class="text-right"><h4><span class="label" [ngClass]="{'label-danger': seccion.COBRO > 0, 'label-success': seccion.COBRO === 0}">{{seccion.COBRO | currency}}</span></h4></td>
+
+                        <td class="text-right border border-bottom-0 border-left-0"><h4><span class="label label-success">{{seccion.COBRADO | currency}}</span></h4></td>
+
+                      </tr>
+
+                      <tr class="bg-info text-white">
+
+                        <th>Total</th>
+
+                        <th class="text-center">{{totalCliCob15}}</th>
+
+                        <th class="text-right">{{totalSaldoCob15 | currency}}</th>
+
+                        <th class="text-right">{{totalCobrado15 | currency}}</th>
+
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-12 col-lg-12 col-sm-12" style="padding-left: 5px!important; padding-right: 5px!important;">
+
+                <div class="table-responsive">
+
+                  <table class="table table-sm stylish-table">
+
+                    <thead>
+
+                      <tr>
+
+                        <th></th>
+
+                        <th class="text-center border border-bottom-0">Clientes</th>
+
+                        <th colspan="2" class="text-center border border-bottom-0">Cartera</th>
+
+                      </tr>
+
+                      <tr>
+
+                        <th>Asesor</th>
+
+                        <th class="text-center border border-bottom-0 border-top-0">Con<br>Saldo</th>
+
+                        <th class="text-center">Saldo</th>
+
+                        <th class="text-center border border-left-0 border-top-0">Cobrado</th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr *ngFor="let seccion of asesores610Cob, let i = index">
+
+                        <td>
+                          <h6>{{seccion.NOMBRE}}</h6>
+                        </td>
+
+                        <td class="text-center border border-bottom-0">{{seccion.CLI_C_COBRO}}</td>
+
+                        <td class="text-right"><h4><span class="label" [ngClass]="{'label-danger': seccion.COBRO > 0, 'label-success': seccion.COBRO === 0}">{{seccion.COBRO | currency}}</span></h4></td>
+
+                        <td class="text-right border border-bottom-0 border-left-0"><h4><span class="label label-success">{{seccion.COBRADO | currency}}</span></h4></td>
+
+                      </tr>
+
+                      <tr class="bg-info text-white">
+
+                        <th>Total</th>
+
+                        <th class="text-center">{{totalCliCob610}}</th>
+
+                        <th class="text-right">{{totalSaldoCob610 | currency}}</th>
+
+                        <th class="text-right">{{totalCobrado610 | currency}}</th>
+
+                      </tr>
+
+                      <tr class="bg-primary text-white">
+
+                        <th>Total Zona 1</th>
+
+                        <th class="text-center">{{(totalCliCob15 + totalCliCob610)}}</th>
+
+                        <th class="text-right">{{(totalSaldoCob15 + totalSaldoCob610) | currency}}</th>
+
+                        <th class="text-right">{{(totalCobrado15 + totalCobrado610) | currency}}</th>
+
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12">
+
+            <div class="row">
+
+              <div class="col-md-12 col-lg-12 col-sm-12">
+
+                <h3 class="card-title">Zona 2</h3>
+    
+              </div>
+
+              <div class="col-md-12 col-lg-12 col-sm-12" style="padding-left: 5px!important; padding-right: 5px!important;">
+
+                <div class="table-responsive">
+
+                  <table class="table table-sm stylish-table">
+
+                    <thead>
+
+                      <tr>
+
+                        <th></th>
+
+                        <th class="text-center border border-bottom-0">Clientes</th>
+
+                        <th colspan="2" class="text-center border border-bottom-0">Cartera</th>
+
+                      </tr>
+
+                      <tr>
+
+                        <th>Asesor</th>
+
+                        <th class="text-center border border-bottom-0 border-top-0">Con<br>Saldo</th>
+
+                        <th class="text-center">Saldo</th>
+
+                        <th class="text-center border border-left-0 border-top-0">Cobrado</th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr *ngFor="let seccion of asesores1115Cob, let i = index" [ngClass]="{'active': i === 0}">
+
+                        <td>
+                          <h6>{{seccion.NOMBRE}}</h6>
+                        </td>
+
+                        <td class="text-center border border-bottom-0">{{seccion.CLI_C_COBRO}}</td>
+
+                        <td class="text-right"><h4><span class="label" [ngClass]="{'label-danger': seccion.COBRO > 0, 'label-success': seccion.COBRO === 0}">{{seccion.COBRO | currency}}</span></h4></td>
+
+                        <td class="text-right border border-bottom-0 border-left-0"><h4><span class="label label-success">{{seccion.COBRADO | currency}}</span></h4></td>
+
+                      </tr>
+
+                      <tr class="bg-info text-white">
+
+                        <th>Total</th>
+
+                        <th class="text-center">{{totalCliCob1115}}</th>
+
+                        <th class="text-right">{{totalSaldoCob1115 | currency}}</th>
+
+                        <th class="text-right">{{totalCobrado1115 | currency}}</th>
+
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-12 col-lg-12 col-sm-12" style="padding-left: 5px!important; padding-right: 5px!important;">
+
+                <div class="table-responsive">
+
+                  <table class="table table-sm stylish-table">
+
+                    <thead>
+
+                      <tr>
+
+                        <th></th>
+
+                        <th class="text-center border border-bottom-0">Clientes</th>
+
+                        <th colspan="2" class="text-center border border-bottom-0">Cartera</th>
+
+                      </tr>
+
+                      <tr>
+
+                        <th>Asesor</th>
+
+                        <th class="text-center border border-bottom-0 border-top-0">Con<br>Saldo</th>
+
+                        <th class="text-center">Saldo</th>
+
+                        <th class="text-center border border-left-0 border-top-0">Cobrado</th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr *ngFor="let seccion of asesores1620Cob, let i = index">
+
+                        <td>
+                          <h6>{{seccion.NOMBRE}}</h6>
+                        </td>
+
+                        <td class="text-center border border-bottom-0">{{seccion.CLI_C_COBRO}}</td>
+
+                        <td class="text-right"><h4><span class="label" [ngClass]="{'label-danger': seccion.COBRO > 0, 'label-success': seccion.COBRO === 0}">{{seccion.COBRO | currency}}</span></h4></td>
+
+                        <td class="text-right border border-bottom-0 border-left-0"><h4><span class="label label-success">{{seccion.COBRADO | currency}}</span></h4></td>
+
+                      </tr>
+
+                      <tr class="bg-info text-white">
+
+                        <th>Total</th>
+
+                        <th class="text-center">{{totalCliCob1620}}</th>
+
+                        <th class="text-right">{{totalSaldoCob1620 | currency}}</th>
+
+                        <th class="text-right">{{totalCobrado1620 | currency}}</th>
+
+                      </tr>
+
+                      <tr class="bg-primary text-white">
+
+                        <th>Total Zona 2</th>
+
+                        <th class="text-center">{{(totalCliCob1115 + totalCliCob1620)}}</th>
+
+                        <th class="text-right">{{(totalSaldoCob1115 + totalSaldoCob1620) | currency}}</th>
+
+                        <th class="text-right">{{(totalCobrado1115 + totalCobrado1620) | currency}}</th>
 
                       </tr>
 

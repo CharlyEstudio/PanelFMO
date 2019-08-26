@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -11,15 +11,20 @@ import { PanelService } from '../services/services.index';
   templateUrl: './asesores.component.html',
   styles: []
 })
-export class AsesoresComponent implements OnInit {
+export class AsesoresComponent implements OnInit, OnDestroy {
 
   asesores: any[] = [];
   asesores15: any[] = [];
   asesores610: any[] = [];
   asesores1115: any[] = [];
   asesores1620: any[] = [];
+  asesores15Cob: any[] = [];
+  asesores610Cob: any[] = [];
+  asesores1115Cob: any[] = [];
+  asesores1620Cob: any[] = [];
   clientesTotales: number = 0;
   clientesPedidosTotales: number = 0;
+  clientescobradoTotales: number = 0;
   trabajado: number = 0;
   totalCli15: number = 0;
   totalCliVta15: number = 0;
@@ -45,10 +50,25 @@ export class AsesoresComponent implements OnInit {
   totalPed1620: number = 0;
   totalImporte1620: number = 0;
   totalPendiente1620: number = 0;
+  totalCliCob15: number = 0;
+  totalSaldoCob15: number = 0;
+  totalCobrado15: number = 0;
+  totalCliCob610: number = 0;
+  totalSaldoCob610: number = 0;
+  totalCobrado610: number = 0;
+  totalCliCob1115: number = 0;
+  totalSaldoCob1115: number = 0;
+  totalCobrado1115: number = 0;
+  totalCliCob1620: number = 0;
+  totalSaldoCob1620: number = 0;
+  totalCobrado1620: number = 0;
+  totalCobranzaCartera: number = 0;
+  totalColectado: number = 0;
   asesoresBest: any[] = [];
   asesoresZona1: any[] = [];
   asesoresZona2: any[] = [];
   totalVta: number = 0;
+  minimo: number = (19 * 25);
 
   observando: Subscription;
   intervalo: any;
@@ -77,6 +97,11 @@ export class AsesoresComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.observando.unsubscribe();
+    clearInterval(this.intervalo);
   }
 
   obtenerPedidos() {
@@ -141,7 +166,8 @@ export class AsesoresComponent implements OnInit {
           }
         };
         this.best();
-        this.resumen();
+        this.resumenVta();
+        this.resumenCob();
       }
     });
   }
@@ -180,7 +206,7 @@ export class AsesoresComponent implements OnInit {
 
   }
 
-  resumen() {
+  resumenVta() {
     this.panelService.resumenPedidosAsesor().subscribe((res: any) => {
       if (res.length > 0) {
         this.asesores15 = [];
@@ -218,47 +244,119 @@ export class AsesoresComponent implements OnInit {
           this.clientesTotales += res[i].CLIENTES_DIA;
           this.clientesPedidosTotales += res[i].DIA_C_VTA;
           if (i < 5) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1];
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
             this.asesores15.push(res[i]);
             this.totalCli15 += res[i].CLIENTES_DIA;
             this.totalCliVta15 += res[i].DIA_C_VTA;
             this.totalCliFal15 += (res[i].CLIENTES_DIA - res[i].DIA_C_VTA);
             this.totalPed15 += res[i].PEDIDOS;
             this.totalImporte15 += res[i].IMPORTE;
-            this.totalPendiente15 += res[i].FALTA;
+            if (res[i].FALTA > 0) {
+              this.totalPendiente15 += res[i].FALTA;
+            }
           }
           if (i < 10 && i > 4) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1];
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
             this.asesores610.push(res[i]);
             this.totalCli610 += res[i].CLIENTES_DIA;
             this.totalCliVta610 += res[i].DIA_C_VTA;
             this.totalCliFal610 += (res[i].CLIENTES_DIA - res[i].DIA_C_VTA);
             this.totalPed610 += res[i].PEDIDOS;
             this.totalImporte610 += res[i].IMPORTE;
-            this.totalPendiente610 += res[i].FALTA;
+            if (res[i].FALTA > 0) {
+              this.totalPendiente610 += res[i].FALTA;
+            }
           }
           if (i < 15 && i > 9) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1];
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
             this.asesores1115.push(res[i]);
             this.totalCli1115 += res[i].CLIENTES_DIA;
             this.totalCliVta1115 += res[i].DIA_C_VTA;
             this.totalCliFal1115 += (res[i].CLIENTES_DIA - res[i].DIA_C_VTA);
             this.totalPed1115 += res[i].PEDIDOS;
             this.totalImporte1115 += res[i].IMPORTE;
-            this.totalPendiente1115 += res[i].FALTA;
+            if (res[i].FALTA > 0) {
+              this.totalPendiente1115 += res[i].FALTA;
+            }
           }
           if (i > 14) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1];
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
             this.asesores1620.push(res[i]);
             this.totalCli1620 += res[i].CLIENTES_DIA;
             this.totalCliVta1620 += res[i].DIA_C_VTA;
             this.totalCliFal1620 += (res[i].CLIENTES_DIA - res[i].DIA_C_VTA);
             this.totalPed1620 += res[i].PEDIDOS;
             this.totalImporte1620 += res[i].IMPORTE;
-            this.totalPendiente1620 += res[i].FALTA;
+            if (res[i].FALTA > 0) {
+              this.totalPendiente1620 += res[i].FALTA;
+            }
           }
         }
         this.trabajado = this.clientesPedidosTotales / this.clientesTotales;
+      }
+    });
+  }
+
+  resumenCob() {
+    this.panelService.resumenCobranzaAsesor().subscribe((res: any) => {
+      if (res.length > 0) {
+        this.asesores15Cob = [];
+        this.asesores610Cob = [];
+        this.asesores1115Cob = [];
+        this.asesores1620Cob = [];
+        this.totalCliCob15 = 0;
+        this.totalSaldoCob15 = 0;
+        this.totalCobrado15 = 0;
+        this.totalCliCob610 = 0;
+        this.totalSaldoCob610 = 0;
+        this.totalCobrado610 = 0;
+        this.totalCliCob1115 = 0;
+        this.totalSaldoCob1115 = 0;
+        this.totalCobrado1115 = 0;
+        this.totalCliCob1620 = 0;
+        this.totalSaldoCob1620 = 0;
+        this.totalCobrado1620 = 0;
+        this.clientescobradoTotales = 0;
+        this.totalCobranzaCartera = 0;
+        this.totalColectado = 0;
+        for (let i = 0; i < res.length; i++) {
+          this.clientescobradoTotales += res[i].DIA_C_COBRO;
+          this.totalCobranzaCartera += res[i].COBRO;
+          this.totalColectado += res[i].COBRADO;
+          if (i < 5) {
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            this.asesores15Cob.push(res[i]);
+            this.totalCliCob15 += res[i].CLI_C_COBRO;
+            this.totalSaldoCob15 += res[i].COBRO;
+            this.totalCobrado15 += res[i].COBRADO;
+          }
+          if (i < 10 && i > 4) {
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            this.asesores610Cob.push(res[i]);
+            this.totalCliCob610 += res[i].CLI_C_COBRO;
+            this.totalSaldoCob610 += res[i].COBRO;
+            this.totalCobrado610 += res[i].COBRADO;
+          }
+          if (i < 15 && i > 9) {
+            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            this.asesores1115Cob.push(res[i]);
+            this.totalCliCob1115 += res[i].CLI_C_COBRO;
+            this.totalSaldoCob1115 += res[i].COBRO;
+            this.totalCobrado1115 += res[i].COBRADO;
+          }
+          if (i > 14) {
+            if (res[i].NOMBRE.split(' ')[2] !== undefined) {
+              res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            } else {
+              res[i].NOMBRE = res[i].NOMBRE.split(' ')[1];
+            }
+            this.asesores1620Cob.push(res[i]);
+            this.totalCliCob1620 += res[i].CLI_C_COBRO;
+            this.totalSaldoCob1620 += res[i].COBRO;
+            this.totalCobrado1620 += res[i].COBRADO;
+          }
+        }
+        // this.trabajado = this.clientesPedidosTotales / this.clientesTotales;
       }
     });
   }

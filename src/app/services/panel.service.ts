@@ -364,4 +364,10 @@ export class PanelService {
     return this.http.get(this.url);
   }
 
+  resumenCobranzaAsesor() {
+    this.url = this.path + '/api/pedidos.php?opcion=44';
+
+    return this.http.get(this.url);
+  }
+
 }
