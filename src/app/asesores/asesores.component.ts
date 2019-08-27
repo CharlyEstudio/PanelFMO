@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 
 // Servicios
-import { PanelService } from '../services/services.index';
+import { PanelService, SlectFechaService } from '../services/services.index';
 
 @Component({
   selector: 'app-asesores',
@@ -12,6 +12,8 @@ import { PanelService } from '../services/services.index';
   styles: []
 })
 export class AsesoresComponent implements OnInit, OnDestroy {
+
+  fechaEmit: string;
 
   asesores: any[] = [];
   asesores15: any[] = [];
@@ -84,10 +86,34 @@ export class AsesoresComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    private panelService: PanelService
-  ) {
-    this.obtenerPedidos();
+    private panelService: PanelService,
+    private _selectFechaService: SlectFechaService
+  ) { }
 
+  ngOnInit() {
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerPedidos(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.observando.unsubscribe();
+          clearInterval(this.intervalo);
+
+          // Destrucción de Intervalo de Tiempo
+          clearInterval(this.intervalo);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observacion();
+        }
+      });
+  }
+
+  observacion() {
     // Subscrión a Pedidos
     this.observando =  this.regresa().subscribe(
       numero => {},
@@ -96,16 +122,13 @@ export class AsesoresComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {
-  }
-
   ngOnDestroy() {
     this.observando.unsubscribe();
     clearInterval(this.intervalo);
   }
 
-  obtenerPedidos() {
-    this.panelService.pedidosporAsesor().subscribe((ase: any) => {
+  obtenerPedidos(fecha: string) {
+    this.panelService.pedidosporAsesor(fecha).subscribe((ase: any) => {
       if (ase.length > 0) {
         this.totalVta = 0;
         this.asesores = ase;
@@ -166,8 +189,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
           }
         };
         this.best();
-        this.resumenVta();
-        this.resumenCob();
+        this.resumenVta(fecha);
+        this.resumenCob(fecha);
       }
     });
   }
@@ -198,7 +221,7 @@ export class AsesoresComponent implements OnInit, OnDestroy {
     return new Observable((observer: Subscriber<any>) => {
       this.intervalo = setInterval( () => {
 
-        this.obtenerPedidos();
+        this.obtenerPedidos(this.fechaEmit);
 
       }, 10000);
     })
@@ -206,8 +229,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
 
   }
 
-  resumenVta() {
-    this.panelService.resumenPedidosAsesor().subscribe((res: any) => {
+  resumenVta(fecha: string) {
+    this.panelService.resumenPedidosAsesor(fecha).subscribe((res: any) => {
       if (res.length > 0) {
         this.asesores15 = [];
         this.asesores610 = [];
@@ -297,8 +320,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
     });
   }
 
-  resumenCob() {
-    this.panelService.resumenCobranzaAsesor().subscribe((res: any) => {
+  resumenCob(fecha: string) {
+    this.panelService.resumenCobranzaAsesor(fecha).subscribe((res: any) => {
       if (res.length > 0) {
         this.asesores15Cob = [];
         this.asesores610Cob = [];

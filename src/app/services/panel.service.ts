@@ -352,20 +352,20 @@ export class PanelService {
     return this.http.get(this.url);
   }
 
-  pedidosporAsesor() {
-    this.url = this.path + '/api/pedidos.php?opcion=42';
+  pedidosporAsesor(fecha: string) {
+    this.url = this.path + '/api/pedidos.php?opcion=42&fecha=' + fecha;
 
     return this.http.get(this.url);
   }
 
-  resumenPedidosAsesor() {
-    this.url = this.path + '/api/pedidos.php?opcion=43';
+  resumenPedidosAsesor(fecha: string) {
+    this.url = this.path + '/api/pedidos.php?opcion=43&fecha=' + fecha;
 
     return this.http.get(this.url);
   }
 
-  resumenCobranzaAsesor() {
-    this.url = this.path + '/api/pedidos.php?opcion=44';
+  resumenCobranzaAsesor(fecha: string) {
+    this.url = this.path + '/api/pedidos.php?opcion=44&fecha=' + fecha;
 
     return this.http.get(this.url);
   }
