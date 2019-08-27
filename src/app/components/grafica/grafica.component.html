@@ -1,3 +1,4 @@
-<div style="display: block;">
+<div style="display: block;" *ngIf="lineChartData.length > 0">
+<!-- <div style="display: block;"> -->
     <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
 </div>

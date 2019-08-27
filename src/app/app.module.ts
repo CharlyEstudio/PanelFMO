@@ -20,6 +20,10 @@ import { GraficaComponent } from './components/grafica/grafica.component';
 import { FacturasComponent } from './components/facturas/facturas.component';
 import { TotalClientesComponent } from './components/total-clientes/total-clientes.component';
 import { SelectFechaComponent } from './components/select-fecha/select-fecha.component';
+import { AsesoresComponent } from './asesores/asesores.component';
+import { GeneralComponent } from './general/general.component';
+import { NavegacionComponent } from './components/navegacion/navegacion.component';
+import { DonaComponent } from './components/dona/dona.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { SelectFechaComponent } from './components/select-fecha/select-fecha.com
     GraficaComponent,
     FacturasComponent,
     TotalClientesComponent,
-    SelectFechaComponent
+    SelectFechaComponent,
+    AsesoresComponent,
+    GeneralComponent,
+    NavegacionComponent,
+    DonaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TimeLineService } from '../../services/services.index';
+import { TimeLineService, SlectFechaService } from '../../services/services.index';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -13,6 +13,9 @@ import 'rxjs/add/operator/filter';
   styles: []
 })
 export class TimeLineComponent implements OnInit, OnDestroy {
+
+  // Fecha Emit
+  fechaEmit: string;
 
   hora: any;
 
@@ -163,9 +166,92 @@ export class TimeLineComponent implements OnInit, OnDestroy {
   intervalo: any;
 
   constructor(
-    private _timeLine: TimeLineService
-  ) {
+    private _timeLine: TimeLineService,
+    private _selectFechaService: SlectFechaService
+  ) {}
 
+  ngOnInit() {
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerTiempo(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.timeLine.unsubscribe();
+          clearInterval(this.intervalo);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.qh89 = 0;
+          this.qh910 = 0;
+          this.qh1011 = 0;
+          this.qh1112 = 0;
+          this.qh1213 = 0;
+          this.qh1314 = 0;
+          this.qh1415 = 0;
+          this.qh1516 = 0;
+          this.qh1617 = 0;
+          this.qh1718 = 0;
+          this.qh1819 = 0;
+          this.qh1920 = 0;
+
+          this.th89 = 0;
+          this.th910 = 0;
+          this.th1011 = 0;
+          this.th1112 = 0;
+          this.th1213 = 0;
+          this.th1314 = 0;
+          this.th1415 = 0;
+          this.th1516 = 0;
+          this.th1617 = 0;
+          this.th1718 = 0;
+          this.th1819 = 0;
+          this.th1920 = 0;
+
+          this.fh89 = 0;
+          this.fh910 = 0;
+          this.fh1011 = 0;
+          this.fh1112 = 0;
+          this.fh1213 = 0;
+          this.fh1314 = 0;
+          this.fh1415 = 0;
+          this.fh1516 = 0;
+          this.fh1617 = 0;
+          this.fh1718 = 0;
+          this.fh1819 = 0;
+          this.fh1920 = 0;
+
+          this.wh89 = 0;
+          this.wh910 = 0;
+          this.wh1011 = 0;
+          this.wh1112 = 0;
+          this.wh1213 = 0;
+          this.wh1314 = 0;
+          this.wh1415 = 0;
+          this.wh1516 = 0;
+          this.wh1617 = 0;
+          this.wh1718 = 0;
+          this.wh1819 = 0;
+          this.wh1920 = 0;
+          this.lineChartData = [
+            {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'COT QRO'},
+            {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'COT TX'},
+            {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'FACTURADOS'},
+            {data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'WEB'},
+            {data: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35], label: 'PELIGRO'},
+            {data: [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50], label: 'RAZONABLE'},
+            {data: [55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55], label: 'MUY BUENO'}
+          ];
+          this.observarTiempo();
+        }
+      });
+
+  }
+
+  observarTiempo() {
     // Subscripción
     this.timeLine = this.regresaObservable()
       .subscribe(
@@ -344,202 +430,10 @@ export class TimeLineComponent implements OnInit, OnDestroy {
         error => console.log('Error en el observable: ', error),
         () => console.log('Termina Línea de Tiempo.')
       );
-
   }
 
-  ngOnDestroy() {
-    this.timeLine.unsubscribe();
-    clearInterval(this.intervalo);
-  }
-
-  regresaObservable(): Observable<any> {
-    return new Observable( ( observer: Subscriber<any> ) => {
-
-      this.intervalo = setInterval(() => {
-
-        this._timeLine.linea().subscribe(( data: any ) => {
-          observer.next(data);
-        });
-
-        // Facturados
-        // this._timeLine.hora('01', '09')
-        //   .subscribe( data => {
-        //     this.fh89 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('09', '10')
-        //   .subscribe( data => {
-        //     this.fh910 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('10', '11')
-        //   .subscribe( data => {
-        //     this.fh1011 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('11', '12')
-        //   .subscribe( data => {
-        //     this.fh1112 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('12', '13')
-        //   .subscribe( data => {
-        //     this.fh1213 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('13', '14')
-        //   .subscribe( data => {
-        //     this.fh1314 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('14', '15')
-        //   .subscribe( data => {
-        //     this.fh1415 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('15', '16')
-        //   .subscribe( data => {
-        //     this.fh1516 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('16', '17')
-        //   .subscribe( data => {
-        //     this.fh1617 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('17', '18')
-        //   .subscribe( data => {
-        //     this.fh1718 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('18', '19')
-        //   .subscribe( data => {
-        //     this.fh1819 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora(19, 20)
-        //   .subscribe( data => {
-        //     this.fh1920 = data[0].cantidad;
-        //   });
-
-        // Querétaro
-        // this._timeLine.hora('01', '09', 2)
-        //   .subscribe( data => {
-        //     this.qh89 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('09', '10', 2)
-        //   .subscribe( data => {
-        //     this.qh910 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('10', '11', 2)
-        //   .subscribe( data => {
-        //     this.qh1011 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('11', '12', 2)
-        //   .subscribe( data => {
-        //     this.qh1112 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('12', '13', 2)
-        //   .subscribe( data => {
-        //     this.qh1213 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('13', '14', 2)
-        //   .subscribe( data => {
-        //     this.qh1314 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('14', '15', 2)
-        //   .subscribe( data => {
-        //     this.qh1415 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('15', '16', 2)
-        //   .subscribe( data => {
-        //     this.qh1516 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('16', '17', 2)
-        //   .subscribe( data => {
-        //     this.qh1617 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('17', '18', 2)
-        //   .subscribe( data => {
-        //     this.qh1718 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('18', '19', 2)
-        //   .subscribe( data => {
-        //     this.qh1819 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('19', '20', 2)
-        //   .subscribe( data => {
-        //     this.qh1920 = data[0].cantidad;
-        //   });
-
-        // Tequisquiapan
-        // this._timeLine.hora('01', '09', 1)
-        //   .subscribe( data => {
-        //     this.th89 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('09', '10', 1)
-        //   .subscribe( data => {
-        //     this.th910 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('10', '11', 1)
-        //   .subscribe( data => {
-        //     this.th1011 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('11', '12', 1)
-        //   .subscribe( data => {
-        //     this.th1112 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('12', '13', 1)
-        //   .subscribe( data => {
-        //     this.th1213 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('13', '14', 1)
-        //   .subscribe( data => {
-        //     this.th1314 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('14', '15', 1)
-        //   .subscribe( data => {
-        //     this.th1415 = data[0].cantidad;
-        //   });
-
-        // this._timeLine.hora('15', '16', 1)
-        //   .subscribe( data => {
-        //     this.th1516 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('16', '17', 1)
-        //   .subscribe( data => {
-        //     this.th1617 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('17', '18', 1)
-        //   .subscribe( data => {
-        //     this.th1718 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('18', '19', 1)
-        //   .subscribe( data => {
-        //     this.th1819 = data[0].cantidad;
-        //   });
-        // this._timeLine.hora('19', '20', 1)
-        //   .subscribe( data => {
-        //     this.th1920 = data[0].cantidad;
-        //   });
-
-      }, 10000);
-
-    })
-    .retry();
-  }
-
-  ngOnInit() {
-    this._timeLine.linea().subscribe(( info: any ) => {
+  obtenerTiempo(fecha: string) {
+    this._timeLine.linea(fecha).subscribe(( info: any ) => {
       for (let i = 0; i < info.length; i++) {
         if (info[i].tipo === 'COT QRO') {
           this.label1 = info[i].tipo;
@@ -711,199 +605,26 @@ export class TimeLineComponent implements OnInit, OnDestroy {
         {data: [55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55], label: 'MUY BUENO'}
       ];
     });
+  }
 
-    // // Pedidos de 8 a 9 Total
-    // this._timeLine.hora('01', '09')
-    //   .subscribe( ( data ) => {
-    //     this.fh89 = data[0].cantidad;
-    //   });
+  ngOnDestroy() {
+    this.timeLine.unsubscribe();
+    clearInterval(this.intervalo);
+  }
 
-    // this._timeLine.hora('01', '09', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh89 = data[0].cantidad;
-    //   });
+  regresaObservable(): Observable<any> {
+    return new Observable( ( observer: Subscriber<any> ) => {
 
-    // this._timeLine.hora('01', '09', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th89 = data[0].cantidad;
-    //   });
+      this.intervalo = setInterval(() => {
 
-    // // Pedidos de 9 a 10 Total
-    // this._timeLine.hora('09', '10')
-    //   .subscribe( ( data ) => {
-    //     this.fh910 = data[0].cantidad;
-    //   });
+        this._timeLine.linea(this.fechaEmit).subscribe(( data: any ) => {
+          observer.next(data);
+        });
 
-    // this._timeLine.hora('09', '10', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh910 = data[0].cantidad;
-    //   });
+      }, 10000);
 
-    // this._timeLine.hora('09', '10', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th910 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 10 a 11 Total
-    // this._timeLine.hora('10', '11')
-    //   .subscribe( ( data ) => {
-    //     this.fh1011 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('10', '11', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1011 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('10', '11', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1011 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 11 a 12 Total
-    // this._timeLine.hora('11', '12')
-    //   .subscribe( ( data ) => {
-    //     this.fh1112 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('11', '12', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1112 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('11', '12', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1112 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 12 a 13 Total
-    // this._timeLine.hora('12', '13')
-    //   .subscribe( ( data ) => {
-    //     this.fh1213 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('12', '13', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1213 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('12', '13', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1213 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 13 a 14 Total
-    // this._timeLine.hora('13', '14')
-    //   .subscribe( ( data ) => {
-    //     this.fh1314 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('13', '14', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1314 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('13', '14', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1314 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 14 a 15 Total
-    // this._timeLine.hora('14', 15)
-    //   .subscribe( ( data ) => {
-    //     this.fh1415 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('14', '15', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1415 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('14', '15', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1415 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 15 a 16 Total
-    // this._timeLine.hora('15', '16')
-    //   .subscribe( ( data ) => {
-    //     this.fh1516 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('15', '16', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1516 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('15', '16', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1516 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 16 a 17 Total
-    // this._timeLine.hora('16', '17')
-    //   .subscribe( ( data ) => {
-    //     this.fh1617 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('16', '17', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1617 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('16', '17', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1617 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 17 a 18 Total
-    // this._timeLine.hora('17', '18')
-    //   .subscribe( ( data ) => {
-    //     this.fh1718 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('17', '18', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1718 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('17', '18', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1718 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 18 a 19 Total
-    // this._timeLine.hora('18', '19')
-    //   .subscribe( ( data ) => {
-    //     this.fh1819 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('18', '19', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1819 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('18', '19', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1819 = data[0].cantidad;
-    //   });
-
-    // // Pedidos de 19 a 20 Total
-    // this._timeLine.hora('19', '20')
-    //   .subscribe( ( data ) => {
-    //     this.fh1920 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('19', '20', 2)
-    //   .subscribe( ( data ) => {
-    //     this.qh1920 = data[0].cantidad;
-    //   });
-
-    // this._timeLine.hora('19', '20', 1)
-    //   .subscribe( ( data ) => {
-    //     this.th1920 = data[0].cantidad;
-    //   });
-
+    })
+    .retry();
   }
 
 }

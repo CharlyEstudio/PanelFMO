@@ -5,7 +5,7 @@ import { Subscriber } from 'rxjs/Subscriber';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
-import { PanelService } from '../../services/services.index';
+import { PanelService, SlectFechaService } from '../../services/services.index';
 
 @Component({
   selector: 'app-facturado',
@@ -13,6 +13,9 @@ import { PanelService } from '../../services/services.index';
   styles: []
 })
 export class FacturadoComponent implements OnInit, OnDestroy {
+
+  // Fecha Emit
+  fechaEmit: string;
 
   // Facturado
   facturado: number = 0;
@@ -28,10 +31,34 @@ export class FacturadoComponent implements OnInit, OnDestroy {
   correcto: boolean = true;
 
   constructor(
-    private _panelService: PanelService
-  ) {
+    private _panelService: PanelService,
+    private _selectFechaService: SlectFechaService
+  ) {}
 
-    // Subscrión a Pedidos por Bajar
+  ngOnInit() {
+
+    // Obtener fecha para hacer consultas
+    this._selectFechaService.fecha
+      .subscribe((fechaEmiter: any) => {
+        this.fechaEmit = fechaEmiter.fecha;
+
+        // Obtener totales
+        this.obtenerRemisionado(fechaEmiter.fecha);
+
+        if (fechaEmiter.emitido) {
+          // Intervalo por Bajar
+          this.factura.unsubscribe();
+          clearInterval(this.intFactura);
+        } else {
+          // Inicia Observable si la fecha es igual seleccionada
+          this.observarRemision();
+        }
+      });
+
+  }
+
+  observarRemision() {
+    // Subscrión a Pedidos Remisionados
     this.factura =  this.regresaFactura().subscribe(
       numero => {
         this.facturado = numero.cantidad;
@@ -39,13 +66,11 @@ export class FacturadoComponent implements OnInit, OnDestroy {
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
     );
-
   }
 
-  ngOnInit() {
-
-    // Pedidos por Bajar
-    this._panelService.facturado()
+  obtenerRemisionado(fecha: string) {
+    // Pedidos Remisionados
+    this._panelService.facturado(fecha)
       .subscribe((data) => {
         if ( data[0].importe !== 0 ) {
           this.facturado = data[0].cantidad;
@@ -55,37 +80,36 @@ export class FacturadoComponent implements OnInit, OnDestroy {
       });
 
     // Por Zona
-    this._panelService.zonaFacturado('02')
+    this._panelService.zonaFacturado(fecha, '02')
       .subscribe( ( data: any ) => {
         this.qroFac = data[0].cantidad;
       });
 
-    this._panelService.zonaFacturado('01')
+    this._panelService.zonaFacturado(fecha, '01')
       .subscribe( ( data: any ) => {
         this.txFac = data[0].cantidad;
       });
 
-    this._panelService.webFacturado()
+    this._panelService.webFacturado(fecha)
       .subscribe( ( data: any ) => {
         this.webFac = data[0].cantidad;
       });
-
   }
 
   ngOnDestroy() {
 
-    // Intervalo por Bajar
+    // Intervalo Remisionados
     this.factura.unsubscribe();
     clearInterval(this.intFactura);
 
   }
 
-  // Observable de Pedidos por Bajar
+  // Observable de Pedidos Remisionados
   regresaFactura(): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
       this.intFactura = setInterval( () => {
 
-        this._panelService.facturado()
+        this._panelService.facturado(this.fechaEmit)
           .subscribe( ( data ) => {
 
             if (data[0].cantidad !== 0) {
@@ -104,17 +128,17 @@ export class FacturadoComponent implements OnInit, OnDestroy {
 
           });
 
-        this._panelService.zonaFacturado('02')
+        this._panelService.zonaFacturado(this.fechaEmit, '02')
           .subscribe( ( data: any ) => {
             this.qroFac = data[0].cantidad;
           });
 
-        this._panelService.zonaFacturado('01')
+        this._panelService.zonaFacturado(this.fechaEmit, '01')
           .subscribe( ( data: any ) => {
             this.txFac = data[0].cantidad;
           });
 
-        this._panelService.webFacturado()
+        this._panelService.webFacturado(this.fechaEmit)
           .subscribe( ( data: any ) => {
             this.webFac = data[0].cantidad;
           });
