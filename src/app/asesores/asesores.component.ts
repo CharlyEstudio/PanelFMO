@@ -128,71 +128,9 @@ export class AsesoresComponent implements OnInit, OnDestroy {
   }
 
   obtenerPedidos(fecha: string) {
-    this.panelService.pedidosporAsesor(fecha).subscribe((ase: any) => {
-      if (ase.length > 0) {
-        this.totalVta = 0;
-        this.asesores = ase;
-        this.graficos = '';
-        let zona1 = [];
-        let zona2 = [];
-        let pedidos = [];
-        let minimo = [];
-        let razonable = [];
-        let hecho = [];
-        for (const a of ase) {
-          if (a.INDICE === '(1') {
-            const agregar1 = {
-              'CLIENTES_DIA': a.CLIENTES_DIA,
-              'DIA_C_VTA': a.DIA_C_VTA,
-              'DIA_S_VTA': (a.CLIENTES_DIA - a.DIA_C_VTA),
-              'FALTA': a.FALTA,
-              'IMPORTE': a.IMPORTE,
-              'INDICE': a.INDICE,
-              'NOMBRE': a.NOMBRE,
-              'PEDIDOS': a.PEDIDOS,
-              'PERID': a.PERID,
-              'RUTA': a.RUTA,
-              'TITULO': a.NOMBRE.split(' ')[1]
-            };
-            zona1.push(agregar1);
-          }
-          if (a.INDICE === '(2') {
-            const agregar2 = {
-              'CLIENTES_DIA': a.CLIENTES_DIA,
-              'DIA_C_VTA': a.DIA_C_VTA,
-              'DIA_S_VTA': (a.CLIENTES_DIA - a.DIA_C_VTA),
-              'FALTA': a.FALTA,
-              'IMPORTE': a.IMPORTE,
-              'INDICE': a.INDICE,
-              'NOMBRE': a.NOMBRE,
-              'PEDIDOS': a.PEDIDOS,
-              'PERID': a.PERID,
-              'RUTA': a.RUTA,
-              'TITULO': a.NOMBRE.split(' ')[1]
-            };
-            zona2.push(agregar2);
-          }
-          pedidos.push(a.PEDIDOS);
-          minimo.push(20);
-          razonable.push(22);
-          hecho.push(27);
-          this.totalVta += a.IMPORTE;
-        }
-        this.asesoresZona1 = zona1;
-        this.asesoresZona2 = zona2;
-        this.graficos = {
-          'general': {
-            'labels': [this.totalVta, 'Meta'],
-            'data':  [this.totalVta, (600000 - this.totalVta)],
-            'type': 'doughnut',
-            'leyenda': 'Remisionado'
-          }
-        };
-        this.best();
-        this.resumenVta(fecha);
-        this.resumenCob(fecha);
-      }
-    });
+    this.best();
+    this.resumenVta(fecha);
+    this.resumenCob(fecha);
   }
 
   best() {
@@ -267,7 +205,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
           this.clientesTotales += res[i].CLIENTES_DIA;
           this.clientesPedidosTotales += res[i].DIA_C_VTA;
           if (i < 5) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            // res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 5) + '.';
+            res[i].NOMBRE = res[i].NOMBRE.split(')')[1];
             this.asesores15.push(res[i]);
             this.totalCli15 += res[i].CLIENTES_DIA;
             this.totalCliVta15 += res[i].DIA_C_VTA;
@@ -279,7 +218,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
             }
           }
           if (i < 10 && i > 4) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            // res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            res[i].NOMBRE = res[i].NOMBRE.split(')')[1];
             this.asesores610.push(res[i]);
             this.totalCli610 += res[i].CLIENTES_DIA;
             this.totalCliVta610 += res[i].DIA_C_VTA;
@@ -291,7 +231,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
             }
           }
           if (i < 15 && i > 9) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            // res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            res[i].NOMBRE = res[i].NOMBRE.split(')')[1];
             this.asesores1115.push(res[i]);
             this.totalCli1115 += res[i].CLIENTES_DIA;
             this.totalCliVta1115 += res[i].DIA_C_VTA;
@@ -303,7 +244,8 @@ export class AsesoresComponent implements OnInit, OnDestroy {
             }
           }
           if (i > 14) {
-            res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            // res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 3) + '.';
+            res[i].NOMBRE = res[i].NOMBRE.split(')')[1];
             this.asesores1620.push(res[i]);
             this.totalCli1620 += res[i].CLIENTES_DIA;
             this.totalCliVta1620 += res[i].DIA_C_VTA;
