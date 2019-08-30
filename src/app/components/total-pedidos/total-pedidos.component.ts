@@ -113,6 +113,10 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
   }
 
   obtenerTotales(fecha: string) {
+    this.tot = 0;
+    this.canZ1 = 0;
+    this.canZ2 = 0;
+    this.canEsp = 0;
     // Pedidos Total
     this._panelService.total(fecha)
       .subscribe((data: any) => {
