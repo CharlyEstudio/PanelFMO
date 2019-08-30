@@ -6,184 +6,6 @@
 
   </div>
 
-  <div class="col-md-12 col lg-12">
-
-    <div class="card">
-
-      <div class="card-body">
-
-        
-        <div class="table-responsive">
-
-            <h1>Zona 1</h1>
-    
-          <table class="table table-striped table-hover table-sm">
-    
-            <thead>
-    
-              <tr>
-    
-                <th>ASESOR</th>
-    
-                <th class="text-center font-weight-bold" *ngFor="let z1 of asesoresZona1">{{z1.TITULO}}</th>
-    
-              </tr>
-    
-            </thead>
-    
-            <tbody>
-
-              <tr>
-  
-                <th>CLIENTES DIA</th>
-    
-                <th class="font-14 text-center font-weight-bold" *ngFor="let z1 of asesoresZona1">{{z1.CLIENTES_DIA}}</th>
-    
-              </tr>
-
-              <tr>
-    
-                <th>CTES C/VTA</th>
-    
-                <th class="font-14 text-center text-success font-weight-bold" *ngFor="let z1 of asesoresZona1">{{z1.DIA_C_VTA}}</th>
-    
-              </tr>
-
-              <tr>
-    
-                <th>CTES S/VTA</th>
-    
-                <th class="font-14 text-center text-danger font-weight-bold" *ngFor="let z1 of asesoresZona1">{{z1.DIA_S_VTA}}</th>
-    
-              </tr>
-    
-              <tr>
-    
-                <th>PEDIDOS</th>
-    
-                <!-- <th class="font-14 text-center" *ngFor="let z1 of asesoresZona1" [ngClass]="{'text-success': z1.PEDIDOS >= 20, 'text-danger': z1.PEDIDOS < 20}">{{z1.PEDIDOS}}</th> -->
-                <th class="font-14 text-center" *ngFor="let z1 of asesoresZona1">{{z1.PEDIDOS}}</th>
-    
-              </tr>
-    
-              <tr>
-    
-                <th>IMPORTE</th>
-    
-                <!-- <th class="font-14 text-center" *ngFor="let z1 of asesoresZona1" [ngClass]="{'text-success': z1.IMPORTE > 22000, 'text-danger': z1.IMPORTE <= 22000}">{{z1.IMPORTE | currency}}</th> -->
-                <th class="font-14 text-center" *ngFor="let z1 of asesoresZona1">{{z1.IMPORTE | currency}}</th>
-    
-              </tr>
-
-              <tr>
-    
-                <th>PENDIENTE EN $</th>
-    
-                <th class="font-14 text-center text-white font-weight-bold" *ngFor="let z1 of asesoresZona1" [ngClass]="{'bg-success': z1.FALTA < 0, 'bg-danger': z1.FALTA >= 8000, 'bg-warning': z1.FALTA < 8000 && z1.FALTA > 0}">{{z1.FALTA | currency}}</th>
-    
-              </tr>
-    
-            </tbody>
-    
-          </table>
-    
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="col-md-12 col lg-12">
-
-    <div class="card">
-
-      <div class="card-body">
-
-        
-        <div class="table-responsive">
-
-            <h1>Zona 2</h1>
-    
-          <table class="table table-striped table-hover table-sm">
-    
-            <thead>
-    
-              <tr>
-    
-                <th>ASESOR</th>
-    
-                <th class="text-center font-weight-bold" *ngFor="let z2 of asesoresZona2">{{z2.TITULO}}</th>
-    
-              </tr>
-    
-            </thead>
-    
-            <tbody>
-
-              <tr>
-  
-                <th>CLIENTES DIA</th>
-    
-                <th class="font-14 text-center font-weight-bold" *ngFor="let z2 of asesoresZona2">{{z2.CLIENTES_DIA}}</th>
-    
-              </tr>
-
-              <tr>
-    
-                <th>CTES C/VTA</th>
-    
-                <th class="font-14 text-center text-success font-weight-bold" *ngFor="let z2 of asesoresZona2">{{z2.DIA_C_VTA}}</th>
-    
-              </tr>
-
-              <tr>
-    
-                <th>CTES S/VTA</th>
-    
-                <th class="font-14 text-center text-danger font-weight-bold" *ngFor="let z2 of asesoresZona2">{{z2.DIA_S_VTA}}</th>
-    
-              </tr>
-    
-              <tr>
-    
-                <th>PEDIDOS</th>
-    
-                <!-- <th class="font-14 text-center" *ngFor="let z2 of asesoresZona2" [ngClass]="{'text-success': z2.PEDIDOS >= 20, 'text-danger': z2.PEDIDOS < 20}">{{z2.PEDIDOS}}</th> -->
-                <th class="font-14 text-center" *ngFor="let z2 of asesoresZona2">{{z2.PEDIDOS}}</th>
-    
-              </tr>
-    
-              <tr>
-    
-                <th>IMPORTE</th>
-    
-                <!-- <th class="font-14 text-center" *ngFor="let z2 of asesoresZona2" [ngClass]="{'text-success': z2.IMPORTE > 22000, 'text-danger': z2.IMPORTE <= 22000}">{{z2.IMPORTE | currency}}</th> -->
-                <th class="font-14 text-center" *ngFor="let z2 of asesoresZona2">{{z2.IMPORTE | currency}}</th>
-    
-              </tr>
-
-              <tr>
-    
-                <th>PENDIENTE EN $</th>
-    
-                <th class="font-14 text-center text-white font-weight-bold" *ngFor="let z2 of asesoresZona2" [ngClass]="{'bg-success': z2.FALTA < 0, 'bg-danger': z2.FALTA >= 8000, 'bg-warning': z2.FALTA < 8000 && z2.FALTA > 0}">{{z2.FALTA | currency}}</th>
-    
-              </tr>
-    
-            </tbody>
-    
-          </table>
-    
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
   <div class="col-md-12 col-lg-12 col-sm-12">
 
     <div class="card">
@@ -195,38 +17,6 @@
         <div class="row">
 
           <div class="col-md-12 col-lg-4 col-sm-12 centrar text-center">
-
-            <!-- <div class="border rounded p-10 mb-3">
-
-              <h6>CLIENTES DEL DÍA</h6>
-              
-              <h1>{{clientesTotales}}</h1>
-  
-            </div>
-
-            <div class="border rounded p-10 mb-3">
-
-              <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
-
-              <h1>{{clientesPedidosTotales}}</h1>
-
-            </div>
-
-            <div class="border rounded p-10 mb-3">
-
-              <h6>CLIENTES FALTANTES</h6>
-
-              <h1>{{(clientesTotales - clientesPedidosTotales)}}</h1>
-
-            </div>
-
-            <div class="border rounded p-10 mb-3">
-
-              <h6>TRABAJADO</h6>
-
-              <h1>{{trabajado | percent: '0.3'}}</h1>
-
-            </div> -->
 
             <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
@@ -333,17 +123,17 @@
         <h1 class="card-title">Resumen Ventas</h1>
 
         <div class="row">
+          
+          <div class="col-md-12 col-lg-12 col-sm-12 text-right">
 
-          <div class="col-md-12 col-lg-6 col-sm-12">
+            <h3 class="display-2">Zona 1</h3>
+
+          </div>
+
+          <div class="col-md-12 col-lg-7 col-sm-12">
 
             <div class="row">
-
-              <div class="col-md-12 col-lg-12 col-sm-12">
-
-                <h3 class="card-title">Zona 1</h3>
     
-              </div>
-              
               <div class="col-md-12 col-lg-12 col-sm-12" style="padding-left: 5px!important; padding-right: 10px!important;">
 
                 <div class="table-responsive">
@@ -366,7 +156,7 @@
 
                       <tr>
 
-                        <th>Asesor</th>
+                        <th>Zona 1</th>
 
                         <th class="text-center border border-bottom-0 border-top-0 border-right-0">Dia</th>
 
@@ -374,7 +164,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Ped</th>
+                        <th class="text-center">Pedidos</th>
 
                         <th>Importe</th>
 
@@ -400,20 +190,20 @@
 
                         <td class="text-center border border-left-0 border-right-0 border-bottom-0">{{seccion.DIA_C_VTA}}</td>
 
-                        <td class="text-center border border-left-0 border-bottom-0">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
+                        <td class="text-center font-weight-bold border border-left-0 border-bottom-0" [ngClass]="{'text-danger': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) > 0, 'text-success': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) === 0}">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE > 0, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{seccion.FALTA | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{(seccion.DIA_C_VTA / seccion.CLIENTES_DIA) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{(seccion.IMPORTE / 27000) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -474,7 +264,7 @@
 
                       <tr>
 
-                        <th>Asesor</th>
+                        <th>Zona 1</th>
 
                         <th class="text-center border border-bottom-0 border-top-0 border-right-0">Dia</th>
 
@@ -482,7 +272,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Ped</th>
+                        <th class="text-center">Pedidos</th>
 
                         <th>Importe</th>
 
@@ -508,20 +298,20 @@
 
                         <td class="text-center border border-left-0 border-right-0 border-bottom-0">{{seccion.DIA_C_VTA}}</td>
 
-                        <td class="text-center border border-left-0 border-bottom-0">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
+                        <td class="text-center font-weight-bold border border-left-0 border-bottom-0" [ngClass]="{'text-danger': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) > 0, 'text-success': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) === 0}">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE > 0, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{seccion.FALTA | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{(seccion.DIA_C_VTA / seccion.CLIENTES_DIA) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{(seccion.IMPORTE / 27000) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -590,15 +380,48 @@
 
           </div>
 
-          <div class="col-md-12 col-lg-6 col-sm-12">
+          <div class="col-md-12 col-lg-5 col-sm-12 centrar">
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES DEL DÍA</h6>
+
+            <h1>{{(totalCli610 + totalCli15)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
+
+            <h1>{{(totalCliVta610 + totalCliVta15)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES FALTANTES</h6>
+
+            <h1 class="text-danger font-weight-bold">{{(totalCliFal610 + totalCliFal15)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>TRABAJADO</h6>
+
+            <h1>{{((totalCliVta610 + totalCliVta15) / (totalCli610 + totalCli15)) | percent: '0.2'}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+          </div>
+
+          <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+          <div class="col-md-12 col-lg-12 col-sm-12 text-right">
+
+            <h3 class="display-2">Zona 2</h3>
+
+          </div>
+
+          <div class="col-md-12 col-lg-7 col-sm-12">
 
             <div class="row">
 
-              <div class="col-md-12 col-lg-12 col-sm-12">
-
-                <h3 class="card-title">Zona 2</h3>
-    
-              </div>
 
               <div class="col-md-12 col-lg-12 col-sm-12" style="padding-left: 5px!important; padding-right: 5px!important;">
 
@@ -622,7 +445,7 @@
 
                       <tr>
 
-                        <th>Asesor</th>
+                        <th>Zona 2</th>
 
                         <th class="text-center border border-bottom-0 border-top-0 border-right-0">Dia</th>
 
@@ -630,7 +453,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Ped</th>
+                        <th class="text-center">Pedidos</th>
 
                         <th>Importe</th>
 
@@ -656,20 +479,20 @@
 
                         <td class="text-center border border-left-0 border-right-0 border-bottom-0">{{seccion.DIA_C_VTA}}</td>
 
-                        <td class="text-center border border-left-0 border-bottom-0">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
+                        <td class="text-center font-weight-bold border border-left-0 border-bottom-0" [ngClass]="{'text-danger': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) > 0, 'text-success': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) === 0}">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE > 0, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{seccion.FALTA | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{(seccion.DIA_C_VTA / seccion.CLIENTES_DIA) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{(seccion.IMPORTE / 27000) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -730,7 +553,7 @@
 
                       <tr>
 
-                        <th>Asesor</th>
+                        <th>Zona 2</th>
 
                         <th class="text-center border border-bottom-0 border-top-0 border-right-0">Dia</th>
 
@@ -738,7 +561,7 @@
 
                         <th class="text-center border border-bottom-0 border-top-0 border-left-0">Faltan</th>
 
-                        <th class="text-center">Ped</th>
+                        <th class="text-center">Pedidos</th>
 
                         <th>Importe</th>
 
@@ -764,20 +587,20 @@
 
                         <td class="text-center border border-left-0 border-right-0 border-bottom-0">{{seccion.DIA_C_VTA}}</td>
 
-                        <td class="text-center border border-left-0 border-bottom-0">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
+                        <td class="text-center font-weight-bold border border-left-0 border-bottom-0" [ngClass]="{'text-danger': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) > 0, 'text-success': (seccion.CLIENTES_DIA - seccion.DIA_C_VTA) === 0}">{{(seccion.CLIENTES_DIA - seccion.DIA_C_VTA)}}</td>
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE > 0, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{seccion.FALTA | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{(seccion.DIA_C_VTA / seccion.CLIENTES_DIA) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{(seccion.IMPORTE / 27000) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -844,6 +667,36 @@
 
             </div>
 
+          </div>
+
+          <div class="col-md-12 col-lg-5 col-sm-12 centrar">
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES DEL DÍA</h6>
+
+            <h1>{{(totalCli1115 + totalCli1620)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
+
+            <h1>{{(totalCliVta1115 + totalCliVta1620)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES FALTANTES</h6>
+
+            <h1 class="text-danger font-weight-bold">{{(totalCliFal1115 + totalCliFal1620)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>TRABAJADO</h6>
+
+            <h1>{{((totalCliVta1115 + totalCliVta1620) / (totalCli1115 + totalCli1620)) | percent: '0.2'}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+  
           </div>
 
         </div>
