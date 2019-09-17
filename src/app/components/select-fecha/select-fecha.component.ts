@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 
 // Servicios
 import { SlectFechaService, HerramientasService } from '../../services/services.index';

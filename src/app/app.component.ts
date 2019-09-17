@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// Servicios
+import { SocketsService } from './services/services.index';
+
 declare function init_plugins();
 
 @Component({
@@ -9,7 +12,11 @@ declare function init_plugins();
 })
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private socketService: SocketsService
+  ) {
+    this.socketService.checkStatusServer();
+  }
 
   ngOnInit() {
     init_plugins();

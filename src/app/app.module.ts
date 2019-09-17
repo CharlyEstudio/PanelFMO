@@ -1,6 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// Enviroment
+import { environment } from '../environments/environment';
+
+// Sockets
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: environment.wsUrl, options: {} };
+
 // Servicio
 import { ServicesModule } from './services/services.module';
 
@@ -24,6 +32,7 @@ import { AsesoresComponent } from './asesores/asesores.component';
 import { GeneralComponent } from './general/general.component';
 import { NavegacionComponent } from './components/navegacion/navegacion.component';
 import { DonaComponent } from './components/dona/dona.component';
+import { CobranzaComponent } from './cobranza/cobranza.component';
 
 @NgModule({
   declarations: [
@@ -42,13 +51,15 @@ import { DonaComponent } from './components/dona/dona.component';
     AsesoresComponent,
     GeneralComponent,
     NavegacionComponent,
-    DonaComponent
+    DonaComponent,
+    CobranzaComponent
   ],
   imports: [
     BrowserModule,
     APP_ROUTES,
     ServicesModule,
-    ChartsModule
+    ChartsModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [],
   bootstrap: [AppComponent]

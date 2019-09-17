@@ -150,6 +150,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
     // Asesores zona 2
     this._panelService.asesoresZona( fecha, 2 )
       .subscribe( ( resp: any ) => {
+        console.log(resp);
         this.zona2 = resp;
 
         for (let i = 0; i < resp.length; i++) {
@@ -296,8 +297,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
           });
 
       }, 3000);
-    })
-    .retry();
+    });
 
   }
 
@@ -323,18 +323,18 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       enviar = data.perid;
     }
 
-    this._panelService.informacionGeneral( data.perid, area, data.serie )
+    this._panelService.informacionGeneral( data.perid, area, data.serie, this.fechaEmit )
       .subscribe( ( resp: any ) => {
         this.info = resp;
       });
 
-    this._panelService.totalPedidosImporte(data.perid, area, data.serie)
+    this._panelService.totalPedidosImporte(data.perid, area, data.serie, this.fechaEmit)
       .subscribe( ( resp: any ) => {
         this.totalPICantidad = resp[0].PEDIDOS;
         this.totalPIImporte = resp[0].IMPORTE;
       });
 
-    this._panelService.totalClientesPedidos(data.perid, area, data.serie)
+    this._panelService.totalClientesPedidos(data.perid, area, data.serie, this.fechaEmit)
       .subscribe( ( resp: any ) => {
         this.totalClientes = resp.length;
       });
@@ -378,7 +378,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
         for (let i = 0; i < reporte.length; i++) {
 
-          this._panelService.informacionGeneral( reporte[i].perid, 'zona' )
+          this._panelService.informacionGeneral( reporte[i].perid, 'zona', '', this.fechaEmit )
             .subscribe( ( info: any ) => {
 
               console.log(info);
@@ -411,7 +411,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
         for (let i = 0; i < reporte.length; i++) {
 
-          this._panelService.informacionGeneral( reporte[i].perid, 'zona' )
+          this._panelService.informacionGeneral( reporte[i].perid, 'zona', '' , this.fechaEmit )
             .subscribe( ( info: any ) => {
 
               this._panelService.usuarioEspe( reporte[i].perid )

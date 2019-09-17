@@ -36,7 +36,7 @@ export class TotalClientesComponent implements OnInit {
     this._panel.asesoresZona(this.fechaEmit, 1).subscribe((zo1: any) => {
       if (zo1.length > 0) {
         for (let i = 0; i < zo1.length; i++) {
-          this._panel.totalClientesPedidos(zo1[i].perid, 'zona').subscribe((lista: any) => {
+          this._panel.totalClientesPedidos(zo1[i].perid, 'zona', '', this.fechaEmit).subscribe((lista: any) => {
             const agregar = {
               perid: zo1[i].perid,
               nombre: zo1[i].nombre,
@@ -55,7 +55,7 @@ export class TotalClientesComponent implements OnInit {
     this._panel.asesoresZona(this.fechaEmit, 2).subscribe((zo2: any) => {
       if (zo2.length > 0) {
         for (let i = 0; i < zo2.length; i++) {
-          this._panel.totalClientesPedidos(zo2[i].perid, 'zona').subscribe((lista: any) => {
+          this._panel.totalClientesPedidos(zo2[i].perid, 'zona', '', this.fechaEmit).subscribe((lista: any) => {
             const agregar = {
               perid: zo2[i].perid,
               nombre: zo2[i].nombre,

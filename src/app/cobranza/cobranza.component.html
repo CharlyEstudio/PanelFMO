@@ -1,0 +1,253 @@
+<div class="row">
+
+  <div class="col-md-4 col-lg-4 mb-4">
+
+    <app-select-fecha></app-select-fecha>
+
+  </div>
+
+  <div class="col-md-4 col-lg-4"></div>
+
+  <div class="col-md-4 col-lg-4">
+
+    <button class="btn btn-instagram" type="button" (click)="obtenerVencidos(fechaEmit)">Actualizar</button>
+
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-sm-12">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <h1 class="card-title">Cartera Vencida & Saldo</h1>
+
+        <h3>Cartera del día <span class="font-weight-bold">{{totalCobranzaCartera | currency}}</span></h3>
+
+        <h3>Total Cobrado <span class="font-weight-bold">{{totalColectado | currency}}</span></h3>
+
+        <div class="table-responsive">
+
+          <table class="table table-sm stylish-table">
+
+            <thead>
+
+              <tr>
+
+                <th></th>
+
+                <th colspan="2" class="text-center border border-bottom-0">Clientes</th>
+
+                <th class="text-center border border-bottom-0">Cartera</th>
+
+              </tr>
+
+              <tr>
+
+                <th>Asesor</th>
+
+                <th class="text-center border border-bottom-0 border-top-0 border-right-0">Con<br>Saldo</th>
+
+                <th class="text-center border border-left-0 border-top-0 border-bottom-0">Cant</th>
+
+                <th class="text-center border border-left-0 border-top-0 border-bottom-0">Cobrado</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let seccion of asesores, let i = index">
+
+                <td>
+                  <h6><a class="nav-link cursor" (click)="verAsesor(seccion)">{{seccion.NOMBRE}}</a></h6>
+                </td>
+
+                <td class="text-right border border-bottom-0"><span class="label" [ngClass]="{'label-danger': seccion.VENCIDO > 0, 'label-success': seccion.VENCIDO === 0}">{{seccion.VENCIDO | currency}}</span></td>
+
+                <td class="text-center border border-left-0 border-bottom-0"><h4><span class="label" [ngClass]="{'label-danger': seccion.CLIENTES_C_SALDO > 0, 'label-success': seccion.CLIENTES_C_SALDO === 0}">{{seccion.CLIENTES_C_SALDO}}</span></h4></td>
+
+                <td class="text-right border border-bottom-0"><h4><span class="label" [ngClass]="{'label-danger': seccion.VENCIDO > 0, 'label-success': seccion.VENCIDO === 0}">{{seccion.COBRADO | currency}}</span></h4></td>
+
+              </tr>
+
+              <tr class="bg-info text-white">
+
+                <th>Total</th>
+
+                <th class="text-center">{{totalCliCob | currency}}</th>
+
+                <th class="text-right">{{totalSaldoCob}}</th>
+
+                <th class="text-right">{{totalCobrado | currency}}</th>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-sm-12" *ngIf="nombre === ''">
+
+      <div class="card">
+  
+        <div class="card-body">
+
+          <h1>Favor de Elegir un asesor.</h1>
+
+        </div>
+
+      </div>
+
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-sm-12" *ngIf="nombre !== ''">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <h3 class="card-title">Información Detallada</h3>
+
+        <h3>{{nombre}}</h3>
+
+        <hr class="border border-bottom-0 border-left-0 border-right-0 w-100">
+
+        <h4>Remisiones Vencidos del día</h4>
+
+        <div class="table-responsive">
+
+          <table class="table table-sm stylish-table">
+
+            <thead>
+
+              <tr>
+
+                <td class="border border-top-0 border-left-0 border-bottom-0"></td>
+
+                <th class="text-center border border-bottom-0" colspan="2">Fecha</th>
+
+                <td class="border border-top-0 border-left-0 border-bottom-0"></td>
+
+                <th class="text-center border border-bottom-0" colspan="3">Saldo</th>
+
+                <td class="border border-top-0 border-left-0 border-right-0 border-bottom-0"></td>
+
+              </tr>
+
+              <tr>
+
+                <th class="text-center">Cliente</th>
+
+                <th class="text-center border border-right-0 border-bottom-0 border-top-0">Emitida</th>
+
+                <th class="text-center border border-left-0 border-top-0 border-bottom-0">Vence</th>
+
+                <th class="text-center">Folio</th>
+
+                <th class="text-center border border-right-0 border-bottom-0 border-top-0">Original</th>
+
+                <th class="text-center">Actual</th>
+
+                <th class="text-center border border-left-0 border-top-0 border-bottom-0">Pagado</th>
+
+                <th class="text-center">Días</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let fol of folios, let i = index">
+
+                <td>
+                  <h6>{{fol.NUMERO}}</h6>
+                </td>
+
+                <td class="text-center font-weight-bold border border-bottom-0">{{fol.FECHA  | date: 'dd-MM-yyyy'}}</td>
+
+                <td class="text-center font-weight-bold border border-bottom-0 border-left-0" [ngClass]="{'text-warning': fol.VENCE === fechaEmit, 'text-danger': fol.VENCE !== fechaEmit}">{{fol.VENCE | date: 'dd-MM-yyyy'}}</td>
+
+                <td class="text-center">{{fol.FOLIO}}</td>
+
+                <td class="text-center font-weight-bold border border-bottom-0">{{fol.TOTAL | currency}}</td>
+
+                <td class="text-center font-weight-bold" [ngClass]="{'text-danger': fol.SALDOFINAL > 0, 'text-dark': fol.SALDOFINAL === 0}">{{fol.SALDOFINAL | currency}}</td>
+
+                <td class="text-center font-weight-bold border border-bottom-0">{{fol.TOTALPAGADO | currency}}</td>
+
+                <td class="text-center font-weight-bold" [ngClass]="{'text-danger': fol.RESTAN < 0, 'text-dark': fol.RESTAN >= 0}">{{fol.RESTAN}}</td>
+
+              </tr>
+            
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <hr class="border border-bottom-0 border-left-0 border-right-0 w-100">
+
+        <h4>Relación de Pagos por el Asesor del día</h4>
+
+        <div class="table-responsive">
+
+            <table class="table table-sm stylish-table">
+  
+              <thead>
+  
+                <tr>
+  
+                  <th class="text-center">Cliente</th>
+  
+                  <th class="text-center">Folio</th>
+  
+                  <th class="text-center">Pagado</th>
+  
+                  <th class="text-center">Fecha</th>
+  
+                  <th class="text-center">Forma Pago</th>
+  
+                </tr>
+  
+              </thead>
+  
+              <tbody>
+  
+                <tr *ngFor="let pag of pagos, let i = index">
+  
+                  <td class="text-center font-weight-bold"> {{pag.CLIENTE}}</td>
+  
+                  <td class="text-center font-weight-bold">{{pag.NUMERO}}</td>
+  
+                  <td class="text-center font-weight-bold">{{pag.PAGADO | currency}}</td>
+  
+                  <td class="text-center font-weight-bold">{{pag.FECHAPAG | date: 'dd-MM-yyyy'}}</td>
+  
+                  <td class="text-center font-weight-bold">{{pag.FORMAPAGO}}</td>
+  
+                </tr>
+              
+              </tbody>
+  
+            </table>
+  
+          </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

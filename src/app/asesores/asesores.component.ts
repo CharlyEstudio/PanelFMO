@@ -3,8 +3,13 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 
+// Alertas
+// import Swal from 'sweetalert2';
+const Swal = require('sweetalert2');
+declare var require: any;
+
 // Servicios
-import { PanelService, SlectFechaService } from '../services/services.index';
+import { PanelService, SlectFechaService, SocketsService } from '../services/services.index';
 
 @Component({
   selector: 'app-asesores',
@@ -15,6 +20,18 @@ export class AsesoresComponent implements OnInit, OnDestroy {
 
   fechaEmit: string;
 
+  workDay: number = 0;
+  cantAse: number = 0;
+  importe: number = 0;
+  vtaMin: number = 0;
+  importMinDia: number = 0;
+
+  cambiar: boolean = false;
+
+  resumenmenorZ1: any[] = [];
+  resumenmenorZ2: any[] = [];
+
+  pedidos: number = 0;
   asesores: any[] = [];
   asesores15: any[] = [];
   asesores610: any[] = [];
@@ -70,34 +87,77 @@ export class AsesoresComponent implements OnInit, OnDestroy {
   asesoresZona1: any[] = [];
   asesoresZona2: any[] = [];
   totalVta: number = 0;
-  minimo: number = (19 * 25);
+  minimo: number = (19 * 30);
 
   observando: Subscription;
   intervalo: any;
 
-  // Dona
-  graficos: any = {
-    'general': {
-      'labels': ['Logrado', '600,000'],
-      'data':  [0, 600000],
-      'type': 'doughnut',
-      'leyenda': '$ 500,000 Vta Diaría'
-    }
-  };
-
   constructor(
+    private socketService: SocketsService,
     private panelService: PanelService,
     private _selectFechaService: SlectFechaService
-  ) { }
+  ) {
+    // Obtenemos la venta mínima diaria
+    this.obtenerImporMin();
+
+    // Socket para Importe de venta mínima diaria
+    this.socketService.escuchar('cambiar-importe-venta-diaria').subscribe((impo: any) => {
+      // Obtenemos la venta mínima diaria
+      this.importMinDia = parseFloat(impo);
+      this.cambiar = true;
+      this.obtenerPedidos(this.fechaEmit);
+    });
+  }
 
   ngOnInit() {
     // Obtener fecha para hacer consultas
     this._selectFechaService.fecha
       .subscribe((fechaEmiter: any) => {
-        this.fechaEmit = fechaEmiter.fecha;
-
-        // Obtener totales
-        this.obtenerPedidos(fechaEmiter.fecha);
+        if (fechaEmiter.emitido) {
+          Swal.fire({
+            title: 'Importe asignado en esa fecha?',
+            input: 'number',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Cambiar',
+            showLoaderOnConfirm: true,
+            preConfirm: async (login: any) => {
+              this.importMinDia = parseFloat(login);
+              return fechaEmiter;
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+          }).then((result: any) => {
+            if (result.value) {
+              this.fechaEmit = result.value.fecha;
+              this.cambiar = result.value.emitido;
+              this.cambiar = true;
+              this.obtenerPedidos(this.fechaEmit);
+              Swal.fire({
+                title: `Se cambio la fecha a ${result.value.fecha} y el importe a ${this.importMinDia}`,
+                imageUrl: result.value.avatar_url
+              });
+            }
+          });
+        } else {
+          this.cambiar = true;
+          this.fechaEmit = fechaEmiter.fecha;
+          // this.cambiar = fechaEmiter.emitido;
+          // Obtenemos la venta mínima diaria
+          this.obtenerImporMin();
+          // Obtener totales
+          this.obtenerPedidos(fechaEmiter.fecha);
+        }
+        const fecWork = new Date(fechaEmiter.fecha);
+        fecWork.setDate(fecWork.getDate() + 1);
+        this.panelService.obtenerWorkDay((fecWork.getMonth() + 1), fecWork.getFullYear()).subscribe((dias: any) => {
+          if (dias.length > 0) {
+            this.workDay = dias[0].dias;
+          } else {
+            this.workDay = 0;
+          }
+        });
 
         if (fechaEmiter.emitido) {
           // Intervalo por Bajar
@@ -113,10 +173,19 @@ export class AsesoresComponent implements OnInit, OnDestroy {
       });
   }
 
+  obtenerImporMin() {
+    // Obtenemos la venta mínima diaria
+    this.panelService.obtenerImporteVtaDiaria().subscribe((impoMin: any) => {
+      if (impoMin.length > 0) {
+        this.importMinDia = impoMin[0].data;
+      }
+    });
+  }
+
   observacion() {
     // Subscrión a Pedidos
     this.observando =  this.regresa().subscribe(
-      numero => {},
+      numero => console.log(numero),
       error => console.error('Error en el obs', error),
       () => console.log('El observador termino!')
     );
@@ -130,7 +199,7 @@ export class AsesoresComponent implements OnInit, OnDestroy {
   obtenerPedidos(fecha: string) {
     this.best();
     this.resumenVta(fecha);
-    this.resumenCob(fecha);
+    // this.resumenCob(fecha);
   }
 
   best() {
@@ -148,7 +217,7 @@ export class AsesoresComponent implements OnInit, OnDestroy {
     });
 
     for (const ase of this.asesores) {
-      if (ase.IMPORTE >= 27000) {
+      if (ase.IMPORTE >= this.importMinDia) {
         this.asesoresBest.push(ase);
       }
     }
@@ -162,18 +231,67 @@ export class AsesoresComponent implements OnInit, OnDestroy {
         this.obtenerPedidos(this.fechaEmit);
 
       }, 10000);
-    })
-    .retry();
+    });
 
   }
 
   resumenVta(fecha: string) {
     this.panelService.resumenPedidosAsesor(fecha).subscribe((res: any) => {
       if (res.length > 0) {
+        this.cambiar = true;
+        let array1 = [];
+        let array2 = [];
+        for (const z of res) {
+          if (z.INDICE === '(1') {
+            array1.push(z);
+          }
+          if (z.INDICE === '(2') {
+            array2.push(z);
+          }
+        }
+        this.resumenmenorZ1 = array1;
+        this.resumenmenorZ2 = array2;
+        this.resumenmenorZ1.sort((a, b) => {
+          if (a.IMPORTE > b.IMPORTE) {
+            return 1;
+          }
+
+          if (a.IMPORTE < b.IMPORTE) {
+            return -1;
+          }
+
+          return 0;
+        });
+        this.resumenmenorZ2.sort((a, b) => {
+          if (a.IMPORTE > b.IMPORTE) {
+            return 1;
+          }
+
+          if (a.IMPORTE < b.IMPORTE) {
+            return -1;
+          }
+
+          return 0;
+        });
+        this.cantAse = res.length;
+        if (this.workDay >= 20) {
+          const impoMet = this.importMinDia * this.cantAse;
+          this.vtaMin = this.importMinDia;
+          if (impoMet > 600000) {
+            this.importe = 600000;
+          } else {
+            this.importe = this.vtaMin * this.cantAse;
+          }
+        } else {
+          this.vtaMin = 600000 / this.workDay;
+          this.importe = this.vtaMin * this.cantAse;
+        }
+        this.pedidos = res.length;
         this.asesores15 = [];
         this.asesores610 = [];
         this.asesores1115 = [];
         this.asesores1620 = [];
+        this.totalVta = 0;
         this.clientesTotales = 0;
         this.clientesPedidosTotales = 0;
         this.trabajado = 0;
@@ -204,6 +322,7 @@ export class AsesoresComponent implements OnInit, OnDestroy {
         for (let i = 0; i < res.length; i++) {
           this.clientesTotales += res[i].CLIENTES_DIA;
           this.clientesPedidosTotales += res[i].DIA_C_VTA;
+          this.totalVta += res[i].IMPORTE;
           if (i < 5) {
             // res[i].NOMBRE = res[i].NOMBRE.split(' ')[1] + ' ' + res[i].NOMBRE.split(' ')[2].substr(0, 5) + '.';
             res[i].NOMBRE = res[i].NOMBRE.split(')')[1];
@@ -258,6 +377,11 @@ export class AsesoresComponent implements OnInit, OnDestroy {
           }
         }
         this.trabajado = this.clientesPedidosTotales / this.clientesTotales;
+        if (res.length === (this.asesores15.length + this.asesores610.length + this.asesores1115.length + this.asesores1620.length)) {
+          this.cambiar = false;
+        } else {
+          this.cambiar = true;
+        }
       }
     });
   }
