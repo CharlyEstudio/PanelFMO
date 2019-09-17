@@ -188,7 +188,7 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
-  informacionGeneral( id: any = '', area: any = '', serie: any = '' ) {
+  informacionGeneral( id: any = '', area: any = '', serie: any = '', fecha: string ) {
     let opcion;
     if (area === 'zona') {
       opcion = 22;
@@ -203,7 +203,7 @@ export class PanelService {
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + id + '&serie=' + serie;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + id + '&serie=' + serie;
+    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + id + '&serie=' + serie + '&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
@@ -282,7 +282,7 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
-  totalPedidosImporte( idFerrum: any, area: any, serie: any = '' ) {
+  totalPedidosImporte( idFerrum: any, area: any, serie: any = '', fecha: string ) {
     let opcion;
     if (area === 'zona') {
       opcion = 26;
@@ -295,12 +295,12 @@ export class PanelService {
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
+    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie + '&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
 
-  totalClientesPedidos( idFerrum: any, area: any, serie: any = '' ) {
+  totalClientesPedidos( idFerrum: any, area: any, serie: any = '', fecha: string ) {
     let opcion;
     if (area === 'zona') {
       opcion = 28;
@@ -313,7 +313,7 @@ export class PanelService {
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie;
+    this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + idFerrum + '&serie=' + serie + '&fecha=' + fecha;
 
     return this.http.get( this.url );
   }
@@ -368,6 +368,42 @@ export class PanelService {
     this.url = this.path + '/api/pedidos.php?opcion=44&fecha=' + fecha;
 
     return this.http.get(this.url);
+  }
+
+  obtenerWorkDay(mes: number, year: number) {
+    this.url = this.path + '/api/pedidos.php?opcion=48&mes=' + mes + '&anio=' + year;
+
+    return this.http.get(this.url);
+  }
+
+  obtenerCarteraVencidaDia(perid: number, fecha: any) {
+    this.url = this.path + '/api/asesores.php?opcion=26&perid=' + perid + '&fecha=' + fecha;
+
+    return this.http.get(this.url);
+  }
+
+  obtenerPagosdelDia(perid: number, fecha: any) {
+    this.url = this.path + '/api/asesores.php?opcion=28&perid=' + perid + '&fecha=' + fecha;
+
+    return this.http.get(this.url);
+  }
+
+  obtenerRemisionesVencidasDia(perid: number, fecha: any) {
+    this.url = this.path + '/api/asesores.php?opcion=29&perid=' + perid + '&fecha=' + fecha;
+
+    return this.http.get(this.url);
+  }
+
+  obtenerPagosDia(perid: number, fecha: any) {
+    this.url = this.path + '/api/asesores.php?opcion=30&perid=' + perid + '&fecha=' + fecha;
+
+    return this.http.get(this.url);
+  }
+
+  obtenerImporteVtaDiaria() {
+    const url = this.path + '/api/panelasesores.php?opcion=0';
+
+    return this.http.get(url);
   }
 
 }

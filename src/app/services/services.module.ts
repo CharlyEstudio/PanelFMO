@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 // Servicios
-import { PanelService, TimeLineService, OficinaService, HerramientasService, SlectFechaService } from './services.index';
+import { PanelService,
+  TimeLineService,
+  OficinaService,
+  HerramientasService,
+  SlectFechaService,
+  SocketsService } from './services.index';
 
 
 @NgModule({
@@ -16,7 +21,8 @@ import { PanelService, TimeLineService, OficinaService, HerramientasService, Sle
     TimeLineService,
     OficinaService,
     HerramientasService,
-    SlectFechaService
+    SlectFechaService,
+    SocketsService
   ],
   declarations: []
 })

@@ -6,17 +6,23 @@
 
   </div>
 
-  <div class="col-md-12 col-lg-12 col-sm-12">
+  <div class="col-md-12 col-lg-12 col-sm-12 centrar" *ngIf="cambiar">
+
+    <h1 class="display-3">OBTENIENDO DATOS</h1>
+
+  </div>
+
+  <div class="col-md-12 col-lg-12 col-sm-12" *ngIf="!cambiar">
 
     <div class="card">
 
       <div class="card-body">
 
-        <h3>Meta $ 600,000 en Venta | Promedio Diario de $ 27,000.00</h3>
+        <h3>Meta {{(importe) | currency}} en Venta | Promedio Diario de {{vtaMin | currency}}</h3>
 
         <div class="row">
 
-          <div class="col-md-12 col-lg-4 col-sm-12 centrar text-center">
+          <div class="col-md-12 col-lg-3 col-sm-12 centrar text-center">
 
             <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
@@ -46,9 +52,9 @@
 
           </div>
 
-          <div class="col-md-12 col-lg-4 col-sm-12 centrar">
+          <div class="col-md-12 col-lg-3 col-sm-12 centrar">
 
-              <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>MÍNIMO CLIENTES DÍA</h6>
 
@@ -76,13 +82,43 @@
 
           </div>
 
-          <div class="col-md-12 col-lg-4 col-sm-12 my-5 centrar">
+          <div class="col-md-12 col-lg-3 col-sm-12 centrar">
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>META CLIENTES</h6>
+
+            <h1>{{minimo}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES DEL DIA ACTUAL</h6>
+
+            <h1>{{clientesTotales}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>CLIENTES POR APERTURAR</h6>
+
+            <h1 class="text-danger font-weight-bold">{{(minimo - clientesTotales)}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+            <h6>COBERTURA META</h6>
+
+            <h1>{{(clientesTotales / minimo) | percent: '0.3'}}</h1>
+
+            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+
+          </div>
+
+          <div class="col-md-12 col-lg-3 col-sm-12 my-5 centrar">
 
             <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>META</h6>
 
-            <h1>{{'600000' | currency}}</h1>
+            <h1>{{importe | currency}}</h1>
 
             <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
@@ -94,13 +130,13 @@
 
             <h6>POR HACER</h6>
 
-            <h1 class="text-danger font-weight-bold">{{(600000 - totalVta) | currency}}</h1>
+            <h1 class="text-danger font-weight-bold">{{(importe - totalVta) | currency}}</h1>
 
             <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
             <h6>TRABAJADO</h6>
 
-            <h1>{{(totalVta / 600000) | percent: '0.2'}}</h1>
+            <h1>{{(totalVta / importe) | percent: '0.2'}}</h1>
 
             <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
 
@@ -114,7 +150,7 @@
 
   </div>
 
-  <div class="col-md-12 col-lg-12 col-sm-12">
+  <div class="col-md-12 col-lg-12 col-sm-12" *ngIf="!cambiar">
 
     <div class="card">
 
@@ -194,16 +230,16 @@
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= vtaMin, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < vtaMin, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': (vtaMin - seccion.IMPORTE) < 0, 'bg-danger': (vtaMin - seccion.IMPORTE) >= 0}">{{((vtaMin - seccion.IMPORTE) <= 0 ? 0 : (vtaMin - seccion.IMPORTE)) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
                           <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / vtaMin) <= 0.9999, 'label-success': (seccion.IMPORTE / vtaMin) > 0.9999}">{{ ((seccion.IMPORTE / vtaMin) > 1 ? 1 : (seccion.IMPORTE / vtaMin)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -229,7 +265,7 @@
                         </th>
 
                         <th class="text-center border border-0">
-                          {{(totalImporte15 / 135000) | percent}}
+                          {{(totalImporte15 / (vtaMin * 5)) | percent}}
                         </th>
 
                       </tr>
@@ -302,16 +338,16 @@
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= vtaMin, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < vtaMin, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': (vtaMin - seccion.IMPORTE) < 0, 'bg-danger': (vtaMin - seccion.IMPORTE) >= 0}">{{((vtaMin - seccion.IMPORTE) <= 0 ? 0 : (vtaMin - seccion.IMPORTE)) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
                           <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / vtaMin) <= 0.9999, 'label-success': (seccion.IMPORTE / vtaMin) > 0.9999}">{{ ((seccion.IMPORTE / vtaMin) > 1 ? 1 : (seccion.IMPORTE / vtaMin)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -337,7 +373,7 @@
                         </th>
 
                         <th class="text-center border border-0">
-                          {{(totalImporte610 / 135000) | percent}}
+                          {{(totalImporte610 / (importe * 5)) | percent}}
                         </th>
 
                       </tr>
@@ -363,7 +399,7 @@
                           </th>
 
                           <th class="text-center border border-0">
-                            {{((totalImporte610 + totalImporte15) / 270000) | percent}}
+                            {{((totalImporte610 + totalImporte15) / (vtaMin * pedidos)) | percent}}
                           </th>
 
                       </tr>
@@ -380,33 +416,115 @@
 
           </div>
 
-          <div class="col-md-12 col-lg-5 col-sm-12 centrar">
+          <div class="col-md-12 col-lg-5 col-sm-12">
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+            <div class="row">
 
-            <h6>CLIENTES DEL DÍA</h6>
+              <div class="col-md-12 col-lg-12 col-sm-12 text-center">
 
-            <h1>{{(totalCli610 + totalCli15)}}</h1>
+                <h3>CLIENTES DEL DÍA</h3>
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+              </div>
 
-            <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
 
-            <h1>{{(totalCliVta610 + totalCliVta15)}}</h1>
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+                <h6>TOTAL</h6>
+    
+                <h1>{{(totalCli610 + totalCli15)}}</h1>
+    
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
 
-            <h6>CLIENTES FALTANTES</h6>
+              </div>
 
-            <h1 class="text-danger font-weight-bold">{{(totalCliFal610 + totalCliFal15)}}</h1>
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
 
-            <h6>TRABAJADO</h6>
+                <h6 class="text-center">CON PEDIDOS</h6>
+    
+                <h1>{{(totalCliVta610 + totalCliVta15)}}</h1>
+    
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
 
-            <h1>{{((totalCliVta610 + totalCliVta15) / (totalCli610 + totalCli15)) | percent: '0.2'}}</h1>
+              </div>
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
+
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
+
+                <h6>FALTANTES</h6>
+    
+                <h1 class="text-danger font-weight-bold">{{(totalCliFal610 + totalCliFal15)}}</h1>
+    
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
+
+              </div>
+
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
+
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
+
+                <h6>TRABAJADO</h6>
+    
+                <h1>{{((totalCliVta610 + totalCliVta15) / (totalCli610 + totalCli15)) | percent: '0.2'}}</h1>
+    
+                <!-- <hr class="border border-bottom-0 border-left-0 border-right-0 w-50"> -->
+
+              </div>
+
+              <div class="col-md-12 col-lg-12 col-sm-12 mt-4">
+
+                <h3 class="text-center">LISTA DE MENOR VENTA & CLIENTES CON PEDIDOS</h3>
+
+                <div class="responsive-table font-14">
+
+                  <table class="table table-sm">
+    
+                    <thead>
+    
+                      <tr>
+    
+                        <th>Asesor</th>
+    
+                        <th>Importe</th>
+
+                        <th>Falta</th>
+
+                        <th class="text-center">Clientes</th>
+
+                        <th class="text-center">Pendiente</th>
+    
+                      </tr>
+    
+                    </thead>
+    
+                    <tbody>
+    
+                      <tr *ngFor="let mv of resumenmenorZ1">
+    
+                        <td class="font-weight-bold">{{mv.NOMBRE}}</td>
+    
+                        <td class="font-weight-bold" [ngClass]="{'text-danger': mv.IMPORTE === 0}">{{mv.IMPORTE | currency}}</td>
+
+                        <td class="font-weight-bold" [ngClass]="{'text-danger': (mv.IMPORTE - vtaMin) <= 0, 'text-success': (mv.IMPORTE - vtaMin) > 0}">{{((mv.IMPORTE - vtaMin) < 0 ? (vtaMin - mv.IMPORTE) : (mv.IMPORTE - vtaMin)) | currency}}</td>
+
+                        <td class="font-weight-bold text-center" [ngClass]="{'text-danger': mv.DIA_C_VTA === 0}">{{mv.DIA_C_VTA}}</td>
+
+                        <td class="font-weight-bold text-center" [ngClass]="{'text-danger': (mv.CLIENTES_DIA - mv.DIA_C_VTA) <= mv.CLIENTES_DIA}">{{(mv.CLIENTES_DIA - mv.DIA_C_VTA)}}</td>
+    
+                      </tr>
+    
+                    </tbody>
+    
+                  </table>
+    
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -483,16 +601,16 @@
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= vtaMin, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < vtaMin, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': (vtaMin - seccion.IMPORTE) < 0, 'bg-danger': (vtaMin - seccion.IMPORTE) >= 0}">{{((vtaMin - seccion.IMPORTE) <= 0 ? 0 : (vtaMin - seccion.IMPORTE)) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
                           <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / vtaMin) <= 0.9999, 'label-success': (seccion.IMPORTE / vtaMin) > 0.9999}">{{ ((seccion.IMPORTE / vtaMin) > 1 ? 1 : (seccion.IMPORTE / vtaMin)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -518,7 +636,7 @@
                         </th>
 
                         <th class="text-center border border-0">
-                          {{(totalImporte1115 / 135000) | percent}}
+                          {{(totalImporte1115 / (vtaMin * 5)) | percent}}
                         </th>
 
                       </tr>
@@ -591,16 +709,16 @@
 
                         <td class="text-center">{{seccion.PEDIDOS}}</td>
 
-                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= 27000, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < 27000, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'label-success': seccion.IMPORTE >= vtaMin, 'label-warning': seccion.IMPORTE > 0 && seccion.IMPORTE < vtaMin, 'label-danger': seccion.IMPORTE === 0}">{{seccion.IMPORTE | currency}}</span></h4></td>
 
-                        <td><h4><span class="label" [ngClass]="{'bg-success': seccion.FALTA < 0, 'bg-danger': seccion.FALTA >= 0}">{{(seccion.FALTA <= 0 ? 0 : seccion.FALTA) | currency}}</span></h4></td>
+                        <td><h4><span class="label" [ngClass]="{'bg-success': (vtaMin - seccion.IMPORTE) < 0, 'bg-danger': (vtaMin - seccion.IMPORTE) >= 0}">{{((vtaMin - seccion.IMPORTE) <= 0 ? 0 : (vtaMin - seccion.IMPORTE)) | currency}}</span></h4></td>
 
                         <td class="text-center border border-right-0 border-bottom-0">
                           <h4><span class="label" [ngClass]="{'label-danger': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) <= 0.9999, 'label-success': (seccion.DIA_C_VTA / seccion.CLIENTES_DIA) > 0.9999}">{{ (((seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) > 1 ? 1 : (seccion.DIA_C_VTA / seccion.CLIENTES_DIA)) | percent}}</span></h4>
                         </td>
 
                         <td class="text-center border border-left-0 border-bottom-0">
-                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / 27000) <= 0.9999, 'label-success': (seccion.IMPORTE / 27000) > 0.9999}">{{ ((seccion.IMPORTE / 27000) > 1 ? 1 : (seccion.IMPORTE / 27000)) | percent}}</span></h4>
+                          <h4><span class="label" [ngClass]="{'label-danger': (seccion.IMPORTE / vtaMin) <= 0.9999, 'label-success': (seccion.IMPORTE / vtaMin) > 0.9999}">{{ ((seccion.IMPORTE / vtaMin) > 1 ? 1 : (seccion.IMPORTE / vtaMin)) | percent}}</span></h4>
                         </td>
 
                       </tr>
@@ -626,7 +744,7 @@
                         </th>
 
                         <th class="text-center border border-0">
-                          {{(totalImporte1620 / 135000) | percent}}
+                          {{(totalImporte1620 / (vtaMin * 5)) | percent}}
                         </th>
 
                       </tr>
@@ -652,7 +770,7 @@
                           </th>
 
                           <th class="text-center border border-0">
-                            {{((totalImporte1620 + totalImporte1115) / 270000) | percent}}
+                            {{((totalImporte1620 + totalImporte1115) / (vtaMin * pedidos)) | percent}}
                           </th>
 
                       </tr>
@@ -669,34 +787,100 @@
 
           </div>
 
-          <div class="col-md-12 col-lg-5 col-sm-12 centrar">
+          <div class="col-md-12 col-lg-5 col-sm-12">
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+            <div class="row">
 
-            <h6>CLIENTES DEL DÍA</h6>
+              <div class="col-md-12 col-lg-12 col-sm-12 text-center">
 
-            <h1>{{(totalCli1115 + totalCli1620)}}</h1>
+                <h3>CLIENTES DEL DÍA</h3>
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+              </div>
 
-            <h6>CLIENTES DEL DÍA CON PEDIDOS</h6>
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
 
-            <h1>{{(totalCliVta1115 + totalCliVta1620)}}</h1>
+                <h6>TOTAL</h6>
+    
+                <h1>{{(totalCli1115 + totalCli1620)}}</h1>
+    
+              </div>
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
 
-            <h6>CLIENTES FALTANTES</h6>
+                <h6 class="text-center">CON PEDIDOS</h6>
+    
+                <h1>{{(totalCliVta1115 + totalCliVta1620)}}</h1>
+    
+              </div>
 
-            <h1 class="text-danger font-weight-bold">{{(totalCliFal1115 + totalCliFal1620)}}</h1>
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
+                <h6>FALTANTES</h6>
+    
+                <h1 class="text-danger font-weight-bold">{{(totalCliFal1115 + totalCliFal1620)}}</h1>
+    
+              </div>
 
-            <h6>TRABAJADO</h6>
+              <div class="col-md-12 col-lg-3 col-sm-12 text-center">
 
-            <h1>{{((totalCliVta1115 + totalCliVta1620) / (totalCli1115 + totalCli1620)) | percent: '0.2'}}</h1>
+                <h6>TRABAJADO</h6>
+    
+                <h1>{{((totalCliVta1115 + totalCliVta1620) / (totalCli1115 + totalCli1620)) | percent: '0.2'}}</h1>
+    
+              </div>
 
-            <hr class="border border-bottom-0 border-left-0 border-right-0 w-50">
-  
+              <div class="col-md-12 col-lg-12 col-sm-12 mt-4">
+
+                <h3 class="text-center">LISTA DE MENOR VENTA & CLIENTES CON PEDIDOS</h3>
+
+                <div class="responsive-table font-14">
+
+                  <table class="table table-sm">
+    
+                    <thead>
+    
+                      <tr>
+    
+                        <th>Asesor</th>
+    
+                        <th>Importe</th>
+
+                        <th>Falta</th>
+
+                        <th class="text-center">Clientes</th>
+
+                        <th class="text-center">Pendiente</th>
+    
+                      </tr>
+    
+                    </thead>
+    
+                    <tbody>
+    
+                      <tr *ngFor="let mv of resumenmenorZ2">
+    
+                        <td class="font-weight-bold">{{mv.NOMBRE}}</td>
+    
+                        <td class="font-weight-bold" [ngClass]="{'text-danger': mv.IMPORTE === 0}">{{mv.IMPORTE | currency}}</td>
+
+                        <td class="font-weight-bold" [ngClass]="{'text-danger': (mv.IMPORTE - vtaMin) <= 0, 'text-success': (mv.IMPORTE - vtaMin) > 0}">{{((mv.IMPORTE - vtaMin) < 0 ? (vtaMin - mv.IMPORTE) : (mv.IMPORTE - vtaMin)) | currency}}</td>
+
+                        <td class="font-weight-bold text-center" [ngClass]="{'text-danger': mv.DIA_C_VTA === 0}">{{mv.DIA_C_VTA}}</td>
+
+                        <td class="font-weight-bold text-center" [ngClass]="{'text-danger': (mv.CLIENTES_DIA - mv.DIA_C_VTA) < mv.CLIENTES_DIA}">{{(mv.CLIENTES_DIA - mv.DIA_C_VTA)}}</td>
+    
+                      </tr>
+    
+                    </tbody>
+    
+                  </table>
+    
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
 
         </div>
@@ -707,7 +891,7 @@
 
   </div>
 
-  <div class="col-md-12 col-lg-12 col-sm-12">
+  <!-- <div class="col-md-12 col-lg-12 col-sm-12">
 
     <div class="card">
 
@@ -1051,6 +1235,6 @@
 
     </div>
 
-  </div>
+  </div> -->
 
 </div>
