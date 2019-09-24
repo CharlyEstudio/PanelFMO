@@ -376,17 +376,41 @@ export class PanelService {
     return this.http.get(this.url);
   }
 
-  obtenerCarteraVencidaDia(perid: number, fecha: any) {
-    this.url = this.path + '/api/asesores.php?opcion=26&perid=' + perid + '&fecha=' + fecha;
+  // obtenerCarteraTotalDia(perid: number, fecha: any) {
+  //   this.url = this.path + '/api/asesores.php?opcion=31&perid=' + perid + '&fecha=' + fecha;
+
+  //   return this.http.get(this.url);
+  // }
+
+  obtenerCarteraSanaDia(perid: number, fecha: any) {
+    this.url = this.path + '/api/asesores.php?opcion=32&perid=' + perid + '&fecha=' + fecha;
 
     return this.http.get(this.url);
   }
 
-  obtenerPagosdelDia(perid: number, fecha: any) {
-    this.url = this.path + '/api/asesores.php?opcion=28&perid=' + perid + '&fecha=' + fecha;
+  // obtenerCarteraVencidaDia(perid: number, fecha: any) {
+  //   this.url = this.path + '/api/asesores.php?opcion=26&perid=' + perid + '&fecha=' + fecha;
 
-    return this.http.get(this.url);
-  }
+  //   return this.http.get(this.url);
+  // }
+
+  // obtenerPagosdelDia(perid: number, fecha: any) {
+  //   this.url = this.path + '/api/asesores.php?opcion=28&perid=' + perid + '&fecha=' + fecha;
+
+  //   return this.http.get(this.url);
+  // }
+
+  // obtenerPagosdelDiaSanas(perid: number, fecha: any) {
+  //   this.url = this.path + '/api/asesores.php?opcion=33&perid=' + perid + '&fecha=' + fecha;
+
+  //   return this.http.get(this.url);
+  // }
+
+  // obtenerPagosdelDiaVencidas(perid: number, fecha: any) {
+  //   this.url = this.path + '/api/asesores.php?opcion=34&perid=' + perid + '&fecha=' + fecha;
+
+  //   return this.http.get(this.url);
+  // }
 
   obtenerRemisionesVencidasDia(perid: number, fecha: any) {
     this.url = this.path + '/api/asesores.php?opcion=29&perid=' + perid + '&fecha=' + fecha;
@@ -402,6 +426,18 @@ export class PanelService {
 
   obtenerImporteVtaDiaria() {
     const url = this.path + '/api/panelasesores.php?opcion=0';
+
+    return this.http.get(url);
+  }
+
+  obtenerDetallesDocid(docid: number) {
+    const url = this.path + '/api/asesores.php?opcion=35&docid=' + docid;
+
+    return this.http.get(url);
+  }
+
+  cobranzaZona1(fecha: any, zona: any = 1) {
+    const url = this.path + '/api/cobranzapanel.php?opcion=0&fecha=' + fecha + '&zona=' + zona;
 
     return this.http.get(url);
   }
