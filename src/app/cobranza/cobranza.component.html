@@ -27,9 +27,9 @@
 
         <h1 class="card-title">Cartera Vencida & Saldo General</h1>
         
-        <h3>Cartera del día <span class="font-weight-bold">{{(cart_dia_no_vencida1 + cart_dia_vencida2) | currency}}</span></h3>
+        <h3>Cartera del día <span class="font-weight-bold">{{(totalCobranzaCartera1 + totalCobranzaCartera2) | currency}}</span></h3>
         
-        <h3>Total Cobrado <span class="font-weight-bold">{{(cob_dia_no_vencida1 + cob_dia_vencida2) | currency}}</span></h3>
+        <h3>Total Cobrado <span class="font-weight-bold">{{(totalColectado1 + totalColectado2) | currency}}</span></h3>
 
         <hr class="mb-4">
 
@@ -47,7 +47,7 @@
 
                   <td class="font-weight-bold">CARTERA DEL DIA NO VENCIDA</td>
 
-                  <td class="font-weight-bold text-success">{{cart_dia_no_vencida1 | currency}}</td>
+                  <td class="font-weight-bold text-success">{{(cart_dia_no_vencida1 + cob_dia_no_vencida1) | currency}}</td>
 
                   <td class="font-weight-bold">COBRADO DEL DIA NO VENCIDA</td>
 
@@ -55,7 +55,7 @@
 
                   <td class="font-weight-bold">SALDO</td>
 
-                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_no_vencida1 > 0, 'text-success': cart_dia_no_vencida1 === 0}">{{(cart_dia_no_vencida1 - cob_dia_no_vencida1) | currency}}</td>
+                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_no_vencida1 > 0, 'text-success': cart_dia_no_vencida1 === 0}">{{cart_dia_no_vencida1 | currency}}</td>
 
                 </tr>
 
@@ -63,7 +63,7 @@
 
                   <td class="font-weight-bold">CARTERA DEL DIA VENCIDA</td>
 
-                  <td class="font-weight-bold text-danger" [ngClass]="{'text-danger': cart_dia_vencida1 > 0, 'text-success': cart_dia_vencida1 === 0}">{{cart_dia_vencida1 | currency}}</td>
+                  <td class="font-weight-bold text-danger" [ngClass]="{'text-danger': cart_dia_vencida1 > 0, 'text-success': cart_dia_vencida1 === 0}">{{(cart_dia_vencida1 + cob_dia_vencida1) | currency}}</td>
 
                   <td class="font-weight-bold">COBRADO DEL DIA VENCIDA</td>
 
@@ -71,7 +71,23 @@
 
                   <td class="font-weight-bold">SALDO</td>
 
-                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_vencida1 > 0, 'text-success': cart_dia_vencida1 === 0}">{{(cart_dia_vencida1 - cob_dia_vencida1) | currency}}</td>
+                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_vencida1 > 0, 'text-success': cart_dia_vencida1 === 0}">{{cart_dia_vencida1 | currency}}</td>
+
+                </tr>
+
+                <tr class="bg-info text-white">
+
+                  <td class="font-weight-bold">Total</td>
+
+                  <td class="font-weight-bold">{{((cart_dia_no_vencida1 + cob_dia_no_vencida1) + (cart_dia_vencida1 + cob_dia_vencida1)) | currency}}</td>
+
+                  <td class="font-weight-bold"></td>
+
+                  <td class="font-weight-bold">{{(cob_dia_no_vencida1 + cob_dia_vencida1) | currency}}</td>
+
+                  <td class="font-weight-bold"></td>
+
+                  <td class="font-weight-bold">{{(cart_dia_no_vencida1 + cart_dia_vencida1) | currency}}</td>
 
                 </tr>
 
@@ -208,7 +224,7 @@
 
                   <td class="font-weight-bold">CARTERA DEL DIA NO VENCIDA</td>
 
-                  <td class="font-weight-bold text-success">{{cart_dia_no_vencida2 | currency}}</td>
+                  <td class="font-weight-bold text-success">{{(cart_dia_no_vencida2 + cob_dia_no_vencida2) | currency}}</td>
 
                   <td class="font-weight-bold">COBRADO DEL DIA NO VENCIDA</td>
 
@@ -216,7 +232,7 @@
 
                   <td class="font-weight-bold">SALDO</td>
 
-                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_no_vencida2 > 0, 'text-success': cart_dia_no_vencida2 === 0}">{{(cart_dia_no_vencida2 - cob_dia_no_vencida2) | currency}}</td>
+                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_no_vencida2 > 0, 'text-success': cart_dia_no_vencida2 === 0}">{{cart_dia_no_vencida2 | currency}}</td>
 
                 </tr>
 
@@ -224,7 +240,7 @@
 
                   <td class="font-weight-bold">CARTERA DEL DIA VENCIDA</td>
 
-                  <td class="font-weight-bold text-danger" [ngClass]="{'text-danger': cart_dia_vencida2 > 0, 'text-success': cart_dia_vencida2 === 0}">{{cart_dia_vencida2 | currency}}</td>
+                  <td class="font-weight-bold text-danger" [ngClass]="{'text-danger': cart_dia_vencida2 > 0, 'text-success': cart_dia_vencida2 === 0}">{{(cart_dia_vencida2 - cob_dia_vencida2) | currency}}</td>
 
                   <td class="font-weight-bold">COBRADO DEL DIA VENCIDA</td>
 
@@ -232,8 +248,24 @@
 
                   <td class="font-weight-bold">SALDO</td>
 
-                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_vencida2 > 0, 'text-success': cart_dia_vencida2 === 0}">{{(cart_dia_vencida2 - cob_dia_vencida2) | currency}}</td>
+                  <td class="font-weight-bold" [ngClass]="{'text-danger': cart_dia_vencida2 > 0, 'text-success': cart_dia_vencida2 === 0}">{{cart_dia_vencida2 | currency}}</td>
 
+                </tr>
+
+                <tr class="bg-info text-white">
+
+                  <th class="font-weight-bold">Total</th>
+
+                  <th class="font-weight-bold">{{((cart_dia_no_vencida2 + cob_dia_no_vencida2) + (cart_dia_vencida2 + cob_dia_vencida2)) | currency}}</th>
+
+                  <th class="font-weight-bold"></th>
+
+                  <th class="font-weight-bold">{{(cob_dia_no_vencida2 + cob_dia_vencida2) | currency}}</th>
+
+                  <th class="font-weight-bold"></th>
+
+                  <th class="font-weight-bold">{{(cart_dia_no_vencida2 + cart_dia_vencida2) | currency}}</th>
+                  
                 </tr>
 
               </tbody>

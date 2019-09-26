@@ -70,6 +70,17 @@ export class PanelService {
     return this.http.get( this.url );
   }
 
+  relacionCancelados(fecha: string) {
+    // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
+    //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=4';
+    // } else {
+    //   this.url = this.path + '/api/pedidos.php?opcion=4';
+    // }
+    this.url = this.path + '/api/pedidos.php?opcion=50&fecha=' + fecha;
+
+    return this.http.get( this.url );
+  }
+
   hora(horaIn: any, horaOut: any) {
     // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
     //   this.url = 'http://192.168.1.250/api/linea-tiempo.php?opcion=1&horaIn=' + horaIn + '&horaOut=' + horaOut;
