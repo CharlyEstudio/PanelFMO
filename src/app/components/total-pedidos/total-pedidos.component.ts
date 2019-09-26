@@ -150,7 +150,6 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
     // Asesores zona 2
     this._panelService.asesoresZona( fecha, 2 )
       .subscribe( ( resp: any ) => {
-        console.log(resp);
         this.zona2 = resp;
 
         for (let i = 0; i < resp.length; i++) {

@@ -1,19 +1,107 @@
-<div class="card bg-danger">
+<div class="card bg-danger cursor" href="#modalFolio" data-dismiss="modal" data-toggle="modal" (click)="obtenerRelacion()">
 
-    <div class="card-body">
-  
-      <p class="text-white">Cancelado</p>
+  <div class="card-body">
+
+    <p class="text-white">Cancelado</p>
+    
+    <h3 class="text-white font-light">
+
+      <div *ngIf="correcto">
+
+        <span class="display-4 font-bold">{{ cancelado }}</span>
+
+      </div>
+
+    </h3>
       
-      <h3 class="text-white font-light">
-
-        <div *ngIf="correcto">
-
-          <span class="display-4 font-bold">{{ cancelado }}</span>
-  
-        </div>
-  
-      </h3>
-        
-    </div>
-  
   </div>
+
+</div>
+
+<div id="modalFolio" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modalFolio" aria-hidden="true">
+
+  <div class="modal-dialog modal-lg mw-100" style="width: 95%;">
+
+      <div class="modal-content p-t-20 p-b-20 p-l-20 p-r-20">
+
+          <div class="modal-header">
+
+              <h3 class="p-b-10 p-t-10 badge badge-danger text-uppercase" *ngIf="cancelados.length > 0">Cancelados <b>{{ cancelados.length }}</b></h3>
+
+              <h3 class="p-b-10 p-t-10 badge badge-success text-uppercase" *ngIf="cancelados.length === 0">Sin Cancelados</h3>
+
+              <button type="button" class="close" data-dismiss="modal" id="cerrarModalBusq" aria-label="Close">
+      
+                  <span aria-hidden="true">&times;</span>
+      
+              </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="centrar h-75 mh-100" *ngIf="cancelados.length === 0">
+
+              <h1 class="display-1">SIN CANCELADOS</h1>
+
+            </div>
+
+            <div class="table-responsive" *ngIf="cancelados.length > 0">
+
+              <table class="table table-sm">
+
+                <thead>
+
+                  <tr>
+
+                    <th>Hora</th>
+
+                    <th>Folio</th>
+
+                    <th>Numero</th>
+
+                    <th>Cliente</th>
+
+                    <th>Importe</th>
+
+                    <th>Asesor</th>
+
+                    <th>Emisor</th>
+
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+                  <tr *ngFor="let can of cancelados">
+
+                    <td>{{can.hora}}</td>
+
+                    <td>{{can.folio}}</td>
+
+                    <td>{{can.numero}}</td>
+
+                    <td>{{can.nombre}}</td>
+
+                    <td>{{can.saldo | currency}}</td>
+
+                    <td>{{can.asesorvende}}</td>
+
+                    <td>{{can.asesoremite}}</td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+</div>

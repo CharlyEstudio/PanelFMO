@@ -19,6 +19,7 @@ export class CanceladoComponent implements OnInit, OnDestroy {
 
   // Cancelado
   cancelado: number = 0;
+  cancelados: any[] = [];
   cancelar: Subscription;
   intCancelar: any;
 
@@ -111,6 +112,15 @@ export class CanceladoComponent implements OnInit, OnDestroy {
     })
     .retry();
 
+  }
+
+  obtenerRelacion() {
+    this.cancelados = [];
+    this._panelService.relacionCancelados(this.fechaEmit).subscribe((lista: any) => {
+      if (lista.length > 0) {
+        this.cancelados = lista;
+      }
+    });
   }
 
 }

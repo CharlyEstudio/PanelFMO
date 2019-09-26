@@ -64,6 +64,8 @@ export class CobranzaComponent implements OnInit {
       .subscribe((fechaEmiter: any) => {
         this.fechaEmit = fechaEmiter.fecha;
         // this.obtenerVencidos(fechaEmiter.fecha);
+        this.zona1 = [];
+        this.zona2 = [];
         this.cobranzaZona1(fechaEmiter.fecha);
         this.cobranzaZona2(fechaEmiter.fecha);
       });
@@ -79,6 +81,7 @@ export class CobranzaComponent implements OnInit {
         this.cart_dia_no_vencida1 = 0;
         this.cob_dia_no_vencida1 = 0;
         this.saldo_dia_no_vencida1 = 0;
+        this.cli_dia_vencida1 = 0;
         this.zona1 = zona1;
         for (const zn of zona1) {
           this.totalCobranzaCartera1 += zn.TOTAL;
@@ -87,6 +90,7 @@ export class CobranzaComponent implements OnInit {
           this.cob_dia_vencida1 += zn.COB_VENC;
           this.cart_dia_no_vencida1 += zn.SANA;
           this.cob_dia_no_vencida1 += zn.COB_SANA;
+          this.cli_dia_vencida1 += zn.CLIENTES_C_SALDO;
         }
       }
     });
@@ -102,6 +106,7 @@ export class CobranzaComponent implements OnInit {
         this.cart_dia_no_vencida2 = 0;
         this.cob_dia_no_vencida2 = 0;
         this.saldo_dia_no_vencida2 = 0;
+        this.cli_dia_vencida2 = 0;
         this.zona2 = zona2;
         for (const zn of zona2) {
           this.totalCobranzaCartera2 += zn.TOTAL;
@@ -110,12 +115,15 @@ export class CobranzaComponent implements OnInit {
           this.cob_dia_vencida2 += zn.COB_VENC;
           this.cart_dia_no_vencida2 += zn.SANA;
           this.cob_dia_no_vencida2 += zn.COB_SANA;
+          this.cli_dia_vencida2 += zn.CLIENTES_C_SALDO;
         }
       }
     });
   }
 
   obtenerVencidos(fecha: any) {
+    this.zona1 = [];
+    this.zona2 = [];
     this.cobranzaZona1(fecha);
     this.cobranzaZona2(fecha);
   }
