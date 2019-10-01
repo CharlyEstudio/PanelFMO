@@ -53,7 +53,7 @@
 
                     <div class="row" *ngFor="let z1 of zona1">
 
-                        <div class="col-9">
+                        <div class="col-7">
 
                             <a href="#modalInfo" data-dismiss="modal" data-toggle="modal" (click)="abrirModal(z1, 'zona')">
                                 
@@ -63,9 +63,23 @@
 
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-5">
 
-                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z1.cantidad }}</p>
+                            <div class="row">
+
+                                <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
+
+                                    <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z1.cantidad }}</p>
+
+                                </div>
+
+                                <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
+
+                                    <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ (z1.hora !== '') ? z1.hora : '-' }}</p>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -92,7 +106,7 @@
 
                     <div class="row" *ngFor="let z2 of zona2">
 
-                        <div class="col-9">
+                        <div class="col-7">
 
                             <a href="#modalInfo" data-dismiss="modal" data-toggle="modal" (click)="abrirModal(z2, 'zona')">
                                 
@@ -102,9 +116,23 @@
 
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-5">
 
-                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z2.cantidad }}</p>
+                            <div class="row">
+
+                                <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
+
+                                    <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ z2.cantidad }}</p>
+
+                                </div>
+
+                                <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
+
+                                    <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ (z2.hora !== '') ? z2.hora : '-' }}</p>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -131,7 +159,7 @@
 
                     <div class="row" *ngFor="let esp of especiales">
 
-                        <div class="col-9">
+                        <div class="col-7">
 
                             <a href="#modalInfo" data-dismiss="modal" data-toggle="modal" (click)="abrirModal(esp, 'esp')">
                                 
@@ -141,9 +169,23 @@
 
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-5">
 
-                            <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ esp.cantidad }}</p>
+                            <div class="row">
+
+                                <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
+
+                                    <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ esp.cantidad }}</p>
+
+                                </div>
+
+                                <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
+
+                                    <p class="font-ligth asesores-pedidos text-success font-weight-bold" style="font-size: 12px!important;">{{ (esp.hora !== '') ? esp.hora : '-' }}</p>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
