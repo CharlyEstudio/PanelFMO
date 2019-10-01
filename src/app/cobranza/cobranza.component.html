@@ -201,6 +201,94 @@
 
         </div>
 
+        <div class="row">
+
+          <div class="col-md-12 col-lg-12">
+
+            <h3>ESTATUS DE CARTERA DEL DIA</h3>
+
+            <h1>ZONA 1</h1>
+
+          </div>
+
+          <div class="col-md-8 col-lg-8">
+
+            <div class="table-responsive">
+
+              <table class="table table-sm stylish-table table-hover">
+    
+                <thead>
+
+                  <tr>
+
+                    <th></th>
+
+                    <th>CARTERA</th>
+
+                    <th></th>
+
+                    <th>NUEVO</th>
+
+                    <th>CARTERA</th>
+                    
+                  </tr>
+    
+                  <tr>
+
+                    <th>ASESOR</th>
+    
+                    <th>INICIAL</th>
+    
+                    <th>COBRADO</th>
+
+                    <th>CREDITO</th>
+    
+                    <th>FINAL</th>
+    
+                  </tr>
+    
+                </thead>
+    
+                <tbody>
+    
+                  <tr *ngFor="let z1 of zona1">
+
+                    <td>{{z1.NOMBRE}}</td>
+    
+                    <td class="font-weight-bold">{{(z1.TOTAL + z1.COBRADO - z1.SALDOVTAHOY_TOT) | currency}}</td>
+    
+                    <td class="text-success font-weight-bold">{{z1.COBRADO | currency}}</td>
+
+                    <td class="font-weight-bold">{{z1.SALDOVTAHOY_TOT | currency}}</td>
+    
+                    <td class="text-danger font-weight-bold">{{z1.TOTAL | currency}}</td>
+    
+                  </tr>
+
+                  <tr class="bg-info text-white">
+
+                    <th class="font-weight-bold">Total</th>
+
+                    <th class="font-weight-bold">{{(totalCobranzaCartera1 + totalColectado1 - saldovtahoy_tot1) | currency}}</th>
+
+                    <th class="font-weight-bold">{{totalColectado1 | currency}}</th>
+
+                    <th class="font-weight-bold">{{saldovtahoy_tot1 | currency}}</th>
+
+                    <th class="font-weight-bold">{{totalCobranzaCartera1 | currency}}</th>
+
+                  </tr>
+    
+                </tbody>
+    
+              </table>
+    
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
       <div class="card-body centrar" style="height: 400px!important;" *ngIf="zona2.length === 0">
@@ -375,6 +463,94 @@
             </tbody>
 
           </table>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-12 col-lg-12">
+
+            <h3>ESTATUS DE CARTERA DEL DIA</h3>
+
+            <h1>ZONA 2</h1>
+            
+          </div>
+
+          <div class="col-md-8 col-lg-8">
+
+            <div class="table-responsive">
+
+              <table class="table table-sm stylish-table table-hover">
+    
+                <thead>
+
+                  <tr>
+
+                    <th></th>
+
+                    <th>CARTERA</th>
+
+                    <th></th>
+
+                    <th>NUEVO</th>
+
+                    <th>CARTERA</th>
+
+                  </tr>
+    
+                  <tr>
+
+                    <th>ASESOR</th>
+    
+                    <th>INICIAL</th>
+    
+                    <th>COBRADO</th>
+
+                    <th>CREDITO</th>
+    
+                    <th>FINAL</th>
+    
+                  </tr>
+    
+                </thead>
+    
+                <tbody>
+    
+                  <tr *ngFor="let z2 of zona2">
+
+                    <td>{{z2.NOMBRE}}</td>
+    
+                    <td class="font-weight-bold">{{(z2.TOTAL + z2.COBRADO - z2.SALDOVTAHOY_TOT) | currency}}</td>
+    
+                    <td class="text-success font-weight-bold">{{z2.COBRADO | currency}}</td>
+    
+                    <td class="font-weight-bold">{{z2.SALDOVTAHOY_TOT | currency}}</td>
+
+                    <td class="text-danger font-weight-bold">{{z2.TOTAL | currency}}</td>
+    
+                  </tr>
+
+                  <tr class="bg-info text-white">
+
+                    <th class="font-weight-bold">Total</th>
+
+                    <th class="font-weight-bold">{{(totalCobranzaCartera2 + totalColectado2 - saldovtahoy_tot2) | currency}}</th>
+
+                    <th class="font-weight-bold">{{totalColectado2 | currency}}</th>
+
+                    <th class="font-weight-bold">{{saldovtahoy_tot2 | currency}}</th>
+
+                    <th class="font-weight-bold">{{totalCobranzaCartera2 | currency}}</th>
+
+                  </tr>
+    
+                </tbody>
+    
+              </table>
+    
+            </div>
+
+          </div>
 
         </div>
 
