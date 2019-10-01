@@ -18,6 +18,7 @@ export class CobranzaComponent implements OnInit {
   totalCobranzaCartera: number = 0;
   totalColectado: number = 0;
 
+  saldovtahoy_tot1: number = 0;
   totalCobranzaCartera1: number = 0;
   totalColectado1: number = 0;
   totalCliCob1: number = 0;
@@ -30,6 +31,7 @@ export class CobranzaComponent implements OnInit {
   cob_dia_no_vencida1: number = 0;
   saldo_dia_no_vencida1: number = 0;
 
+  saldovtahoy_tot2: number = 0;
   totalCobranzaCartera2: number = 0;
   totalColectado2: number = 0;
   totalCliCob2: number = 0;
@@ -74,6 +76,7 @@ export class CobranzaComponent implements OnInit {
   cobranzaZona1(fecha: any) {
     this.panelService.cobranzaZona1(this.fechaEmit, 1).subscribe((zona1: any) => {
       if (zona1.length > 0) {
+        this.saldovtahoy_tot1 = 0;
         this.totalCobranzaCartera1 = 0;
         this.totalColectado1 = 0;
         this.cart_dia_vencida1 = 0;
@@ -84,6 +87,7 @@ export class CobranzaComponent implements OnInit {
         this.cli_dia_vencida1 = 0;
         this.zona1 = zona1;
         for (const zn of zona1) {
+          this.saldovtahoy_tot1 += zn.SALDOVTAHOY_TOT;
           this.totalCobranzaCartera1 += zn.TOTAL;
           this.totalColectado1 += zn.COBRADO;
           this.cart_dia_vencida1 += zn.VENCIDO;
@@ -99,6 +103,7 @@ export class CobranzaComponent implements OnInit {
   cobranzaZona2(fecha: any) {
     this.panelService.cobranzaZona1(this.fechaEmit, 2).subscribe((zona2: any) => {
       if (zona2.length > 0) {
+        this.saldovtahoy_tot2 = 0;
         this.totalCobranzaCartera2 = 0;
         this.totalColectado2 = 0;
         this.cart_dia_vencida2 = 0;
@@ -109,6 +114,7 @@ export class CobranzaComponent implements OnInit {
         this.cli_dia_vencida2 = 0;
         this.zona2 = zona2;
         for (const zn of zona2) {
+          this.saldovtahoy_tot2 += zn.SALDOVTAHOY_TOT;
           this.totalCobranzaCartera2 += zn.TOTAL;
           this.totalColectado2 += zn.COBRADO;
           this.cart_dia_vencida2 += zn.VENCIDO;
