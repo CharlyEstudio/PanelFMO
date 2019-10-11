@@ -582,8 +582,6 @@
 
       <div class="modal-body">
 
-        <h4>Remisiones Vencidos del día</h4>
-
         <div class="row">
 
           <div class="col-md-{{numCol1}} col-lg-{{numCol1}}">
@@ -592,11 +590,11 @@
 
               <table class="table table-sm table-hover font-14">
   
-                <thead>
+                <thead style="display: table!important; width: calc(100% - 1em)!important; table-layout: fixed!important;">
   
                   <tr>
   
-                    <td colspan="3" class="border border-top-0 border-left-0 border-bottom-0"></td>
+                    <td colspan="3" class="border border-top-0 border-left-0 border-bottom-0"><h4>Remisiones Vencidos del día</h4></td>
   
                     <th class="text-center border border-bottom-0 bg-success text-white" colspan="2">Fecha</th>
   
@@ -630,9 +628,9 @@
   
                 </thead>
   
-                <tbody>
+                <tbody style="display: block!important; height: 200px!important; overflow: auto!important;">
   
-                  <tr *ngFor="let fol of folios, let i = index">
+                  <tr style="display: table!important; width: 100%!important; table-layout: fixed!important;" *ngFor="let fol of folios, let i = index">
   
                     <td>
                       <h6>{{fol.NUMERO}}</h6>
@@ -680,13 +678,17 @@
 
             <button (click)="verDetallesFolio(id)" class="btn btn-danger">Cerrar</button>
 
-            <h3 class="card-title">Información del Folio</h3>
-
             <div class="table-responsive">
 
               <table class="table table-sm font-14">
 
-                <thead>
+                <thead style="display: table!important; width: calc(100% - 1em)!important; table-layout: fixed!important;">
+
+                  <tr>
+
+                    <th colspan="6"><h3 class="card-title">Información del Folio</h3></th>
+
+                  </tr>
 
                   <tr>
 
@@ -706,9 +708,9 @@
 
                 </thead>
 
-                <tbody>
+                <tbody style="display: block!important; height: 200px!important; overflow: auto!important;">
 
-                  <tr *ngFor="let det of detalles">
+                  <tr style="display: table!important; width: calc(100% - 1em)!important; table-layout: fixed!important;" *ngFor="let det of detalles">
 
                     <td>{{det.NOMBRE}}</td>
 

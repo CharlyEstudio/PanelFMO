@@ -244,6 +244,7 @@ export class CobranzaComponent implements OnInit {
         this.folios = folios;
       }
     });
+    console.log(seccion.PERID, this.fechaEmit);
     this.panelService.obtenerPagosDia(seccion.PERID, this.fechaEmit).subscribe((pagos: any) => {
       if (pagos.length > 0) {
         this.pagos = pagos;
