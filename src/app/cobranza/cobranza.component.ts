@@ -134,104 +134,6 @@ export class CobranzaComponent implements OnInit {
     this.cobranzaZona2(fecha);
   }
 
-  // obtenerVencidos(fecha: any) {
-  //   this.panelService.resumenPedidosAsesor(fecha).subscribe((res: any) => {
-  //     if (res.length > 0) {
-  //       console.log(res);
-  //       // this.asesores = [];
-  //       this.totalCobranzaCartera1 = 0;
-  //       this.totalColectado1 = 0;
-  //       this.cart_dia_vencida1 = 0;
-  //       this.cob_dia_vencida1 = 0;
-  //       this.cart_dia_no_vencida1 = 0;
-  //       this.cob_dia_no_vencida1 = 0;
-  //       this.saldo_dia_no_vencida1 = 0;
-  //       // this.totalCliCob = 0;
-  //       // this.totalSaldoCob = 0;
-  //       // this.totalCobrado = 0;
-  //       for (const per of res) {
-  //         this.panelService.obtenerCarteraTotalDia(per.PERID, fecha).subscribe((totalCart: any) => {
-  //           this.totalCobranzaCartera1 += totalCart[0].SALDOFINAL_TOT;
-  //           this.almacenar(per, totalCart[0]);
-  //         });
-  //         this.panelService.obtenerCarteraVencidaDia(per.PERID, fecha).subscribe((vencidos: any) => {
-  //           this.cli_dia_vencida1 += vencidos[0].CLIENTES;
-  //           this.cart_dia_vencida1 += vencidos[0].SALDOFINAL;
-  //           this.almacenar(per, vencidos[0]);
-  //         });
-  //         this.panelService.obtenerPagosdelDia(per.PERID, fecha).subscribe((pagos: any) => {
-  //           this.totalColectado1 += pagos[0].PAGADO;
-  //           this.almacenar(per, pagos[0]);
-  //         });
-  //         this.panelService.obtenerCarteraSanaDia(per.PERID, fecha).subscribe((sanaD: any) => {
-  //           this.cart_dia_no_vencida1 += sanaD[0].SALDOFINAL_SANOS;
-  //           this.almacenar(per, sanaD[0]);
-  //         });
-  //         this.panelService.obtenerPagosdelDiaSanas(per.PERID, fecha).subscribe((sanaS: any) => {
-  //           this.cob_dia_no_vencida1 += sanaS[0].PAGADO_SANAS;
-  //           this.almacenar(per, sanaS[0]);
-  //         });
-  //         this.panelService.obtenerPagosdelDiaVencidas(per.PERID, fecha).subscribe((venc: any) => {
-  //           this.cob_dia_vencida1 += venc[0].PAGADO_VENCIDO;
-  //           this.almacenar(per, venc[0]);
-  //         });
-  //       }
-  //     }
-  //   });
-  // }
-
-  // almacenar(asesor: any, data: any) {
-  //   const esAsesor = (asesorFind: any) => {
-  //     return asesorFind.PERID === asesor.PERID;
-  //   };
-
-  //   if (!this.asesores.find(esAsesor)) {
-  //     const objeto = {
-  //       PERID: asesor.PERID,
-  //       CATINV: asesor.CATINV,
-  //       CLIENTES_DIA: asesor.CLIENTES_DIA,
-  //       DIA_C_VTA: asesor.DIA_C_VTA,
-  //       FALTA: asesor.FALTA,
-  //       IMPORTE: asesor.IMPORTE,
-  //       INDICE: asesor.INDICE,
-  //       NOMBRE: asesor.NOMBRE.split(')')[1],
-  //       PEDIDOS: asesor.PEDIDOS,
-  //       CLIENTES_TOT: 0,
-  //       CLIENTES_SANOS: 0,
-  //       CLIENTES_C_SALDO: 0,
-  //       VENCIDO: 0,
-  //       COBRADO: data.PAGADO,
-  //       TOTAL: 0,
-  //       SANA: 0,
-  //       COB_SANA: 0,
-  //       COB_VENC: 0
-  //     };
-  //     this.asesores.push(objeto);
-  //   } else {
-  //     if (data.CLIENTES !== undefined) {
-  //       this.asesores.find(esAsesor).CLIENTES_C_SALDO = data.CLIENTES;
-  //     }
-  //     if (data.SALDOFINAL !== undefined) {
-  //       // this.totalCobranzaCartera += data.SALDOFINAL;
-  //       this.asesores.find(esAsesor).VENCIDO = data.SALDOFINAL !== '' ? data.SALDOFINAL : 0;
-  //     }
-  //     if (data.SALDOFINAL_TOT !== undefined) {
-  //       this.asesores.find(esAsesor).TOTAL = data.SALDOFINAL_TOT !== '' ? data.SALDOFINAL_TOT : 0;
-  //       this.asesores.find(esAsesor).CLIENTES_TOT = data.CLIENTES_TOT !== '' ? data.CLIENTES_TOT : 0;
-  //     }
-  //     if (data.SALDOFINAL_SANOS !== undefined) {
-  //       this.asesores.find(esAsesor).SANA = data.SALDOFINAL_SANOS !== '' ? data.SALDOFINAL_SANOS : 0;
-  //       this.asesores.find(esAsesor).CLIENTES_SANOS = data.CLIENTES_SANOS !== '' ? data.CLIENTES_SANOS : 0;
-  //     }
-  //     if (data.PAGADO_SANAS !== undefined) {
-  //       this.asesores.find(esAsesor).COB_SANA = data.PAGADO_SANAS !== '' ? data.PAGADO_SANAS : 0;
-  //     }
-  //     if (data.PAGADO_VENCIDO !== undefined) {
-  //       this.asesores.find(esAsesor).COB_VENC = data.PAGADO_VENCIDO !== '' ? data.PAGADO_VENCIDO : 0;
-  //     }
-  //   }
-  // }
-
   verAsesor(seccion: any) {
     this.nombre = '';
     this.folios = [];
@@ -244,6 +146,7 @@ export class CobranzaComponent implements OnInit {
         this.folios = folios;
       }
     });
+    console.log(seccion.PERID, this.fechaEmit);
     this.panelService.obtenerPagosDia(seccion.PERID, this.fechaEmit).subscribe((pagos: any) => {
       if (pagos.length > 0) {
         this.pagos = pagos;
