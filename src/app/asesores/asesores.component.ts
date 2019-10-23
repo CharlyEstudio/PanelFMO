@@ -92,6 +92,15 @@ export class AsesoresComponent implements OnInit, OnDestroy {
   observando: Subscription;
   intervalo: any;
 
+  importeTotal1: number = 0;
+  importeFalta1: number = 0;
+  clienteTotal1: number = 0;
+  clienteFalta1: number = 0;
+  importeTotal2: number = 0;
+  importeFalta2: number = 0;
+  clienteTotal2: number = 0;
+  clienteFalta2: number = 0;
+
   constructor(
     private socketService: SocketsService,
     private panelService: PanelService,
@@ -241,11 +250,27 @@ export class AsesoresComponent implements OnInit, OnDestroy {
         this.cambiar = true;
         let array1 = [];
         let array2 = [];
+        this.importeTotal1 = 0;
+        this.importeFalta1 = 0;
+        this.clienteTotal1 = 0;
+        this.clienteFalta1 = 0;
+        this.importeTotal2 = 0;
+        this.importeFalta2 = 0;
+        this.clienteTotal2 = 0;
+        this.clienteFalta2 = 0;
         for (const z of res) {
           if (z.INDICE === '(1') {
             array1.push(z);
+            this.importeTotal1 += z.IMPORTE;
+            this.importeFalta1 += this.importMinDia - z.IMPORTE;
+            this.clienteTotal1 += z.DIA_C_VTA;
+            this.clienteFalta1 += z.CLIENTES_DIA - z.DIA_C_VTA;
           }
           if (z.INDICE === '(2') {
+            this.importeTotal2 += z.IMPORTE;
+            this.importeFalta2 += this.importMinDia - z.IMPORTE;
+            this.clienteTotal2 += z.DIA_C_VTA;
+            this.clienteFalta2 += z.CLIENTES_DIA - z.DIA_C_VTA;
             array2.push(z);
           }
         }

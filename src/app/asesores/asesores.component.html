@@ -515,6 +515,20 @@
                         <td class="font-weight-bold text-center" [ngClass]="{'text-danger': (mv.CLIENTES_DIA - mv.DIA_C_VTA) <= mv.CLIENTES_DIA}">{{(mv.CLIENTES_DIA - mv.DIA_C_VTA)}}</td>
     
                       </tr>
+
+                      <tr class="bg-info text-white">
+
+                        <th>Totales</th>
+
+                        <th>{{importeTotal1 | currency}}</th>
+
+                        <th>{{importeFalta1 | currency}}</th>
+
+                        <th class="text-center">{{clienteTotal1}}</th>
+
+                        <th class="text-center">{{clienteFalta1}}</th>
+
+                      </tr>
     
                     </tbody>
     
@@ -869,6 +883,20 @@
 
                         <td class="font-weight-bold text-center" [ngClass]="{'text-danger': (mv.CLIENTES_DIA - mv.DIA_C_VTA) < mv.CLIENTES_DIA}">{{(mv.CLIENTES_DIA - mv.DIA_C_VTA)}}</td>
     
+                      </tr>
+
+                      <tr class="bg-info text-white">
+
+                        <th>Totales</th>
+
+                        <th>{{importeTotal2 | currency}}</th>
+
+                        <th>{{importeFalta2 | currency}}</th>
+
+                        <th class="text-center">{{clienteTotal2}}</th>
+
+                        <th class="text-center">{{clienteFalta2}}</th>
+
                       </tr>
     
                     </tbody>

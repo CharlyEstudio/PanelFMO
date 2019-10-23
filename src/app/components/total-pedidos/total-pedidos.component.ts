@@ -24,6 +24,9 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
   totalPICantidad = 0;
   totalPIImporte = 0;
   totalClientes = 0;
+  totalZ1 = 0;
+  totalZ2 = 0;
+  totalEsp = 0;
 
   // Pedidos Totales por categoria
   zona1: any[] = [];
@@ -143,6 +146,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
         this.zona1 = resp;
 
         for (let i = 0; i < resp.length; i++) {
+          this.totalZ1 += resp[i].subtotal;
           this.canZ1 += resp[i].cantidad;
         }
       });
@@ -153,6 +157,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
         this.zona2 = resp;
 
         for (let i = 0; i < resp.length; i++) {
+          this.totalZ2 += resp[i].subtotal;
           this.canZ2 += resp[i].cantidad;
         }
       });
@@ -162,6 +167,7 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       .subscribe( ( resp: any ) => {
         this.especiales = resp;
         for (let i = 0; i < resp.length; i++) {
+          this.totalEsp += resp[i].subtotal;
           this.canEsp += resp[i].cantidad;
         }
       });
