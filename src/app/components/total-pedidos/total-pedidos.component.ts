@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/filter';
 
-import { PanelService, SlectFechaService } from '../../services/services.index';
+import { PanelService, SlectFechaService, HerramientasService } from '../../services/services.index';
 
 @Component({
   selector: 'app-total-pedidos',
@@ -64,7 +64,8 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
   constructor(
     private _panelService: PanelService,
-    private _selectFechaService: SlectFechaService
+    private _selectFechaService: SlectFechaService,
+    private _herramientasService: HerramientasService
   ) {}
 
   ngOnInit() {
