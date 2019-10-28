@@ -75,7 +75,7 @@
 
                                 <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
 
-                                    <p class="font-ligth asesores-pedidos font-weight-bold" [ngClass]="{'text-white': z1.tardanza >= '01:00:00', 'text-success': z1.tardanza < '01:00:00'}" style="font-size: 12px!important;">{{ (z1.hora !== '') ? z1.hora : '-' }}</p>
+                                    <p class="font-ligth asesores-pedidos font-weight-bold" [ngClass]="{'badge badge-danger': z1.tardanza >= '01:00:00', 'text-success': z1.tardanza < '01:00:00'}" style="font-size: 12px!important;">{{ (z1.hora !== '') ? z1.hora : '-' }}</p>
 
                                 </div>
 
@@ -134,7 +134,7 @@
 
                                 <div class="col-6 text-left" style="padding-right: 0px!important; padding-left: 0px!important;">
 
-                                    <p class="font-ligth asesores-pedidos font-weight-bold" [ngClass]="{'text-white': z2.tardanza >= '01:00:00', 'text-success': z2.tardanza < '01:00:00'}" style="font-size: 12px!important;">{{ (z2.hora !== '') ? z2.hora : '-' }}</p>
+                                    <p class="font-ligth asesores-pedidos font-weight-bold" [ngClass]="{'badge badge-danger': z2.tardanza >= '01:00:00', 'text-success': z2.tardanza < '01:00:00'}" style="font-size: 12px!important;">{{ (z2.hora !== '') ? z2.hora : '-' }}</p>
 
                                 </div>
 
