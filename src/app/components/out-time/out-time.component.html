@@ -34,6 +34,8 @@
             
                         <tr role="row">
             
+                            <th class="text-center">#</th>
+
                             <th class="text-center">Hora</th>
                             
                             <th class="text-center">Asesor</th>
@@ -56,7 +58,9 @@
             
                         <tbody>
             
-                        <tr role="row" class="odd" *ngFor="let dato of datos">
+                        <tr role="row" class="odd" *ngFor="let dato of datos; let i = index">
+
+                            <td class="text-center">{{(i + 1)}}</td>
             
                             <td class="text-center">{{ dato.HORA }}</td>
 
