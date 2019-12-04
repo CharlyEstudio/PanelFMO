@@ -377,6 +377,15 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
       });
   }
 
+  sleep(milliseconds: any) {
+    const start = new Date().getTime();
+    for (let i = 0; i < 1e9; i++) {
+      if ((new Date().getTime() - start) > milliseconds) {
+        break;
+      }
+    }
+  }
+
   enviarReporte() {
     // Asesores zona 1
     this._panelService.asesoresZona( this.fechaEmit, 1 )
@@ -384,28 +393,26 @@ export class TotalPedidosComponent implements OnInit, OnDestroy {
 
         for (let i = 0; i < reporte.length; i++) {
 
-          this._panelService.informacionGeneral( reporte[i].perid, 'zona', '', this.fechaEmit )
-            .subscribe( ( info: any ) => {
+            this._panelService.informacionGeneral( reporte[i].perid, 'zona', '', this.fechaEmit )
+              .subscribe( ( info: any ) => {
 
-              console.log(info);
+                this._panelService.usuarioEspe( reporte[i].perid )
+                  .subscribe( ( resp: any ) => {
 
-              this._panelService.usuarioEspe( reporte[i].perid )
-                .subscribe( ( resp: any ) => {
+                    this._panelService.enviarEmail(resp.usuarios[0].email, resp.usuarios[0].idFerrum, info, reporte[i].nombre)
+                      .subscribe( ( envio: any ) => {
+                        if (envio[0].status === 'ok') {
+                          this.alertaGeneral = true;
+                          setTimeout(() => { this.alertaGeneral = false; }, 2000);
+                        } else {
+                          this.errorGeneral = true;
+                          setTimeout(() => { this.errorGeneral = false; }, 2000);
+                        }
+                      });
 
-                  this._panelService.enviarEmail(resp.usuarios[0].email, resp.usuarios[0].idFerrum, info, reporte[i].nombre)
-                    .subscribe( ( envio: any ) => {
-                      if (envio[0].status === 'ok') {
-                        this.alertaGeneral = true;
-                        setTimeout(() => { this.alertaGeneral = false; }, 2000);
-                      } else {
-                        this.errorGeneral = true;
-                        setTimeout(() => { this.errorGeneral = false; }, 2000);
-                      }
-                    });
+                  });
 
-                });
-
-            });
+              });
 
         }
 

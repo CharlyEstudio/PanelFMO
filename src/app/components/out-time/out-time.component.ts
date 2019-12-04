@@ -47,9 +47,16 @@ export class OutTimeComponent implements OnInit, OnDestroy {
         this.time = new Date();
         this.hora = this.time.getHours();
         this.min = this.time.getMinutes();
+        const actual = this.hora + ':' + this.min;
 
         // Obtener pedidos despues de las 6:15pm
-        if(this.hora >= 18 && this.min >= 15) {
+        // if (this.hora >= 18 && this.min >= 15) {
+        //   this.mostrar = true;
+        //   this._panelService.outTime(this.fechaEmit)
+        //     .subscribe( ( resp: any ) => {
+        //       observer.next(resp);
+        //     });
+        if (actual >= '18:15') {
           this.mostrar = true;
           this._panelService.outTime(this.fechaEmit)
             .subscribe( ( resp: any ) => {

@@ -257,9 +257,9 @@ export class PanelService {
     // } else {
     //   this.url = this.path + '/api/pedidos.php?opcion=23&perid=' + idFerrum + '&asesor=' + asesor + '&email=' + email + '&info=' + data;
     // }
-    this.url = this.path + '/api/pedidos.php?opcion=23&perid=' + idFerrum + '&asesor=' + asesor + '&email=' + email + '&info=' + data;
+    this.url = this.path + '/api/pedidos.php?opcion=23';
 
-    return this.http.get( this.url );
+    return this.http.post( this.url, {perid: idFerrum, asesor: asesor, email: email, info: data}, { headers: { 'content-Type': 'application/x-www-form-urlencoded' } } );
   }
 
   enviarEmailGeneral() {
@@ -272,21 +272,9 @@ export class PanelService {
 
     if (tipo === 'normal') {
       opcion = 24;
-
-      // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
-      //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion;
-      // } else {
-      //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion;
-      // }
       this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&fecha=' + fecha;
     } else if (tipo === 'out') {
       opcion = 31;
-
-      // if (this.path === this.pathPeticion || this.path === 'http://localhost') {
-      //   this.url = 'http://192.168.1.250/api/pedidos.php?opcion=' + opcion + '&perid=' + perid;
-      // } else {
-      //   this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&perid=' + perid;
-      // }
       this.url = this.path + '/api/pedidos.php?opcion=' + opcion + '&fecha=' + fecha + '&perid=' + perid;
     }
 
