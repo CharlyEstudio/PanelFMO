@@ -299,18 +299,20 @@ export class AsesoresComponent implements OnInit, OnDestroy {
           return 0;
         });
         this.cantAse = res.length;
-        if (this.workDay >= 20) {
-          const impoMet = this.importMinDia * this.cantAse;
-          this.vtaMin = this.importMinDia;
-          if (impoMet > 600000) {
-            this.importe = 600000;
-          } else {
-            this.importe = this.vtaMin * this.cantAse;
-          }
-        } else {
-          this.vtaMin = 600000 / this.workDay;
-          this.importe = this.vtaMin * this.cantAse;
-        }
+        // if (this.workDay >= 20) {
+        //   const impoMet = this.importMinDia * this.cantAse;
+        //   this.vtaMin = this.importMinDia;
+        //   if (impoMet > 600000) {
+        //     this.importe = 600000;
+        //   } else {
+        //     this.importe = this.vtaMin * this.cantAse;
+        //   }
+        // } else {
+        //   this.vtaMin = 600000 / this.workDay;
+        //   this.importe = this.vtaMin * this.cantAse;
+        // }
+        this.vtaMin = this.importMinDia;
+        this.importe = 600000;
         this.pedidos = res.length;
         this.asesores15 = [];
         this.asesores610 = [];
